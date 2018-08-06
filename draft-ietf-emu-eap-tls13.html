@@ -309,12 +309,12 @@ ul.toc li {
 <link href="#rfc.authors" rel="Chapter">
 
 
-  <meta name="generator" content="xml2rfc version 2.9.6 - https://tools.ietf.org/tools/xml2rfc" />
+  <meta name="generator" content="xml2rfc version 2.10.0 - https://tools.ietf.org/tools/xml2rfc" />
   <link rel="schema.dct" href="http://purl.org/dc/terms/" />
 
   <meta name="dct.creator" content="Mattsson, J. and M. Sethi" />
   <meta name="dct.identifier" content="urn:ietf:id:draft-ietf-emu-eap-tls13-latest" />
-  <meta name="dct.issued" scheme="ISO8601" content="2018-04" />
+  <meta name="dct.issued" scheme="ISO8601" content="2018-06" />
   <meta name="dct.abstract" content="This document specifies the use of EAP-TLS with TLS 1.3 while remaining backwards compatible with existing implementations of EAP-TLS. TLS 1.3 provides significantly improved security, privacy, and reduced latency when compared to earlier versions of TLS. This document updates RFC 5216.  " />
   <meta name="description" content="This document specifies the use of EAP-TLS with TLS 1.3 while remaining backwards compatible with existing implementations of EAP-TLS. TLS 1.3 provides significantly improved security, privacy, and reduced latency when compared to earlier versions of TLS. This document updates RFC 5216.  " />
 
@@ -339,10 +339,10 @@ ul.toc li {
 </tr>
 <tr>
 <td class="left">Intended status: Standards Track</td>
-<td class="right">August 4, 2018</td>
+<td class="right">August 6, 2018</td>
 </tr>
 <tr>
-<td class="left">Expires: February 5, 2019</td>
+<td class="left">Expires: February 7, 2019</td>
 <td class="right"></td>
 </tr>
 
@@ -359,7 +359,7 @@ ul.toc li {
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on February 5, 2019.</p>
+<p>This Internet-Draft will expire on February 7, 2019.</p>
 <h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
 <p>Copyright (c) 2018 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
 <p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
@@ -705,7 +705,7 @@ IV           = TLS-Exporter("EXPORTER_EAP_TLS_IV", "", 64)
 Method-Id    = TLS-Exporter("EXPORTER_EAP_TLS_Method-Id", "", 64)
 Session-Id   = 0x0D || Method-Id
 </pre>
-<p id="rfc.section.2.3.p.2">When EAP-TLS is used with TLS version 1.3 or higher the Key_Material, IV, and Session-Id SHALL be derived from the exporter_master_secret using the TLS exporter interface <a href="#RFC5705" class="xref">[RFC5705]</a> (for TLS 1.3 this is defined in Section 7.5 of <a href="#I-D.ietf-tls-tls13" class="xref">[I-D.ietf-tls-tls13]</a>).  </p>
+<p id="rfc.section.2.3.p.2">When EAP-TLS is used with TLS version 1.3 or higher the Key_Material, IV, and Method-Id SHALL be derived from the exporter_master_secret using the TLS exporter interface <a href="#RFC5705" class="xref">[RFC5705]</a> (for TLS 1.3 this is defined in Section 7.5 of <a href="#I-D.ietf-tls-tls13" class="xref">[I-D.ietf-tls-tls13]</a>).  </p>
 <p id="rfc.section.2.3.p.3">All other parameters such as MSK and EMSK are derived as specified in EAP-TLS <a href="#RFC5216" class="xref">[RFC5216]</a>, Section 2.3. The use of these keys is specific to the lower layer, as described <a href="#RFC5247" class="xref">[RFC5247]</a>.</p>
 <h1 id="rfc.section.2.4">
 <a href="#rfc.section.2.4">2.4.</a> Parameter Negotiation and Compliance Requirements</h1>
@@ -717,12 +717,12 @@ Session-Id   = 0x0D || Method-Id
 <h1 id="rfc.section.4">
 <a href="#rfc.section.4">4.</a> IANA considerations</h1>
 <p id="rfc.section.4.p.1">This section provides guidance to the Internet Assigned Numbers Authority (IANA) regarding registration of values related to the EAP-TLS 1.3 protocol in accordance with <a href="#RFC8126" class="xref">[RFC8126]</a>.</p>
-<p id="rfc.section.4.p.2">This memo requires IANA to add the following labels to the TLS Exporter Label Registry defined by  <a href="#RFC5705" class="xref">[RFC5705]</a>. These labels are used in derivation of Key_Material, IV and Session-Id as defined in <a href="#keyheirarchy" class="xref">Section 2.3</a>: </p>
+<p id="rfc.section.4.p.2">This memo requires IANA to add the following labels to the TLS Exporter Label Registry defined by  <a href="#RFC5705" class="xref">[RFC5705]</a>. These labels are used in derivation of Key_Material, IV and Method-Id as defined in <a href="#keyheirarchy" class="xref">Section 2.3</a>: </p>
 
 <ul>
 <li>"EXPORTER_EAP_TLS_Key_Material"</li>
 <li>"EXPORTER_EAP_TLS_IV"</li>
-<li>"EXPORTER_EAP_TLS_Session-Id"</li>
+<li>"EXPORTER_EAP_TLS_Method-Id"</li>
 </ul>
 
 <p> </p>
