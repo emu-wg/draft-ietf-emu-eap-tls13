@@ -108,8 +108,8 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
                                           TLS EncryptedExtensions,
                                            TLS CertificateRequest,
                                                   TLS Certificate,
-                                            TLS CertificateVerify,
-                            <--------                TLS Finished)
+                                                     TLS Finished,
+                            <--------            TLS empty record)
  EAP-Response/
  EAP-Type=EAP-TLS
 (TLS Certificate,
@@ -150,7 +150,8 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
  TLS Finished)              -------->
                                                       EAP-Request/
                                                  EAP-Type=EAP-TLS
-                            <--------       (TLS NewSessionTicket)
+                                            (TLS NewSessionTicket,
+                            <--------            TLS empty record)
  EAP-Response/
  EAP-Type=EAP-TLS           -------->
                             <--------                 EAP-Success
@@ -183,7 +184,8 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
                                                  EAP-Type=EAP-TLS
                                                  (TLS ServerHello,
                                           TLS EncryptedExtensions,
-                            <--------                TLS Finished)
+                                                     TLS Finished,
+                            <--------            TLS empty record)
  EAP-Response/
  EAP-Type=EAP-TLS
 (TLS Finished)              -------->
@@ -251,7 +253,8 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
                                            TLS CertificateRequest,
                                                   TLS Certificate,
                                             TLS CertificateVerify,
-                            <--------                TLS Finished)
+                                                     TLS Finished,
+                            <--------            TLS empty record)
  EAP-Response/
  EAP-Type=EAP-TLS
 (TLS Alert Message)
@@ -281,7 +284,8 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
                                            TLS CertificateRequest,
                                                   TLS Certificate,
                                             TLS CertificateVerify,
-                            <--------                TLS Finished)
+                                                     TLS Finished,
+                            <--------            TLS empty record)
  EAP-Response/
  EAP-Type=EAP-TLS
 (TLS Certificate,
@@ -326,7 +330,8 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
                                            TLS CertificateRequest,
                                                   TLS Certificate,
                                             TLS CertificateVerify,
-                            <--------                TLS Finished)
+                                                     TLS Finished,
+                            <--------            TLS empty record)
  EAP-Response/
  EAP-Type=EAP-TLS
 (TLS Certificate,
@@ -530,7 +535,8 @@ Session-Id   = 0x0D || Method-Id
 </section>
 
 <section title="Acknowledgments">
-	<t>The authors want to thank Alan DeKok, Ari Keraenen, Bernard Aboba, Jari Arkko, and Vesa Torvinen for comments and suggestions on the draft.
+	<t>
+	The authors want to thank Alan DeKok, Ari Keraenen, Bernard Aboba, Eric Rescorla, Jari Arkko, Jim Schaad, Jouni Malinen, and Vesa Torvinen for comments and suggestions on the draft.
 	</t>
 </section>
 
