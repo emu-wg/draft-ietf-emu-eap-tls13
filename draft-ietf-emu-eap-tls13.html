@@ -293,6 +293,7 @@ ul.toc li {
 <link href="#rfc.section.2.2" rel="Chapter" title="2.2 Identity Verification">
 <link href="#rfc.section.2.3" rel="Chapter" title="2.3 Key Hierarchy">
 <link href="#rfc.section.2.4" rel="Chapter" title="2.4 Parameter Negotiation and Compliance Requirements">
+<link href="#rfc.section.2.5" rel="Chapter" title="2.5 EAP State Machines">
 <link href="#rfc.section.3" rel="Chapter" title="3 Detailed Description of the EAP-TLS Protocol">
 <link href="#rfc.section.4" rel="Chapter" title="4 IANA considerations">
 <link href="#rfc.section.5" rel="Chapter" title="5 Security Considerations">
@@ -314,7 +315,7 @@ ul.toc li {
 
   <meta name="dct.creator" content="Mattsson, J. and M. Sethi" />
   <meta name="dct.identifier" content="urn:ietf:id:draft-ietf-emu-eap-tls13-latest" />
-  <meta name="dct.issued" scheme="ISO8601" content="2018-12" />
+  <meta name="dct.issued" scheme="ISO8601" content="2018-15" />
   <meta name="dct.abstract" content="This document specifies the use of EAP-TLS with TLS 1.3 while remaining backwards compatible with existing implementations of EAP-TLS. TLS 1.3 provides significantly improved security, privacy, and reduced latency when compared to earlier versions of TLS. This document updates RFC 5216.  " />
   <meta name="description" content="This document specifies the use of EAP-TLS with TLS 1.3 while remaining backwards compatible with existing implementations of EAP-TLS. TLS 1.3 provides significantly improved security, privacy, and reduced latency when compared to earlier versions of TLS. This document updates RFC 5216.  " />
 
@@ -339,10 +340,10 @@ ul.toc li {
 </tr>
 <tr>
 <td class="left">Intended status: Standards Track</td>
-<td class="right">August 12, 2018</td>
+<td class="right">September 15, 2018</td>
 </tr>
 <tr>
-<td class="left">Expires: February 13, 2019</td>
+<td class="left">Expires: March 19, 2019</td>
 <td class="right"></td>
 </tr>
 
@@ -359,7 +360,7 @@ ul.toc li {
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on February 13, 2019.</p>
+<p>This Internet-Draft will expire on March 19, 2019.</p>
 <h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
 <p>Copyright (c) 2018 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
 <p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
@@ -392,6 +393,8 @@ ul.toc li {
 <li>2.3.   <a href="#rfc.section.2.3">Key Hierarchy</a>
 </li>
 <li>2.4.   <a href="#rfc.section.2.4">Parameter Negotiation and Compliance Requirements</a>
+</li>
+<li>2.5.   <a href="#rfc.section.2.5">EAP State Machines</a>
 </li>
 </ul><li>3.   <a href="#rfc.section.3">Detailed Description of the EAP-TLS Protocol</a>
 </li>
@@ -444,7 +447,7 @@ ul.toc li {
 <p id="rfc.section.2.1.1.p.2">After receiving an EAP-Request packet with EAP-Type=EAP-TLS as described in <a href="#RFC5216" class="xref">[RFC5216]</a> the conversation will continue with the TLS handshake protocol encapsulated in the data fields of EAP-Response and EAP-Request packets. When EAP-TLS is used with TLS version 1.3 or higher, the formatting and processing of the TLS handshake SHALL be done as specified in that version of TLS. This document only lists additional and different requirements, restrictions, and processing compared to <a href="#RFC8446" class="xref">[RFC8446]</a> and <a href="#RFC5216" class="xref">[RFC5216]</a>.</p>
 <p id="rfc.section.2.1.1.p.3">The EAP server MUST authenticate with a certificate and SHOULD require the EAP peer to authenticate with a certificate. Certificates can be of any type supported by TLS including raw public keys. Pre-Shared Key (PSK) authentication SHALL NOT be used except for resumption. SessionID is deprecated in TLS 1.3 and the EAP server SHALL ignore the legacy_session_id field if TLS 1.3 is negotiated. Resumption is handled as described in <a href="#resumption" class="xref">Section 2.1.2</a>. After the TLS handshake has completed, the EAP server sends EAP-Success.</p>
 <p id="rfc.section.2.1.1.p.4">As stated in <a href="#RFC5216" class="xref">[RFC5216]</a>, the TLS cipher suite shall not be used to protect application data.  This applies also for early application data.  When EAP-TLS is used with TLS 1.3, early application data SHALL NOT be used.</p>
-<p id="rfc.section.2.1.1.p.5">In the case where EAP-TLS with mutual authentication is successful, the conversation will appear as shown in <a href="#figbase1" class="xref">Figure 1</a>.</p>
+<p id="rfc.section.2.1.1.p.5">In the case where EAP-TLS with mutual authentication is successful, the conversation will appear as shown in <a href="#figbase1" class="xref">Figure 1</a>. The EAP server commits to not send any more handshake messages by sending an empty TLS record, see <a href="#state" class="xref">Section 2.5</a>.</p>
 <div id="rfc.figure.1"></div>
 <div id="figbase1"></div>
 <pre>
@@ -467,7 +470,8 @@ ul.toc li {
                                            TLS CertificateRequest,
                                                   TLS Certificate,
                                             TLS CertificateVerify,
-                            &lt;--------                TLS Finished)
+                                                     TLS Finished,
+                            &lt;--------            TLS empty record)
  EAP-Response/
  EAP-Type=EAP-TLS
 (TLS Certificate,
@@ -508,7 +512,8 @@ ul.toc li {
  TLS Finished)              --------&gt;
                                                       EAP-Request/
                                                  EAP-Type=EAP-TLS
-                            &lt;--------       (TLS NewSessionTicket)
+                                            (TLS NewSessionTicket,
+                            &lt;--------            TLS empty record)
  EAP-Response/
  EAP-Type=EAP-TLS           --------&gt;
                             &lt;--------                 EAP-Success
@@ -539,7 +544,8 @@ ul.toc li {
                                                  EAP-Type=EAP-TLS
                                                  (TLS ServerHello,
                                           TLS EncryptedExtensions,
-                            &lt;--------                TLS Finished)
+                                                     TLS Finished,
+                            &lt;--------            TLS empty record)
  EAP-Response/
  EAP-Type=EAP-TLS
 (TLS Finished)              --------&gt;
@@ -604,7 +610,8 @@ ul.toc li {
                                            TLS CertificateRequest,
                                                   TLS Certificate,
                                             TLS CertificateVerify,
-                            &lt;--------                TLS Finished)
+                                                     TLS Finished,
+                            &lt;--------            TLS empty record)
  EAP-Response/
  EAP-Type=EAP-TLS
 (TLS Alert Message)
@@ -635,7 +642,8 @@ ul.toc li {
                                            TLS CertificateRequest,
                                                   TLS Certificate,
                                             TLS CertificateVerify,
-                            &lt;--------                TLS Finished)
+                                                     TLS Finished,
+                            &lt;--------            TLS empty record)
  EAP-Response/
  EAP-Type=EAP-TLS
 (TLS Certificate,
@@ -678,7 +686,8 @@ ul.toc li {
                                            TLS CertificateRequest,
                                                   TLS Certificate,
                                             TLS CertificateVerify,
-                            &lt;--------                TLS Finished)
+                                                     TLS Finished,
+                            &lt;--------            TLS empty record)
  EAP-Response/
  EAP-Type=EAP-TLS
 (TLS Certificate,
@@ -711,6 +720,11 @@ Session-Id   = 0x0D || Method-Id
 <a href="#rfc.section.2.4">2.4.</a> Parameter Negotiation and Compliance Requirements</h1>
 <p id="rfc.section.2.4.p.1">TLS 1.3 cipher suites are defined differently than in earlier versions of TLS (see Section B.4 of <a href="#RFC8446" class="xref">[RFC8446]</a>), and the cipher suites discussed in Section 2.4 of <a href="#RFC5216" class="xref">[RFC5216]</a> can therefore not be used when EAP-TLS is used with TLS version 1.3 or higher. The requirements on protocol version and compression given in Section 2.4 of <a href="#RFC5216" class="xref">[RFC5216]</a> still apply.</p>
 <p id="rfc.section.2.4.p.2">When EAP-TLS is used with TLS version 1.3 or higher, the EAP-TLS peers and servers MUST comply with the requirements for the TLS version used. For TLS 1.3 the compliance requirements are defined in Section 9 of <a href="#RFC8446" class="xref">[RFC8446]</a>.</p>
+<h1 id="rfc.section.2.5">
+<a href="#rfc.section.2.5">2.5.</a> <a href="#state" id="state">EAP State Machines</a>
+</h1>
+<p id="rfc.section.2.5.p.1">TLS 1.3  <a href="#RFC8446" class="xref">[RFC8446]</a> introduces Post-Handshake messages, which are e.g. used for resumption. After sending TLS Finished, the EAP server may send any number of Post-Handshake messages (e.g. NewSessionTicket) in separate EAP-Requests. To decrease the uncertainty for the EAP Peer, the following procedure MUST be followed:</p>
+<p id="rfc.section.2.5.p.2">When the EAP Server have sent its last Handshake message (Finished or a Post-Handshake), it commits to not send any more handshake messages by appending an empty application data record (i.e. a TLS record with TLSPlaintext.type = application_data and TLSPlaintext.length = 0) to the last handshake record. After sending an empty application data record, the EAP Server may only send EAP-Success, EAP-Failure, or an EAP-Request with a TLS Alert Message.</p>
 <h1 id="rfc.section.3">
 <a href="#rfc.section.3">3.</a> Detailed Description of the EAP-TLS Protocol</h1>
 <p id="rfc.section.3.p.1">No updates to <a href="#RFC5216" class="xref">[RFC5216]</a>.  </p>
@@ -885,7 +899,7 @@ Session-Id   = 0x0D || Method-Id
 <p id="rfc.section.A.p.4">All references to <a href="#RFC4282" class="xref">[RFC4282]</a> are updated with  <a href="#RFC7542" class="xref">[RFC7542]</a>.  </p>
 <h1 id="rfc.appendix.B">
 <a href="#rfc.appendix.B">Appendix B.</a> Acknowledgments</h1>
-<p id="rfc.section.B.p.1">The authors want to thank Alan DeKok, Ari Keraenen, Bernard Aboba, Jari Arkko, and Vesa Torvinen for comments and suggestions on the draft.  </p>
+<p id="rfc.section.B.p.1">The authors want to thank Alan DeKok, Ari Keraenen, Bernard Aboba, Eric Rescorla, Jari Arkko, Jim Schaad, Jouni Malinen, and Vesa Torvinen for comments and suggestions on the draft.  </p>
 <h1 id="rfc.authors"><a href="#rfc.authors">Authors' Addresses</a></h1>
 <div class="avoidbreak">
   <address class="vcard">
