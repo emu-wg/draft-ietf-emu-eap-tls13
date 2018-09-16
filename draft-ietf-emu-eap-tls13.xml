@@ -389,6 +389,16 @@ Session-Id   = 0x0D || Method-Id
 
 		<t>When the EAP Server have sent its last Handshake message (Finished or a Post-Handshake), it commits to not send any more handshake messages by appending an empty application data record (i.e. a TLS record with TLSPlaintext.type = application_data and TLSPlaintext.length = 0) to the last handshake record. After sending an empty application data record, the EAP Server may only send EAP-Success, EAP-Failure, or an EAP-Request with a TLS Alert Message.</t>
 	</section>
+
+	<section title='Interface to TLS 1.3'>
+		<t>The interface between EAP-TLS and TLS 1.3 consists of the following:
+			<list style="symbols">
+			 	<t>The TLS-Exporter interface is used to export keying material and other pseudorandom byte strings from TLS.</t>
+		   	 	<t>Negotiated version. EAP-TLS needs information about the negotiated version.</t>
+		    		<t>Handshake state updates. EAP-TLS needs information about the current handshake state.</t>
+			</list>
+		</t>
+	</section>
 	
 </section>
 
