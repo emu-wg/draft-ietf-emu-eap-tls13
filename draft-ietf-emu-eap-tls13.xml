@@ -385,7 +385,7 @@ Session-Id   = 0x0D || Method-Id
 	</section>
 
 	<section title='EAP State Machines' anchor="state">
-		<t>TLS 1.3  <xref target="RFC8446"/> introduces Post-Handshake messages, which are e.g. used for resumption. After sending TLS Finished, the EAP server may send any number of Post-Handshake messages (e.g. NewSessionTicket) in separate EAP-Requests. To decrease the uncertainty for the EAP Peer, the following procedure MUST be followed:</t>
+		<t>TLS 1.3  <xref target="RFC8446"/> introduces Post-Handshake messages, which use the handshake content type and are allowed to be sent after the main handshake. One such Post-Handshake messages is NewSessionTicket, which are used for resumption. After sending TLS Finished, the EAP server may send any number of Post-Handshake messages in separate EAP-Requests. To decrease the uncertainty for the EAP Peer, the following procedure MUST be followed:</t>
 
 		<t>When the EAP Server have sent its last Handshake message (Finished or a Post-Handshake), it commits to not send any more handshake messages by appending an empty application data record (i.e. a TLS record with TLSPlaintext.type = application_data and TLSPlaintext.length = 0) to the last handshake record. After sending an empty application data record, the EAP Server may only send EAP-Success, EAP-Failure, or an EAP-Request with a TLS Alert Message.</t>
 	</section>
