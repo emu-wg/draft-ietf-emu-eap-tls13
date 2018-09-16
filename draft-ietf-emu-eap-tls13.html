@@ -294,6 +294,7 @@ ul.toc li {
 <link href="#rfc.section.2.3" rel="Chapter" title="2.3 Key Hierarchy">
 <link href="#rfc.section.2.4" rel="Chapter" title="2.4 Parameter Negotiation and Compliance Requirements">
 <link href="#rfc.section.2.5" rel="Chapter" title="2.5 EAP State Machines">
+<link href="#rfc.section.2.6" rel="Chapter" title="2.6 Interface to TLS">
 <link href="#rfc.section.3" rel="Chapter" title="3 Detailed Description of the EAP-TLS Protocol">
 <link href="#rfc.section.4" rel="Chapter" title="4 IANA considerations">
 <link href="#rfc.section.5" rel="Chapter" title="5 Security Considerations">
@@ -302,6 +303,8 @@ ul.toc li {
 <link href="#rfc.section.5.3" rel="Chapter" title="5.3 Certificate Validation">
 <link href="#rfc.section.5.4" rel="Chapter" title="5.4 Certificate Revocation">
 <link href="#rfc.section.5.5" rel="Chapter" title="5.5 Packet Modification Attacks">
+<link href="#rfc.section.5.6" rel="Chapter" title="5.6 Privacy">
+<link href="#rfc.section.5.7" rel="Chapter" title="5.7 Pervasive Monitoring">
 <link href="#rfc.references" rel="Chapter" title="6 References">
 <link href="#rfc.references.1" rel="Chapter" title="6.1 Normative References">
 <link href="#rfc.references.2" rel="Chapter" title="6.2 Informative references">
@@ -315,7 +318,7 @@ ul.toc li {
 
   <meta name="dct.creator" content="Mattsson, J. and M. Sethi" />
   <meta name="dct.identifier" content="urn:ietf:id:draft-ietf-emu-eap-tls13-latest" />
-  <meta name="dct.issued" scheme="ISO8601" content="2018-15" />
+  <meta name="dct.issued" scheme="ISO8601" content="2018-16" />
   <meta name="dct.abstract" content="This document specifies the use of EAP-TLS with TLS 1.3 while remaining backwards compatible with existing implementations of EAP-TLS. TLS 1.3 provides significantly improved security, privacy, and reduced latency when compared to earlier versions of TLS. This document updates RFC 5216.  " />
   <meta name="description" content="This document specifies the use of EAP-TLS with TLS 1.3 while remaining backwards compatible with existing implementations of EAP-TLS. TLS 1.3 provides significantly improved security, privacy, and reduced latency when compared to earlier versions of TLS. This document updates RFC 5216.  " />
 
@@ -340,10 +343,10 @@ ul.toc li {
 </tr>
 <tr>
 <td class="left">Intended status: Standards Track</td>
-<td class="right">September 15, 2018</td>
+<td class="right">September 16, 2018</td>
 </tr>
 <tr>
-<td class="left">Expires: March 19, 2019</td>
+<td class="left">Expires: March 20, 2019</td>
 <td class="right"></td>
 </tr>
 
@@ -360,7 +363,7 @@ ul.toc li {
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on March 19, 2019.</p>
+<p>This Internet-Draft will expire on March 20, 2019.</p>
 <h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
 <p>Copyright (c) 2018 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
 <p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
@@ -396,6 +399,8 @@ ul.toc li {
 </li>
 <li>2.5.   <a href="#rfc.section.2.5">EAP State Machines</a>
 </li>
+<li>2.6.   <a href="#rfc.section.2.6">Interface to TLS</a>
+</li>
 </ul><li>3.   <a href="#rfc.section.3">Detailed Description of the EAP-TLS Protocol</a>
 </li>
 <li>4.   <a href="#rfc.section.4">IANA considerations</a>
@@ -411,6 +416,10 @@ ul.toc li {
 <li>5.4.   <a href="#rfc.section.5.4">Certificate Revocation</a>
 </li>
 <li>5.5.   <a href="#rfc.section.5.5">Packet Modification Attacks</a>
+</li>
+<li>5.6.   <a href="#rfc.section.5.6">Privacy</a>
+</li>
+<li>5.7.   <a href="#rfc.section.5.7">Pervasive Monitoring</a>
 </li>
 </ul><li>6.   <a href="#rfc.references">References</a>
 </li>
@@ -723,8 +732,22 @@ Session-Id   = 0x0D || Method-Id
 <h1 id="rfc.section.2.5">
 <a href="#rfc.section.2.5">2.5.</a> <a href="#state" id="state">EAP State Machines</a>
 </h1>
-<p id="rfc.section.2.5.p.1">TLS 1.3  <a href="#RFC8446" class="xref">[RFC8446]</a> introduces Post-Handshake messages, which are e.g. used for resumption. After sending TLS Finished, the EAP server may send any number of Post-Handshake messages (e.g. NewSessionTicket) in separate EAP-Requests. To decrease the uncertainty for the EAP Peer, the following procedure MUST be followed:</p>
-<p id="rfc.section.2.5.p.2">When the EAP Server have sent its last Handshake message (Finished or a Post-Handshake), it commits to not send any more handshake messages by appending an empty application data record (i.e. a TLS record with TLSPlaintext.type = application_data and TLSPlaintext.length = 0) to the last handshake record. After sending an empty application data record, the EAP Server may only send EAP-Success, EAP-Failure, or an EAP-Request with a TLS Alert Message.</p>
+<p id="rfc.section.2.5.p.1">TLS 1.3  <a href="#RFC8446" class="xref">[RFC8446]</a> introduces Post-Handshake messages, which use the handshake content type and are allowed to be sent after the main handshake. One such Post-Handshake messages is NewSessionTicket, which are used for resumption. After sending TLS Finished, the EAP server may send any number of Post-Handshake messages in separate EAP-Requests. To decrease the uncertainty for the EAP Peer, the following procedure MUST be followed:</p>
+<p id="rfc.section.2.5.p.2">When the EAP Server have sent its last handshake message (Finished or a Post-Handshake), it commits to not send any more handshake messages by appending an empty application data record (i.e. a TLS record with TLSPlaintext.type = application_data and TLSPlaintext.length = 0) to the last handshake record. After sending an empty application data record, the EAP Server may only send EAP-Success, EAP-Failure, or an EAP-Request with a TLS Alert Message.</p>
+<h1 id="rfc.section.2.6">
+<a href="#rfc.section.2.6">2.6.</a> Interface to TLS</h1>
+<p id="rfc.section.2.6.p.1">The interface between EAP-TLS and TLS 1.3 consists of the following functions: </p>
+
+<ul>
+<li>Proving TLS with handshake octets and requesting handshake octets from TLS. A request for handshake octets may result in a TLS alert message.</li>
+<li>Requesting an empty application data record from TLS.</li>
+<li>Information about the current TLS state. EAP-TLS needs information about handshake state updates, error conditions, and the negotiated TLS version.</li>
+<li>The TLS-Exporter interface is used to export keying material and other pseudorandom byte strings from TLS.</li>
+</ul>
+
+<p> Additional functions might be needed to configure TLS.  </p>
+<p id="rfc.section.2.6.p.2">The EAP-TLS Peer starts TLS by requesting TLS handshake octets from TLS. The EAP-TLS starts the process by providing TLS with the handshake octets from the EAP Peer. Each time that TLS is provided with new data, new handshake octets are requested from TLS.</p>
+<p id="rfc.section.2.6.p.3">How EAP-TLS determines when the last handshake message (Finished or a Post-Handshake) have been sent is implementation specific. EAP-TLS may configure TLS to always send NewSessionTicket or to never send any Post-Handshake messages, use an interface to query TLS for this information, or simply ignore Post-Handshake octets from TLS.</p>
 <h1 id="rfc.section.3">
 <a href="#rfc.section.3">3.</a> Detailed Description of the EAP-TLS Protocol</h1>
 <p id="rfc.section.3.p.1">No updates to <a href="#RFC5216" class="xref">[RFC5216]</a>.  </p>
@@ -761,6 +784,14 @@ Session-Id   = 0x0D || Method-Id
 <h1 id="rfc.section.5.5">
 <a href="#rfc.section.5.5">5.5.</a> Packet Modification Attacks</h1>
 <p id="rfc.section.5.5.p.1">No updates to <a href="#RFC5216" class="xref">[RFC5216]</a>.</p>
+<h1 id="rfc.section.5.6">
+<a href="#rfc.section.5.6">5.6.</a> Privacy</h1>
+<p><a href="#RFC6973" class="xref">[RFC6973]</a> suggests that the privacy considerations of IETF protocols be documented.</p>
+<p id="rfc.section.5.6.p.2">TODO</p>
+<h1 id="rfc.section.5.7">
+<a href="#rfc.section.5.7">5.7.</a> Pervasive Monitoring</h1>
+<p id="rfc.section.5.7.p.1">As required by <a href="#RFC7258" class="xref">[RFC7258]</a>, work on IETF protocols needs to consider the effects of pervasive monitoring and mitigate them when possible.</p>
+<p id="rfc.section.5.7.p.2">TODO</p>
 <h1 id="rfc.references">
 <a href="#rfc.references">6.</a> References</h1>
 <h1 id="rfc.references.1">
@@ -884,6 +915,16 @@ Session-Id   = 0x0D || Method-Id
 <td class="reference"><b id="RFC5247">[RFC5247]</b></td>
 <td class="top">
 <a>Aboba, B.</a>, <a>Simon, D.</a> and <a>P. Eronen</a>, "<a href="https://tools.ietf.org/html/rfc5247">Extensible Authentication Protocol (EAP) Key Management Framework</a>", RFC 5247, DOI 10.17487/RFC5247, August 2008.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC6973">[RFC6973]</b></td>
+<td class="top">
+<a>Cooper, A.</a>, <a>Tschofenig, H.</a>, <a>Aboba, B.</a>, <a>Peterson, J.</a>, <a>Morris, J.</a>, <a>Hansen, M.</a> and <a>R. Smith</a>, "<a href="https://tools.ietf.org/html/rfc6973">Privacy Considerations for Internet Protocols</a>", RFC 6973, DOI 10.17487/RFC6973, July 2013.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC7258">[RFC7258]</b></td>
+<td class="top">
+<a>Farrell, S.</a> and <a>H. Tschofenig</a>, "<a href="https://tools.ietf.org/html/rfc7258">Pervasive Monitoring Is an Attack</a>", BCP 188, RFC 7258, DOI 10.17487/RFC7258, May 2014.</td>
 </tr>
 <tr>
 <td class="reference"><b id="TS.33.501">[TS.33.501]</b></td>

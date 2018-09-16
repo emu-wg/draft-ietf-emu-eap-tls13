@@ -5,8 +5,8 @@
 Network Working Group                                        J. Mattsson
 Internet-Draft                                                  M. Sethi
 Updates: 5216 (if approved)                                     Ericsson
-Intended status: Standards Track                      September 15, 2018
-Expires: March 19, 2019
+Intended status: Standards Track                      September 16, 2018
+Expires: March 20, 2019
 
 
                        Using EAP-TLS with TLS 1.3
@@ -35,7 +35,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on March 19, 2019.
+   This Internet-Draft will expire on March 20, 2019.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Mattsson & Sethi         Expires March 19, 2019                 [Page 1]
+Mattsson & Sethi         Expires March 20, 2019                 [Page 1]
 
 Internet-Draft            EAP-TLS with TLS 1.3            September 2018
 
@@ -76,20 +76,23 @@ Table of Contents
      2.3.  Key Hierarchy . . . . . . . . . . . . . . . . . . . . . .  12
      2.4.  Parameter Negotiation and Compliance Requirements . . . .  13
      2.5.  EAP State Machines  . . . . . . . . . . . . . . . . . . .  13
-   3.  Detailed Description of the EAP-TLS Protocol  . . . . . . . .  13
+     2.6.  Interface to TLS  . . . . . . . . . . . . . . . . . . . .  14
+   3.  Detailed Description of the EAP-TLS Protocol  . . . . . . . .  14
    4.  IANA considerations . . . . . . . . . . . . . . . . . . . . .  14
-   5.  Security Considerations . . . . . . . . . . . . . . . . . . .  14
-     5.1.  Security Claims . . . . . . . . . . . . . . . . . . . . .  14
-     5.2.  Peer and Server Identities  . . . . . . . . . . . . . . .  14
+   5.  Security Considerations . . . . . . . . . . . . . . . . . . .  15
+     5.1.  Security Claims . . . . . . . . . . . . . . . . . . . . .  15
+     5.2.  Peer and Server Identities  . . . . . . . . . . . . . . .  15
      5.3.  Certificate Validation  . . . . . . . . . . . . . . . . .  15
      5.4.  Certificate Revocation  . . . . . . . . . . . . . . . . .  15
-     5.5.  Packet Modification Attacks . . . . . . . . . . . . . . .  15
-   6.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  15
-     6.1.  Normative References  . . . . . . . . . . . . . . . . . .  15
-     6.2.  Informative references  . . . . . . . . . . . . . . . . .  16
-   Appendix A.  Updated references . . . . . . . . . . . . . . . . .  18
-   Appendix B.  Acknowledgments  . . . . . . . . . . . . . . . . . .  18
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  18
+     5.5.  Packet Modification Attacks . . . . . . . . . . . . . . .  16
+     5.6.  Privacy . . . . . . . . . . . . . . . . . . . . . . . . .  16
+     5.7.  Pervasive Monitoring  . . . . . . . . . . . . . . . . . .  16
+   6.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  16
+     6.1.  Normative References  . . . . . . . . . . . . . . . . . .  16
+     6.2.  Informative references  . . . . . . . . . . . . . . . . .  17
+   Appendix A.  Updated references . . . . . . . . . . . . . . . . .  19
+   Appendix B.  Acknowledgments  . . . . . . . . . . . . . . . . . .  19
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  19
 
 1.  Introduction
 
@@ -103,17 +106,16 @@ Table of Contents
    secret keying material.  EAP-TLS is widely supported for
    authentication in IEEE 802.11 [IEEE-802.11] networks (Wi-Fi) using
    IEEE 802.1X [IEEE-802.1X] and it's the default mechanism for
-   certificate based authentication in MulteFire [MulteFire] and 3GPP 5G
-   [TS.33.501] networks.  EAP-TLS [RFC5216] references TLS 1.0 [RFC2246]
 
 
 
-
-Mattsson & Sethi         Expires March 19, 2019                 [Page 2]
+Mattsson & Sethi         Expires March 20, 2019                 [Page 2]
 
 Internet-Draft            EAP-TLS with TLS 1.3            September 2018
 
 
+   certificate based authentication in MulteFire [MulteFire] and 3GPP 5G
+   [TS.33.501] networks.  EAP-TLS [RFC5216] references TLS 1.0 [RFC2246]
    and TLS 1.1 [RFC4346], but works perfectly also with TLS 1.2
    [RFC5246].
 
@@ -159,17 +161,18 @@ Internet-Draft            EAP-TLS with TLS 1.3            September 2018
    compared to earlier versions of TLS.  Therefore, much of Section 2.1
    of RFC5216 [RFC5216] does not apply for TLS 1.3 (or higher).
 
-   After receiving an EAP-Request packet with EAP-Type=EAP-TLS as
-   described in [RFC5216] the conversation will continue with the TLS
-   handshake protocol encapsulated in the data fields of EAP-Response
 
 
 
-Mattsson & Sethi         Expires March 19, 2019                 [Page 3]
+
+Mattsson & Sethi         Expires March 20, 2019                 [Page 3]
 
 Internet-Draft            EAP-TLS with TLS 1.3            September 2018
 
 
+   After receiving an EAP-Request packet with EAP-Type=EAP-TLS as
+   described in [RFC5216] the conversation will continue with the TLS
+   handshake protocol encapsulated in the data fields of EAP-Response
    and EAP-Request packets.  When EAP-TLS is used with TLS version 1.3
    or higher, the formatting and processing of the TLS handshake SHALL
    be done as specified in that version of TLS.  This document only
@@ -218,10 +221,7 @@ Internet-Draft            EAP-TLS with TLS 1.3            September 2018
 
 
 
-
-
-
-Mattsson & Sethi         Expires March 19, 2019                 [Page 4]
+Mattsson & Sethi         Expires March 20, 2019                 [Page 4]
 
 Internet-Draft            EAP-TLS with TLS 1.3            September 2018
 
@@ -277,7 +277,7 @@ Internet-Draft            EAP-TLS with TLS 1.3            September 2018
 
 
 
-Mattsson & Sethi         Expires March 19, 2019                 [Page 5]
+Mattsson & Sethi         Expires March 20, 2019                 [Page 5]
 
 Internet-Draft            EAP-TLS with TLS 1.3            September 2018
 
@@ -333,7 +333,7 @@ Internet-Draft            EAP-TLS with TLS 1.3            September 2018
 
 
 
-Mattsson & Sethi         Expires March 19, 2019                 [Page 6]
+Mattsson & Sethi         Expires March 20, 2019                 [Page 6]
 
 Internet-Draft            EAP-TLS with TLS 1.3            September 2018
 
@@ -389,7 +389,7 @@ Internet-Draft            EAP-TLS with TLS 1.3            September 2018
 
 
 
-Mattsson & Sethi         Expires March 19, 2019                 [Page 7]
+Mattsson & Sethi         Expires March 20, 2019                 [Page 7]
 
 Internet-Draft            EAP-TLS with TLS 1.3            September 2018
 
@@ -445,7 +445,7 @@ Internet-Draft            EAP-TLS with TLS 1.3            September 2018
 
 
 
-Mattsson & Sethi         Expires March 19, 2019                 [Page 8]
+Mattsson & Sethi         Expires March 20, 2019                 [Page 8]
 
 Internet-Draft            EAP-TLS with TLS 1.3            September 2018
 
@@ -501,7 +501,7 @@ Internet-Draft            EAP-TLS with TLS 1.3            September 2018
 
 
 
-Mattsson & Sethi         Expires March 19, 2019                 [Page 9]
+Mattsson & Sethi         Expires March 20, 2019                 [Page 9]
 
 Internet-Draft            EAP-TLS with TLS 1.3            September 2018
 
@@ -557,7 +557,7 @@ Internet-Draft            EAP-TLS with TLS 1.3            September 2018
 
 
 
-Mattsson & Sethi         Expires March 19, 2019                [Page 10]
+Mattsson & Sethi         Expires March 20, 2019                [Page 10]
 
 Internet-Draft            EAP-TLS with TLS 1.3            September 2018
 
@@ -613,7 +613,7 @@ Internet-Draft            EAP-TLS with TLS 1.3            September 2018
 
 
 
-Mattsson & Sethi         Expires March 19, 2019                [Page 11]
+Mattsson & Sethi         Expires March 20, 2019                [Page 11]
 
 Internet-Draft            EAP-TLS with TLS 1.3            September 2018
 
@@ -669,7 +669,7 @@ Internet-Draft            EAP-TLS with TLS 1.3            September 2018
 
 
 
-Mattsson & Sethi         Expires March 19, 2019                [Page 12]
+Mattsson & Sethi         Expires March 20, 2019                [Page 12]
 
 Internet-Draft            EAP-TLS with TLS 1.3            September 2018
 
@@ -703,13 +703,15 @@ Internet-Draft            EAP-TLS with TLS 1.3            September 2018
 
 2.5.  EAP State Machines
 
-   TLS 1.3 [RFC8446] introduces Post-Handshake messages, which are e.g.
-   used for resumption.  After sending TLS Finished, the EAP server may
-   send any number of Post-Handshake messages (e.g.  NewSessionTicket)
-   in separate EAP-Requests.  To decrease the uncertainty for the EAP
-   Peer, the following procedure MUST be followed:
+   TLS 1.3 [RFC8446] introduces Post-Handshake messages, which use the
+   handshake content type and are allowed to be sent after the main
+   handshake.  One such Post-Handshake messages is NewSessionTicket,
+   which are used for resumption.  After sending TLS Finished, the EAP
+   server may send any number of Post-Handshake messages in separate
+   EAP-Requests.  To decrease the uncertainty for the EAP Peer, the
+   following procedure MUST be followed:
 
-   When the EAP Server have sent its last Handshake message (Finished or
+   When the EAP Server have sent its last handshake message (Finished or
    a Post-Handshake), it commits to not send any more handshake messages
    by appending an empty application data record (i.e. a TLS record with
    TLSPlaintext.type = application_data and TLSPlaintext.length = 0) to
@@ -717,18 +719,51 @@ Internet-Draft            EAP-TLS with TLS 1.3            September 2018
    record, the EAP Server may only send EAP-Success, EAP-Failure, or an
    EAP-Request with a TLS Alert Message.
 
-3.  Detailed Description of the EAP-TLS Protocol
-
-   No updates to [RFC5216].
 
 
 
 
 
-Mattsson & Sethi         Expires March 19, 2019                [Page 13]
+
+Mattsson & Sethi         Expires March 20, 2019                [Page 13]
 
 Internet-Draft            EAP-TLS with TLS 1.3            September 2018
 
+
+2.6.  Interface to TLS
+
+   The interface between EAP-TLS and TLS 1.3 consists of the following
+   functions:
+
+   o  Proving TLS with handshake octets and requesting handshake octets
+      from TLS.  A request for handshake octets may result in a TLS
+      alert message.
+
+   o  Requesting an empty application data record from TLS.
+
+   o  Information about the current TLS state.  EAP-TLS needs
+      information about handshake state updates, error conditions, and
+      the negotiated TLS version.
+
+   o  The TLS-Exporter interface is used to export keying material and
+      other pseudorandom byte strings from TLS.
+
+   Additional functions might be needed to configure TLS.
+
+   The EAP-TLS Peer starts TLS by requesting TLS handshake octets from
+   TLS.  The EAP-TLS starts the process by providing TLS with the
+   handshake octets from the EAP Peer.  Each time that TLS is provided
+   with new data, new handshake octets are requested from TLS.
+
+   How EAP-TLS determines when the last handshake message (Finished or a
+   Post-Handshake) have been sent is implementation specific.  EAP-TLS
+   may configure TLS to always send NewSessionTicket or to never send
+   any Post-Handshake messages, use an interface to query TLS for this
+   information, or simply ignore Post-Handshake octets from TLS.
+
+3.  Detailed Description of the EAP-TLS Protocol
+
+   No updates to [RFC5216].
 
 4.  IANA considerations
 
@@ -742,6 +777,14 @@ Internet-Draft            EAP-TLS with TLS 1.3            September 2018
    Section 2.3:
 
    o  "EXPORTER_EAP_TLS_Key_Material"
+
+
+
+
+Mattsson & Sethi         Expires March 20, 2019                [Page 14]
+
+Internet-Draft            EAP-TLS with TLS 1.3            September 2018
+
 
    o  "EXPORTER_EAP_TLS_IV"
 
@@ -777,15 +820,6 @@ Internet-Draft            EAP-TLS with TLS 1.3            September 2018
 
    No updates to [RFC5216].
 
-
-
-
-
-Mattsson & Sethi         Expires March 19, 2019                [Page 14]
-
-Internet-Draft            EAP-TLS with TLS 1.3            September 2018
-
-
 5.3.  Certificate Validation
 
    No updates to [RFC5216].
@@ -799,6 +833,15 @@ Internet-Draft            EAP-TLS with TLS 1.3            September 2018
    message as in [RFC4366].  This enables sending OCSP information for
    all certificates in the certificate chain.
 
+
+
+
+
+Mattsson & Sethi         Expires March 20, 2019                [Page 15]
+
+Internet-Draft            EAP-TLS with TLS 1.3            September 2018
+
+
    EAP-TLS peers and servers supporting TLS 1.3 SHOULD support
    Certificate Status Requests (OCSP stapling) as specified in [RFC6066]
    and Section 4.4.2.1 of [RFC8446].  The use of Certificate Status
@@ -808,6 +851,20 @@ Internet-Draft            EAP-TLS with TLS 1.3            September 2018
 5.5.  Packet Modification Attacks
 
    No updates to [RFC5216].
+
+5.6.  Privacy
+
+   [RFC6973] suggests that the privacy considerations of IETF protocols
+   be documented.
+
+   TODO
+
+5.7.  Pervasive Monitoring
+
+   As required by [RFC7258], work on IETF protocols needs to consider
+   the effects of pervasive monitoring and mitigate them when possible.
+
+   TODO
 
 6.  References
 
@@ -836,8 +893,7 @@ Internet-Draft            EAP-TLS with TLS 1.3            September 2018
 
 
 
-
-Mattsson & Sethi         Expires March 19, 2019                [Page 15]
+Mattsson & Sethi         Expires March 20, 2019                [Page 16]
 
 Internet-Draft            EAP-TLS with TLS 1.3            September 2018
 
@@ -893,7 +949,7 @@ Internet-Draft            EAP-TLS with TLS 1.3            September 2018
 
 
 
-Mattsson & Sethi         Expires March 19, 2019                [Page 16]
+Mattsson & Sethi         Expires March 20, 2019                [Page 17]
 
 Internet-Draft            EAP-TLS with TLS 1.3            September 2018
 
@@ -949,7 +1005,7 @@ Internet-Draft            EAP-TLS with TLS 1.3            September 2018
 
 
 
-Mattsson & Sethi         Expires March 19, 2019                [Page 17]
+Mattsson & Sethi         Expires March 20, 2019                [Page 18]
 
 Internet-Draft            EAP-TLS with TLS 1.3            September 2018
 
@@ -958,6 +1014,16 @@ Internet-Draft            EAP-TLS with TLS 1.3            September 2018
               Authentication Protocol (EAP) Key Management Framework",
               RFC 5247, DOI 10.17487/RFC5247, August 2008,
               <https://www.rfc-editor.org/info/rfc5247>.
+
+   [RFC6973]  Cooper, A., Tschofenig, H., Aboba, B., Peterson, J.,
+              Morris, J., Hansen, M., and R. Smith, "Privacy
+              Considerations for Internet Protocols", RFC 6973,
+              DOI 10.17487/RFC6973, July 2013,
+              <https://www.rfc-editor.org/info/rfc6973>.
+
+   [RFC7258]  Farrell, S. and H. Tschofenig, "Pervasive Monitoring Is an
+              Attack", BCP 188, RFC 7258, DOI 10.17487/RFC7258, May
+              2014, <https://www.rfc-editor.org/info/rfc7258>.
 
    [TS.33.501]
               3GPP, "Security architecture and procedures for 5G
@@ -990,6 +1056,16 @@ Authors' Addresses
    Email: john.mattsson@ericsson.com
 
 
+
+
+
+
+
+Mattsson & Sethi         Expires March 20, 2019                [Page 19]
+
+Internet-Draft            EAP-TLS with TLS 1.3            September 2018
+
+
    Mohit Sethi
    Ericsson
    Jorvas  02420
@@ -1005,4 +1081,40 @@ Authors' Addresses
 
 
 
-Mattsson & Sethi         Expires March 19, 2019                [Page 18]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Mattsson & Sethi         Expires March 20, 2019                [Page 20]
