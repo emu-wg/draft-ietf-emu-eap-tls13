@@ -461,7 +461,19 @@ Session-Id   = 0x0D || Method-Id
 		<t>No updates to <xref target="RFC5216"/>.</t>
 
 	</section>
+	
+	<section title="Privacy">
+		
+		<t><xref target="RFC6973"/> suggests that the privacy considerations of IETF protocols be documented.</t>
 
+	</section>
+
+	<section title="Pervasive Monitoring">
+
+		<t>As required by <xref target="RFC7258"/>, work on IETF protocols needs to consider the effects of pervasive monitoring and mitigate them when possible.</t>
+
+	</section>
+	
 </section>
 
  </middle>
@@ -473,7 +485,7 @@ Session-Id   = 0x0D || Method-Id
 	<?rfc include='reference.RFC.3748'?>
 	<?rfc include='reference.RFC.5216'?>
 	<?rfc include='reference.RFC.5280'?>
-    <?rfc include='reference.RFC.5705'?>
+	<?rfc include='reference.RFC.5705'?>
 	<?rfc include='reference.RFC.6066'?>
 	<?rfc include='reference.RFC.6960'?>
 	<?rfc include='reference.RFC.7542'?>
@@ -530,6 +542,8 @@ Session-Id   = 0x0D || Method-Id
 	<?rfc include='reference.RFC.4282'?>
 	<?rfc include='reference.RFC.5246'?>
 	<?rfc include='reference.RFC.5247'?>
+	<?rfc include='reference.RFC.6973'?>
+	<?rfc include='reference.RFC.7258'?>
    <?rfc include='reference.I-D.ietf-tls-certificate-compression'?>
 </references>
 
