@@ -294,7 +294,6 @@ ul.toc li {
 <link href="#rfc.section.2.3" rel="Chapter" title="2.3 Key Hierarchy">
 <link href="#rfc.section.2.4" rel="Chapter" title="2.4 Parameter Negotiation and Compliance Requirements">
 <link href="#rfc.section.2.5" rel="Chapter" title="2.5 EAP State Machines">
-<link href="#rfc.section.2.6" rel="Chapter" title="2.6 Interface to TLS">
 <link href="#rfc.section.3" rel="Chapter" title="3 Detailed Description of the EAP-TLS Protocol">
 <link href="#rfc.section.4" rel="Chapter" title="4 IANA considerations">
 <link href="#rfc.section.5" rel="Chapter" title="5 Security Considerations">
@@ -318,7 +317,7 @@ ul.toc li {
 
   <meta name="dct.creator" content="Mattsson, J. and M. Sethi" />
   <meta name="dct.identifier" content="urn:ietf:id:draft-ietf-emu-eap-tls13-latest" />
-  <meta name="dct.issued" scheme="ISO8601" content="2018-17" />
+  <meta name="dct.issued" scheme="ISO8601" content="2018-19" />
   <meta name="dct.abstract" content="This document specifies the use of EAP-TLS with TLS 1.3 while remaining backwards compatible with existing implementations of EAP-TLS. TLS 1.3 provides significantly improved security, privacy, and reduced latency when compared to earlier versions of TLS. This document updates RFC 5216.  " />
   <meta name="description" content="This document specifies the use of EAP-TLS with TLS 1.3 while remaining backwards compatible with existing implementations of EAP-TLS. TLS 1.3 provides significantly improved security, privacy, and reduced latency when compared to earlier versions of TLS. This document updates RFC 5216.  " />
 
@@ -343,10 +342,10 @@ ul.toc li {
 </tr>
 <tr>
 <td class="left">Intended status: Standards Track</td>
-<td class="right">September 17, 2018</td>
+<td class="right">September 19, 2018</td>
 </tr>
 <tr>
-<td class="left">Expires: March 21, 2019</td>
+<td class="left">Expires: March 23, 2019</td>
 <td class="right"></td>
 </tr>
 
@@ -363,7 +362,7 @@ ul.toc li {
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on March 21, 2019.</p>
+<p>This Internet-Draft will expire on March 23, 2019.</p>
 <h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
 <p>Copyright (c) 2018 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
 <p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
@@ -398,8 +397,6 @@ ul.toc li {
 <li>2.4.   <a href="#rfc.section.2.4">Parameter Negotiation and Compliance Requirements</a>
 </li>
 <li>2.5.   <a href="#rfc.section.2.5">EAP State Machines</a>
-</li>
-<li>2.6.   <a href="#rfc.section.2.6">Interface to TLS</a>
 </li>
 </ul><li>3.   <a href="#rfc.section.3">Detailed Description of the EAP-TLS Protocol</a>
 </li>
@@ -734,20 +731,7 @@ Session-Id   = 0x0D || Method-Id
 </h1>
 <p id="rfc.section.2.5.p.1">TLS 1.3  <a href="#RFC8446" class="xref">[RFC8446]</a> introduces Post-Handshake messages. These Post-Handshake messages use the handshake content type and can be sent after the main handshake. One such Post-Handshake message is NewSessionTicket. The NewSessopmTicket can be used for resumption. After sending TLS Finished, the EAP server may send any number of Post-Handshake messages in separate EAP-Requests. To decrease the uncertainty for the EAP Peer, the following procedure MUST be followed:</p>
 <p id="rfc.section.2.5.p.2">When an EAP Server has sent its last handshake message (Finished or a Post-Handshake), it commits to not sending any more handshake messages by appending an empty application data record (i.e. a TLS record with TLSPlaintext.type = application_data and TLSPlaintext.length = 0) to the last handshake record. After sending an empty application data record, the EAP Server may only send an EAP-Success, an EAP-Failure, or an EAP-Request with a TLS Alert Message.</p>
-<h1 id="rfc.section.2.6">
-<a href="#rfc.section.2.6">2.6.</a> Interface to TLS</h1>
-<p id="rfc.section.2.6.p.1">The interface between EAP-TLS and TLS 1.3 consists of the following functions: </p>
-
-<ul>
-<li>Providing TLS with handshake octets and requesting handshake octets from TLS. A request for handshake octets may result in a TLS alert message.</li>
-<li>Requesting an empty application data record from TLS.</li>
-<li>Information about the current TLS state. EAP-TLS needs information about handshake state updates, error conditions, and the negotiated TLS version.</li>
-<li>The TLS-Exporter interface is used to export keying material and other pseudorandom byte strings from TLS.</li>
-</ul>
-
-<p> Additional functions might be needed to configure TLS.  </p>
-<p id="rfc.section.2.6.p.2">The EAP-TLS Peer starts TLS by requesting TLS handshake octets from TLS. The EAP-TLS starts the process by providing TLS with the handshake octets from the EAP Peer. Each time that TLS is provided with new data, new handshake octets are requested from TLS.</p>
-<p id="rfc.section.2.6.p.3">How EAP-TLS determines when the last handshake message (Finished or a Post-Handshake) has been sent is implementation specific. EAP-TLS may configure TLS to always send NewSessionTicket or to never send any Post-Handshake messages, use an interface to query TLS for this information, or simply ignore Post-Handshake octets from TLS.</p>
+<p id="rfc.section.2.5.p.3">Note that the use of an empty application data record does not violate the requirement that the TLS cipher suite shall not be used to protect application data, as the application data is the empty string, no application data is protected.</p>
 <h1 id="rfc.section.3">
 <a href="#rfc.section.3">3.</a> Detailed Description of the EAP-TLS Protocol</h1>
 <p id="rfc.section.3.p.1">No updates to <a href="#RFC5216" class="xref">[RFC5216]</a>.  </p>
