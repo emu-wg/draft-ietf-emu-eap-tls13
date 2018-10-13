@@ -5,8 +5,8 @@
 Network Working Group                                        J. Mattsson
 Internet-Draft                                                  M. Sethi
 Updates: 5216 (if approved)                                     Ericsson
-Intended status: Standards Track                        October 12, 2018
-Expires: April 15, 2019
+Intended status: Standards Track                        October 13, 2018
+Expires: April 16, 2019
 
 
                        Using EAP-TLS with TLS 1.3
@@ -35,7 +35,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on April 15, 2019.
+   This Internet-Draft will expire on April 16, 2019.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Mattsson & Sethi         Expires April 15, 2019                 [Page 1]
+Mattsson & Sethi         Expires April 16, 2019                 [Page 1]
 
 Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
@@ -84,7 +84,7 @@ Table of Contents
      5.3.  Certificate Validation  . . . . . . . . . . . . . . . . .  15
      5.4.  Certificate Revocation  . . . . . . . . . . . . . . . . .  15
      5.5.  Packet Modification Attacks . . . . . . . . . . . . . . .  15
-     5.6.  Privacy . . . . . . . . . . . . . . . . . . . . . . . . .  15
+     5.6.  Privacy Considerations  . . . . . . . . . . . . . . . . .  15
      5.7.  Pervasive Monitoring  . . . . . . . . . . . . . . . . . .  16
    6.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  16
      6.1.  Normative References  . . . . . . . . . . . . . . . . . .  16
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Mattsson & Sethi         Expires April 15, 2019                 [Page 2]
+Mattsson & Sethi         Expires April 16, 2019                 [Page 2]
 
 Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
@@ -165,7 +165,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
 
 
-Mattsson & Sethi         Expires April 15, 2019                 [Page 3]
+Mattsson & Sethi         Expires April 16, 2019                 [Page 3]
 
 Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
@@ -221,7 +221,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
 
 
-Mattsson & Sethi         Expires April 15, 2019                 [Page 4]
+Mattsson & Sethi         Expires April 16, 2019                 [Page 4]
 
 Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
@@ -277,7 +277,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
 
 
-Mattsson & Sethi         Expires April 15, 2019                 [Page 5]
+Mattsson & Sethi         Expires April 16, 2019                 [Page 5]
 
 Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
@@ -333,7 +333,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
 
 
-Mattsson & Sethi         Expires April 15, 2019                 [Page 6]
+Mattsson & Sethi         Expires April 16, 2019                 [Page 6]
 
 Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
@@ -389,7 +389,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
 
 
-Mattsson & Sethi         Expires April 15, 2019                 [Page 7]
+Mattsson & Sethi         Expires April 16, 2019                 [Page 7]
 
 Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
@@ -405,14 +405,14 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2018
    of RFC 5216 [RFC5216] still apply with the exception that SessionID
    is deprecated.
 
-      If the EAP Server authenticates successfully the EAP Peer MUST
+      If the EAP server authenticates successfully the EAP peer MUST
       send an EAP-Response message with EAP-Type=EAP-TLS containing TLS
       records confirming the processing in the version of TLS used.
 
-      If the EAP Peer authenticates successfully the EAP Server MUST
+      If the EAP peer authenticates successfully the EAP server MUST
       send an EAP-Request packet with EAP-Type=EAP-TLS containing TLS
       records confirming to the processing in the version of TLS used.
-      The message flow ends with the EAP Server sending a EAP-Success
+      The message flow ends with the EAP server sending a EAP-Success
       message.
 
    In the case where the server rejects the ClientHello, the
@@ -445,7 +445,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
 
 
-Mattsson & Sethi         Expires April 15, 2019                 [Page 8]
+Mattsson & Sethi         Expires April 16, 2019                 [Page 8]
 
 Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
@@ -501,7 +501,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
 
 
-Mattsson & Sethi         Expires April 15, 2019                 [Page 9]
+Mattsson & Sethi         Expires April 16, 2019                 [Page 9]
 
 Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
@@ -543,8 +543,8 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
 2.1.4.  Privacy
 
-   TLS 1.3 significantly increases privacy when compared to earlier
-   version of TLS by forbidding cipher suites without confidentiality
+   TLS 1.3 significantly improves privacy when compared to earlier
+   versions of TLS by forbidding cipher suites without confidentiality
    and encrypting large parts of the TLS handshake including the
    certificate messages.
 
@@ -557,20 +557,20 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
 
 
-Mattsson & Sethi         Expires April 15, 2019                [Page 10]
+Mattsson & Sethi         Expires April 16, 2019                [Page 10]
 
 Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
 
    As the certificate messages in TLS 1.3 are encrypted, there is no
    need to send an empty certificate_list or perform a second handshake
-   (as needed by EAP-TLS when with earlier versions of TLS).  When EAP-
-   TLS is used with TLS version 1.3 or higher the EAP-TLS peer and EAP-
-   TLS server SHALL follow the processing specified by the used version
-   of TLS.  For TLS 1.3 this means that the EAP-TLS peer only sends an
+   (as needed by EAP-TLS with earlier versions of TLS).  When EAP-TLS is
+   used with TLS version 1.3 or higher the EAP-TLS peer and EAP-TLS
+   server SHALL follow the processing specified by the used version of
+   TLS.  For TLS 1.3 this means that the EAP-TLS peer only sends an
    empty certificate_list if it does not have an appropriate certificate
-   to send and the EAP-TLS server MAY treat an empty certificate_list as
-   a terminal condition.
+   to send, and the EAP-TLS server MAY treat an empty certificate_list
+   as a terminal condition.
 
    When EAP-TLS is used with TLS 1.3 and privacy, no extra round-trips
    are added and the message flow looks just like a normal message flow
@@ -613,7 +613,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
 
 
-Mattsson & Sethi         Expires April 15, 2019                [Page 11]
+Mattsson & Sethi         Expires April 16, 2019                [Page 11]
 
 Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
@@ -669,7 +669,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
 
 
-Mattsson & Sethi         Expires April 15, 2019                [Page 12]
+Mattsson & Sethi         Expires April 16, 2019                [Page 12]
 
 Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
@@ -709,15 +709,15 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2018
    NewSessionTicket.  The NewSessopmTicket can be used for resumption.
    After sending TLS Finished, the EAP server may send any number of
    Post-Handshake messages in separate EAP-Requests.  To decrease the
-   uncertainty for the EAP Peer, the following procedure MUST be
+   uncertainty for the EAP peer, the following procedure MUST be
    followed:
 
-   When an EAP Server has sent its last handshake message (Finished or a
+   When an EAP server has sent its last handshake message (Finished or a
    Post-Handshake), it commits to not sending any more handshake
    messages by appending an empty application data record (i.e. a TLS
    record with TLSPlaintext.type = application_data and
    TLSPlaintext.length = 0) to the last handshake record.  After sending
-   an empty application data record, the EAP Server may only send an
+   an empty application data record, the EAP server may only send an
    EAP-Success, an EAP-Failure, or an EAP-Request with a TLS Alert
    Message.
 
@@ -725,7 +725,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
 
 
-Mattsson & Sethi         Expires April 15, 2019                [Page 13]
+Mattsson & Sethi         Expires April 16, 2019                [Page 13]
 
 Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
@@ -781,7 +781,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
 
 
-Mattsson & Sethi         Expires April 15, 2019                [Page 14]
+Mattsson & Sethi         Expires April 16, 2019                [Page 14]
 
 Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
@@ -817,52 +817,52 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
    No updates to [RFC5216].
 
-5.6.  Privacy
+5.6.  Privacy Considerations
 
    [RFC6973] suggests that the privacy considerations of IETF protocols
    be documented.
 
    TLS 1.3 offers much better privacy than earlier versions of TLS as
-   discussed above under "Confidentiality".  In this section we only
-   discuss changes compared to TLS 1.3, for privacy properties of TLS
-   1.3, see [RFC8446].
+   discussed in Section 2.1.4.  In this section, we only discuss the
+   privacy properties of EAP-TLS with TLS 1.3.  For privacy properties
+   of TLS 1.3 itself, see [RFC8446].
 
-   Additions compared to TLS 1.3 without EAP are that the TLS 1.3
-   handshake is sent in EAP packages and that the EAP Peer sends an
-   identity in the first EAP-Response.  The fields in the EAP-TLS
-   Request and the EAP-TLS Response packets do not contain privacy
-   sensitive information.
-
-
+   EAP-TLS sends the standard TLS 1.3 handshake messages encapsulated in
+   EAP packets.  Additionally, the EAP peer sends an identity in the
+   first EAP-Response.  The fields in the EAP-TLS Request and the EAP-
+   TLS Response packets do not contain any cleartext privacy sensitive
+   information.
 
 
 
-Mattsson & Sethi         Expires April 15, 2019                [Page 15]
+
+
+Mattsson & Sethi         Expires April 16, 2019                [Page 15]
 
 Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
 
    It is strongly RECOMMENDED to confidentiality protect the identity
-   (e.g. using Anonymous NAIs), as the username part may otherwise
-   enable identification and tracking of the user.  But as with other
-   EAP methods, even when privacy-friendly identifiers or EAP tunneling
-   is used, the domain name is typically visible.  How much privacy
-   sensitive information the domain name leaks is highly dependent on
-   how many other users are using the same domain name in the particular
-   access.  If all EAP Peers have the same domain, no information is
-   leaked.  If a domain name is used by a small subset of the EAP Peers,
-   it may aid an attacker in tracking or identifying the user.
+   (e.g. using Anonymous NAIs), as the username part of the NAI may
+   otherwise enable identification and tracking of the user.  However,
+   as with other EAP methods, even when privacy-friendly identifiers or
+   EAP tunneling is used, the domain name (i.e. the realm) in the NAI is
+   still typically visible.  How much privacy sensitive information the
+   domain name leaks is highly dependent on how many other users are
+   using the same domain name in the particular access network.  If all
+   EAP peers have the same domain, no additional information is leaked.
+   If a domain name is used by a small subset of the EAP peers, it may
+   aid an attacker in tracking or identifying the user.
 
-   An EAP Peer with a policy allowing communication with EAP Servers
-   supporting only TLS 1.2 or lower without privacy and with the RSA key
-   exchange are vulnerable to bidding down attacks where an attacker
-   makes the EAP Peer believe that the EAP Server does not support
-   privacy.  An attacker may simply impersonate the EAP Server and
-   negotiate TLS 1.2 (or lower) with RSA key exchange and then send an
-   TLS alert message when the EAP Peer sends an empty certificate
-   message.  When using RSA key exchange, the EAP Server does not
-   provide proof-of-possession of the private key until the Finished
-   message.
+   An EAP peer with a policy allowing communication with EAP servers
+   supporting only TLS 1.2 (or lower) without privacy and with the RSA
+   key exchange is vulnerable to bidding down attacks.  An attacker in
+   this case makes the EAP peer believe that the EAP server does not
+   support privacy.  The attacker simply impersonates the EAP server and
+   negotiate TLS 1.2 (or lower) with RSA key exchange and sends an TLS
+   alert message when the EAP peer sends an empty certificate message.
+   When using RSA key exchange, the EAP server does not provide proof-
+   of-possession of the private key until the Finished message.
 
 5.7.  Pervasive Monitoring
 
@@ -872,11 +872,11 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2018
    Pervasive Monitoring is widespread surveillance of users.  By
    encrypting more information, TLS 1.3 offers much better protection
    against pervasive monitoring.  In addition to the privacy attacks
-   discussed above, surveillance on a large scale enables tracking of a
-   user over a wider geographical area and across different access
-   technologies.  By using information from EAP-TLS together with
-   information gathered from other protocols, it increases the risks
-   that the information can be used to identify the user.
+   discussed above, surveillance on a large scale may enable tracking of
+   a user over a wider geographical area and across different access
+   networks.  Using information from EAP-TLS together with information
+   gathered from other protocols increases the risk of identifying
+   individual users.
 
 6.  References
 
@@ -893,7 +893,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
 
 
-Mattsson & Sethi         Expires April 15, 2019                [Page 16]
+Mattsson & Sethi         Expires April 16, 2019                [Page 16]
 
 Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
@@ -949,7 +949,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
 
 
-Mattsson & Sethi         Expires April 15, 2019                [Page 17]
+Mattsson & Sethi         Expires April 16, 2019                [Page 17]
 
 Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
@@ -1005,7 +1005,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
 
 
-Mattsson & Sethi         Expires April 15, 2019                [Page 18]
+Mattsson & Sethi         Expires April 16, 2019                [Page 18]
 
 Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
@@ -1061,7 +1061,7 @@ Appendix A.  Updated references
 
 
 
-Mattsson & Sethi         Expires April 15, 2019                [Page 19]
+Mattsson & Sethi         Expires April 16, 2019                [Page 19]
 
 Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
@@ -1117,4 +1117,4 @@ Authors' Addresses
 
 
 
-Mattsson & Sethi         Expires April 15, 2019                [Page 20]
+Mattsson & Sethi         Expires April 16, 2019                [Page 20]
