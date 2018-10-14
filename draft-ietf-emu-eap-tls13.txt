@@ -90,7 +90,7 @@ Table of Contents
      6.1.  Normative References  . . . . . . . . . . . . . . . . . .  16
      6.2.  Informative references  . . . . . . . . . . . . . . . . .  17
    Appendix A.  Updated references . . . . . . . . . . . . . . . . .  19
-   Appendix B.  Acknowledgments  . . . . . . . . . . . . . . . . . .  19
+   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  19
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  20
 
 1.  Introduction
@@ -1050,7 +1050,7 @@ Appendix A.  Updated references
 
    All references to [RFC4282] are updated with [RFC7542].
 
-Appendix B.  Acknowledgments
+Acknowledgments
 
    The authors want to thank Alan DeKok, Ari Keraenen, Bernard Aboba,
    Eric Rescorla, Jari Arkko, Jim Schaad, Jouni Malinen, and Vesa
