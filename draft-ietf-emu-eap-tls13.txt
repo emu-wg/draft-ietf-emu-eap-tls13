@@ -5,8 +5,8 @@
 Network Working Group                                        J. Mattsson
 Internet-Draft                                                  M. Sethi
 Updates: 5216 (if approved)                                     Ericsson
-Intended status: Standards Track                        October 14, 2018
-Expires: April 17, 2019
+Intended status: Standards Track                        October 15, 2018
+Expires: April 18, 2019
 
 
                        Using EAP-TLS with TLS 1.3
@@ -35,7 +35,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on April 17, 2019.
+   This Internet-Draft will expire on April 18, 2019.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Mattsson & Sethi         Expires April 17, 2019                 [Page 1]
+Mattsson & Sethi         Expires April 18, 2019                 [Page 1]
 
 Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
@@ -88,9 +88,9 @@ Table of Contents
      5.7.  Pervasive Monitoring  . . . . . . . . . . . . . . . . . .  16
    6.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  16
      6.1.  Normative References  . . . . . . . . . . . . . . . . . .  16
-     6.2.  Informative references  . . . . . . . . . . . . . . . . .  17
+     6.2.  Informative references  . . . . . . . . . . . . . . . . .  18
    Appendix A.  Updated references . . . . . . . . . . . . . . . . .  19
-   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  19
+   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  20
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  20
 
 1.  Introduction
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Mattsson & Sethi         Expires April 17, 2019                 [Page 2]
+Mattsson & Sethi         Expires April 18, 2019                 [Page 2]
 
 Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
@@ -165,7 +165,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
 
 
-Mattsson & Sethi         Expires April 17, 2019                 [Page 3]
+Mattsson & Sethi         Expires April 18, 2019                 [Page 3]
 
 Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
@@ -221,7 +221,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
 
 
-Mattsson & Sethi         Expires April 17, 2019                 [Page 4]
+Mattsson & Sethi         Expires April 18, 2019                 [Page 4]
 
 Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
@@ -277,7 +277,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
 
 
-Mattsson & Sethi         Expires April 17, 2019                 [Page 5]
+Mattsson & Sethi         Expires April 18, 2019                 [Page 5]
 
 Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
@@ -333,7 +333,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
 
 
-Mattsson & Sethi         Expires April 17, 2019                 [Page 6]
+Mattsson & Sethi         Expires April 18, 2019                 [Page 6]
 
 Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
@@ -389,7 +389,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
 
 
-Mattsson & Sethi         Expires April 17, 2019                 [Page 7]
+Mattsson & Sethi         Expires April 18, 2019                 [Page 7]
 
 Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
@@ -445,7 +445,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
 
 
-Mattsson & Sethi         Expires April 17, 2019                 [Page 8]
+Mattsson & Sethi         Expires April 18, 2019                 [Page 8]
 
 Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
@@ -501,7 +501,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
 
 
-Mattsson & Sethi         Expires April 17, 2019                 [Page 9]
+Mattsson & Sethi         Expires April 18, 2019                 [Page 9]
 
 Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
@@ -557,7 +557,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
 
 
-Mattsson & Sethi         Expires April 17, 2019                [Page 10]
+Mattsson & Sethi         Expires April 18, 2019                [Page 10]
 
 Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
@@ -613,7 +613,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
 
 
-Mattsson & Sethi         Expires April 17, 2019                [Page 11]
+Mattsson & Sethi         Expires April 18, 2019                [Page 11]
 
 Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
@@ -669,7 +669,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
 
 
-Mattsson & Sethi         Expires April 17, 2019                [Page 12]
+Mattsson & Sethi         Expires April 18, 2019                [Page 12]
 
 Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
@@ -725,7 +725,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
 
 
-Mattsson & Sethi         Expires April 17, 2019                [Page 13]
+Mattsson & Sethi         Expires April 18, 2019                [Page 13]
 
 Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
@@ -781,7 +781,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
 
 
-Mattsson & Sethi         Expires April 17, 2019                [Page 14]
+Mattsson & Sethi         Expires April 18, 2019                [Page 14]
 
 Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
@@ -837,7 +837,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
 
 
-Mattsson & Sethi         Expires April 17, 2019                [Page 15]
+Mattsson & Sethi         Expires April 18, 2019                [Page 15]
 
 Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
@@ -855,14 +855,19 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2018
    aid an attacker in tracking or identifying the user.
 
    An EAP peer with a policy allowing communication with EAP servers
-   supporting only TLS 1.2 (or lower) without privacy and with the RSA
-   key exchange is vulnerable to bidding down attacks.  An attacker in
-   this case makes the EAP peer believe that the EAP server does not
-   support privacy.  The attacker simply impersonates the EAP server and
-   negotiate TLS 1.2 (or lower) with RSA key exchange and sends an TLS
-   alert message when the EAP peer sends an empty certificate message.
-   When using RSA key exchange, the EAP server does not provide proof-
-   of-possession of the private key until the Finished message.
+   supporting only TLS 1.2 (or lower) without privacy and with RSA key
+   exchange is vulnerable to disclosure of the peer username.  An
+   attacker in this case makes the EAP peer believe that the EAP server
+   does not support privacy.  The attacker would simply impersonate the
+   EAP server and negotiate TLS 1.2 (or lower) with RSA key exchange and
+   send an TLS alert message when the EAP peer tries to use privacy by
+   sending an empty certificate message.  Since an attacker
+   (impersonating the EAP server) does not provide a proof-of-possession
+   of the private key until the Finished message when RSA key exchange
+   is used, an EAP peer may inadvertently disclose its identity
+   (username) to an attacker.  Therefore, it is RECOMMENDED for EAP
+   peers to not use EAP-TLS with TLS 1.2 (or lower) and RSA based
+   ciphersuites without privacy.
 
 5.7.  Pervasive Monitoring
 
@@ -882,6 +887,17 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
 6.1.  Normative References
 
+
+
+
+
+
+
+Mattsson & Sethi         Expires April 18, 2019                [Page 16]
+
+Internet-Draft            EAP-TLS with TLS 1.3              October 2018
+
+
    [RFC3748]  Aboba, B., Blunk, L., Vollbrecht, J., Carlson, J., and H.
               Levkowetz, Ed., "Extensible Authentication Protocol
               (EAP)", RFC 3748, DOI 10.17487/RFC3748, June 2004,
@@ -890,13 +906,6 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2018
    [RFC5216]  Simon, D., Aboba, B., and R. Hurst, "The EAP-TLS
               Authentication Protocol", RFC 5216, DOI 10.17487/RFC5216,
               March 2008, <https://www.rfc-editor.org/info/rfc5216>.
-
-
-
-Mattsson & Sethi         Expires April 17, 2019                [Page 16]
-
-Internet-Draft            EAP-TLS with TLS 1.3              October 2018
-
 
    [RFC5280]  Cooper, D., Santesson, S., Farrell, S., Boeyen, S.,
               Housley, R., and W. Polk, "Internet X.509 Public Key
@@ -937,22 +946,19 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2018
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/info/rfc8174>.
 
+
+
+
+Mattsson & Sethi         Expires April 18, 2019                [Page 17]
+
+Internet-Draft            EAP-TLS with TLS 1.3              October 2018
+
+
    [RFC8446]  Rescorla, E., "The Transport Layer Security (TLS) Protocol
               Version 1.3", RFC 8446, DOI 10.17487/RFC8446, August 2018,
               <https://www.rfc-editor.org/info/rfc8446>.
 
 6.2.  Informative references
-
-
-
-
-
-
-
-Mattsson & Sethi         Expires April 17, 2019                [Page 17]
-
-Internet-Draft            EAP-TLS with TLS 1.3              October 2018
-
 
    [I-D.ietf-tls-certificate-compression]
               Ghedini, A. and V. Vasiliev, "TLS Certificate
@@ -993,6 +999,17 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2018
               DOI 10.17487/RFC3280, April 2002,
               <https://www.rfc-editor.org/info/rfc3280>.
 
+
+
+
+
+
+
+Mattsson & Sethi         Expires April 18, 2019                [Page 18]
+
+Internet-Draft            EAP-TLS with TLS 1.3              October 2018
+
+
    [RFC4282]  Aboba, B., Beadles, M., Arkko, J., and P. Eronen, "The
               Network Access Identifier", RFC 4282,
               DOI 10.17487/RFC4282, December 2005,
@@ -1002,13 +1019,6 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2018
               (TLS) Protocol Version 1.1", RFC 4346,
               DOI 10.17487/RFC4346, April 2006,
               <https://www.rfc-editor.org/info/rfc4346>.
-
-
-
-Mattsson & Sethi         Expires April 17, 2019                [Page 18]
-
-Internet-Draft            EAP-TLS with TLS 1.3              October 2018
-
 
    [RFC4366]  Blake-Wilson, S., Nystrom, M., Hopwood, D., Mikkelsen, J.,
               and T. Wright, "Transport Layer Security (TLS)
@@ -1048,6 +1058,14 @@ Appendix A.  Updated references
 
    All references to [RFC3280] are updated with [RFC5280].
 
+
+
+
+Mattsson & Sethi         Expires April 18, 2019                [Page 19]
+
+Internet-Draft            EAP-TLS with TLS 1.3              October 2018
+
+
    All references to [RFC4282] are updated with [RFC7542].
 
 Acknowledgments
@@ -1055,16 +1073,6 @@ Acknowledgments
    The authors want to thank Alan DeKok, Ari Keraenen, Bernard Aboba,
    Eric Rescorla, Jari Arkko, Jim Schaad, Jouni Malinen, and Vesa
    Torvinen for comments and suggestions on the draft.
-
-
-
-
-
-
-Mattsson & Sethi         Expires April 17, 2019                [Page 19]
-
-Internet-Draft            EAP-TLS with TLS 1.3              October 2018
-
 
 Authors' Addresses
 
@@ -1109,12 +1117,4 @@ Authors' Addresses
 
 
 
-
-
-
-
-
-
-
-
-Mattsson & Sethi         Expires April 17, 2019                [Page 20]
+Mattsson & Sethi         Expires April 18, 2019                [Page 20]
