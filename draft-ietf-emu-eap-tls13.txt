@@ -5,8 +5,8 @@
 Network Working Group                                        J. Mattsson
 Internet-Draft                                                  M. Sethi
 Updates: 5216 (if approved)                                     Ericsson
-Intended status: Standards Track                        October 15, 2018
-Expires: April 18, 2019
+Intended status: Standards Track                        October 17, 2018
+Expires: April 20, 2019
 
 
                        Using EAP-TLS with TLS 1.3
@@ -35,7 +35,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on April 18, 2019.
+   This Internet-Draft will expire on April 20, 2019.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Mattsson & Sethi         Expires April 18, 2019                 [Page 1]
+Mattsson & Sethi         Expires April 20, 2019                 [Page 1]
 
 Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Mattsson & Sethi         Expires April 18, 2019                 [Page 2]
+Mattsson & Sethi         Expires April 20, 2019                 [Page 2]
 
 Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
@@ -145,10 +145,13 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 1.1.  Requirements and Terminology
 
    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
-   document are to be interpreted as described in [RFC8174].  Readers
-   are expected to be familiar with the terms and concepts used in EAP-
-   TLS [RFC5216] and TLS 1.3 [RFC8446].
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED","MAY", and
+   "OPTIONAL" in this document are to be interpreted as described in BCP
+   14 [RFC2119] [RFC8174] when, and only when, they appear in all
+   capitals, as shown here.
+
+   Readers are expected to be familiar with the terms and concepts used
+   in EAP-TLS [RFC5216] and TLS 1.3 [RFC8446].
 
 2.  Protocol Overview
 
@@ -160,16 +163,15 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2018
    compared to earlier versions of TLS.  Therefore, much of Section 2.1
    of RFC5216 [RFC5216] does not apply for TLS 1.3 (or higher).
 
-   After receiving an EAP-Request packet with EAP-Type=EAP-TLS as
-   described in [RFC5216] the conversation will continue with the TLS
 
 
-
-Mattsson & Sethi         Expires April 18, 2019                 [Page 3]
+Mattsson & Sethi         Expires April 20, 2019                 [Page 3]
 
 Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
 
+   After receiving an EAP-Request packet with EAP-Type=EAP-TLS as
+   described in [RFC5216] the conversation will continue with the TLS
    handshake protocol encapsulated in the data fields of EAP-Response
    and EAP-Request packets.  When EAP-TLS is used with TLS version 1.3
    or higher, the formatting and processing of the TLS handshake SHALL
@@ -219,9 +221,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
 
 
-
-
-Mattsson & Sethi         Expires April 18, 2019                 [Page 4]
+Mattsson & Sethi         Expires April 20, 2019                 [Page 4]
 
 Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
@@ -277,7 +277,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
 
 
-Mattsson & Sethi         Expires April 18, 2019                 [Page 5]
+Mattsson & Sethi         Expires April 20, 2019                 [Page 5]
 
 Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
@@ -333,7 +333,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
 
 
-Mattsson & Sethi         Expires April 18, 2019                 [Page 6]
+Mattsson & Sethi         Expires April 20, 2019                 [Page 6]
 
 Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
@@ -389,7 +389,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
 
 
-Mattsson & Sethi         Expires April 18, 2019                 [Page 7]
+Mattsson & Sethi         Expires April 20, 2019                 [Page 7]
 
 Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
@@ -445,7 +445,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
 
 
-Mattsson & Sethi         Expires April 18, 2019                 [Page 8]
+Mattsson & Sethi         Expires April 20, 2019                 [Page 8]
 
 Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
@@ -501,7 +501,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
 
 
-Mattsson & Sethi         Expires April 18, 2019                 [Page 9]
+Mattsson & Sethi         Expires April 20, 2019                 [Page 9]
 
 Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
@@ -557,7 +557,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
 
 
-Mattsson & Sethi         Expires April 18, 2019                [Page 10]
+Mattsson & Sethi         Expires April 20, 2019                [Page 10]
 
 Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
@@ -613,7 +613,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
 
 
-Mattsson & Sethi         Expires April 18, 2019                [Page 11]
+Mattsson & Sethi         Expires April 20, 2019                [Page 11]
 
 Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
@@ -669,7 +669,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
 
 
-Mattsson & Sethi         Expires April 18, 2019                [Page 12]
+Mattsson & Sethi         Expires April 20, 2019                [Page 12]
 
 Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
@@ -725,7 +725,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
 
 
-Mattsson & Sethi         Expires April 18, 2019                [Page 13]
+Mattsson & Sethi         Expires April 20, 2019                [Page 13]
 
 Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
@@ -781,7 +781,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
 
 
-Mattsson & Sethi         Expires April 18, 2019                [Page 14]
+Mattsson & Sethi         Expires April 20, 2019                [Page 14]
 
 Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
@@ -837,7 +837,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
 
 
-Mattsson & Sethi         Expires April 18, 2019                [Page 15]
+Mattsson & Sethi         Expires April 20, 2019                [Page 15]
 
 Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
@@ -856,18 +856,18 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
    An EAP peer with a policy allowing communication with EAP servers
    supporting only TLS 1.2 (or lower) without privacy and with RSA key
-   exchange is vulnerable to disclosure of the peer username.  An
-   attacker in this case makes the EAP peer believe that the EAP server
-   does not support privacy.  The attacker would simply impersonate the
-   EAP server and negotiate TLS 1.2 (or lower) with RSA key exchange and
-   send an TLS alert message when the EAP peer tries to use privacy by
-   sending an empty certificate message.  Since an attacker
-   (impersonating the EAP server) does not provide a proof-of-possession
-   of the private key until the Finished message when RSA key exchange
-   is used, an EAP peer may inadvertently disclose its identity
-   (username) to an attacker.  Therefore, it is RECOMMENDED for EAP
-   peers to not use EAP-TLS with TLS 1.2 (or lower) and RSA based
-   ciphersuites without privacy.
+   exchange is vulnerable to disclosure of the peer username.  An active
+   attacker can in this case make the EAP peer believe that an EAP
+   server supporting TLS 1.3 does not support privacy.  The attacker can
+   simply impersonate the EAP server and negotiate TLS 1.2 (or
+   lower)with RSA key exchange and send an TLS alert message when the
+   EAP peer tries to use privacy by sending an empty certificate
+   message.  Since the attacker (impersonating the EAP server) does not
+   provide a proof-of-possession of the private key until the Finished
+   message when RSA key exchange is used, an EAP peer may inadvertently
+   disclose its identity (username) to an attacker.  Therefore, it is
+   RECOMMENDED for EAP peers to not use EAP-TLS with TLS 1.2 (or lower)
+   and RSA based ciphersuites without privacy.
 
 5.7.  Pervasive Monitoring
 
@@ -893,10 +893,15 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
 
 
-Mattsson & Sethi         Expires April 18, 2019                [Page 16]
+Mattsson & Sethi         Expires April 20, 2019                [Page 16]
 
 Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
+
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
+              <https://www.rfc-editor.org/info/rfc2119>.
 
    [RFC3748]  Aboba, B., Blunk, L., Vollbrecht, J., Carlson, J., and H.
               Levkowetz, Ed., "Extensible Authentication Protocol
@@ -942,17 +947,16 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2018
               RFC 8126, DOI 10.17487/RFC8126, June 2017,
               <https://www.rfc-editor.org/info/rfc8126>.
 
-   [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
-              2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
-              May 2017, <https://www.rfc-editor.org/info/rfc8174>.
 
 
-
-
-Mattsson & Sethi         Expires April 18, 2019                [Page 17]
+Mattsson & Sethi         Expires April 20, 2019                [Page 17]
 
 Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
+
+   [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
+              2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
+              May 2017, <https://www.rfc-editor.org/info/rfc8174>.
 
    [RFC8446]  Rescorla, E., "The Transport Layer Security (TLS) Protocol
               Version 1.3", RFC 8446, DOI 10.17487/RFC8446, August 2018,
@@ -1001,11 +1005,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
 
 
-
-
-
-
-Mattsson & Sethi         Expires April 18, 2019                [Page 18]
+Mattsson & Sethi         Expires April 20, 2019                [Page 18]
 
 Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
@@ -1061,7 +1061,7 @@ Appendix A.  Updated references
 
 
 
-Mattsson & Sethi         Expires April 18, 2019                [Page 19]
+Mattsson & Sethi         Expires April 20, 2019                [Page 19]
 
 Internet-Draft            EAP-TLS with TLS 1.3              October 2018
 
@@ -1117,4 +1117,4 @@ Authors' Addresses
 
 
 
-Mattsson & Sethi         Expires April 18, 2019                [Page 20]
+Mattsson & Sethi         Expires April 20, 2019                [Page 20]
