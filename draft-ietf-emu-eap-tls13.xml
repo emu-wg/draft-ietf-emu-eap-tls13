@@ -99,7 +99,7 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
                                                       EAP-Request/
                             <--------                    Identity
  EAP-Response/
- Identity (MyID)            -------->
+ Identity (Anonymous NAI)   -------->
                                                       EAP-Request/
                                                  EAP-Type=EAP-TLS
                             <--------                  (TLS Start)
@@ -133,7 +133,7 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
                                                       EAP-Request/
                             <--------                    Identity
  EAP-Response/
- Identity (MyID)            -------->
+ Identity (Anonymous NAI)   -------->
                                                       EAP-Request/
                                                  EAP-Type=EAP-TLS
                             <--------                  (TLS Start)
@@ -178,7 +178,7 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
                                                       EAP-Request/
                             <--------                    Identity
  EAP-Response/
- Identity (MyID)            -------->
+ Identity (Anonymous NAI)   -------->
                                                       EAP-Request/
                                                  EAP-Type=EAP-TLS
                             <--------                  (TLS Start)
@@ -221,7 +221,7 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
                                                       EAP-Request/
                             <--------                    Identity
  EAP-Response/
- Identity (MyID)            -------->
+ Identity (Anonymous NAI)   -------->
                                                       EAP-Request/
                                                  EAP-Type=EAP-TLS
                             <--------                  (TLS Start)
@@ -246,7 +246,7 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
                                                       EAP-Request/
                             <--------                    Identity
  EAP-Response/
- Identity (MyID)            -------->
+ Identity (Anonymous NAI)   -------->
                                                       EAP-Request/
                                                  EAP-Type=EAP-TLS
                             <--------                  (TLS Start)
@@ -277,7 +277,7 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
                                                       EAP-Request/
                             <--------                    Identity
  EAP-Response/
- Identity (MyID)            -------->
+ Identity (Anonymous NAI)   -------->
                                                       EAP-Request/
                                                  EAP-Type=EAP-TLS
                             <--------                  (TLS Start)
@@ -314,7 +314,7 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
                                                       EAP-Request/
                             <--------                    Identity
  EAP-Response/
- Identity (MyID)            -------->
+ Identity (Anonymous NAI)   -------->
                                                       EAP-Request/
                                                  EAP-Type=EAP-TLS
                             <--------                  (TLS Start)
@@ -350,7 +350,7 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
 		<section title="Privacy" anchor="privacy">
 			<t>TLS 1.3 significantly improves privacy when compared to earlier versions of TLS by forbidding cipher suites without confidentiality and encrypting large parts of the TLS handshake including the certificate messages.</t>
 
-			<t>EAP-TLS peer and server implementations supporting TLS 1.3 or higher MUST support anonymous NAIs (Network Access Identifiers) (Section 2.4 in <xref target="RFC7542"/>) and the client MUST confidentiality protect its identity (e.g. using Anonymous NAIs) when the EAP-TLS server is known to support TLS 1.3 or higher.</t>
+			<t>EAP-TLS peer and server implementations supporting TLS 1.3 or higher MUST support anonymous NAIs (Network Access Identifiers) (Section 2.4 in <xref target="RFC7542"/>) and a client supporting TLS 1.3 MUST always confidentiality protect its username. Confidentiality protection of usernames in EAP-TLS is typically done with anonymous NAIs, but other solutions where the username is encrypted MAY be used.</t>
 
 			<t>As the certificate messages in TLS 1.3 are encrypted, there is no need to send an empty certificate_list or perform a second handshake (as needed by EAP-TLS with earlier versions of TLS). When EAP-TLS is used with TLS version 1.3 or higher the EAP-TLS peer and EAP-TLS server SHALL follow the processing specified by the used version of TLS. For TLS 1.3 this means that the EAP-TLS peer only sends an empty certificate_list if it does not have an appropriate certificate to send, and the EAP-TLS server MAY treat an empty certificate_list as a terminal condition.</t>
 
