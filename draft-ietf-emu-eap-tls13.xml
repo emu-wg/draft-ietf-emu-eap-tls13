@@ -211,6 +211,8 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
 			</list>
 			</t>
 
+			<t>Figures <xref target="figterm1" format="counter"/>,  <xref target="figterm2" format="counter"/>,  <xref target="figterm3" format="counter"/>, and <xref target="figterm4" format="counter"/> illustrate messages flows in several cases where the EAP peer or EAP server sends a TLS fatal alert message. Note that TLS warning alerts generally mean that the connection can continue normally, but that the party receiving a TLS warning alert may chose to terminate the connection by sending a TLS fatal alert, see <xref target="RFC8446"/>.</t>
+			
 			<t>In the case where the server rejects the ClientHello, the conversation will appear as shown in <xref target="figterm1"/>.</t>
 
 <figure anchor="figterm1" title="EAP-TLS server rejection of ClientHello" align="center"><artwork><![CDATA[
@@ -228,7 +230,7 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
 (TLS ClientHello)           -------->
                                                       EAP-Request/
                                                  EAP-Type=EAP-TLS
-                            <--------          (TLS Alert Message)
+                            <--------            (TLS Fatal Alert)
  EAP-Response/
  EAP-Type=EAP-TLS           -------->
                             <--------                 EAP-Failure
@@ -262,7 +264,7 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
                             <--------            TLS empty record)
  EAP-Response/
  EAP-Type=EAP-TLS
-(TLS Alert Message)
+(TLS Fatal Alert)
                             -------->
                             <--------                 EAP-Failure
 ]]></artwork></figure>
@@ -298,12 +300,51 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
  TLS Finished)              -------->
                                                       EAP-Request/
                                                  EAP-Type=EAP-TLS
-                            <--------          (TLS Alert Message)
+                            <--------            (TLS Fatal Alert)
  EAP-Response/
  EAP-Type=EAP-TLS           -------->
                             <--------                 EAP-Failure
 ]]></artwork></figure>
 
+			<t>In the case where the client rejects a  NewSessionTicket, the conversation will appear as shown in <xref target="figterm4"/>.</t>
+
+<figure anchor="figterm4" title="EAP-TLS client rejection of NewSessionTicket" align="center"><artwork><![CDATA[
+ EAP Peer                                              EAP Server
+
+                                                      EAP-Request/
+                            <--------                    Identity
+ EAP-Response/
+ Identity (MyID)            -------->
+                                                      EAP-Request/
+                                                 EAP-Type=EAP-TLS
+                            <--------                  (TLS Start)
+ EAP-Response/
+ EAP-Type=EAP-TLS
+(TLS ClientHello)           -------->
+                                                      EAP-Request/
+                                                 EAP-Type=EAP-TLS
+                                                 (TLS ServerHello,
+                                          TLS EncryptedExtensions,
+                                           TLS CertificateRequest,
+                                                  TLS Certificate,
+                                            TLS CertificateVerify,
+                            <--------                TLS Finished)
+ EAP-Response/
+ EAP-Type=EAP-TLS
+(TLS Certificate,
+ TLS CertificateVerify,
+ TLS Finished)              -------->
+                                                      EAP-Request/
+                                                 EAP-Type=EAP-TLS
+                                            (TLS NewSessionTicket,
+                            <--------            TLS empty record)
+ EAP-Response/
+ EAP-Type=EAP-TLS
+(TLS Fatal Alert)
+                            -------->
+                            <--------                 EAP-Failure
+]]></artwork></figure>
+			
 		</section>
 
 		<section title="Privacy" anchor="privacy">
