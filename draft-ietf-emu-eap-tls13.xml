@@ -350,8 +350,8 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
 		<section title="Privacy" anchor="privacy">
 			<t>TLS 1.3 significantly improves privacy when compared to earlier versions of TLS by forbidding cipher suites without confidentiality and encrypting large parts of the TLS handshake including the certificate messages.</t>
 
-			<t>EAP-TLS peer and server implementations supporting TLS 1.3 or higher MUST support anonymous NAIs (Network Access Identifiers) (Section 2.4 in <xref target="RFC7542"/>) and a client supporting TLS 1.3 MUST always confidentiality protect its username. Confidentiality protection of usernames in EAP-TLS is typically done with anonymous NAIs, but other solutions where the username is encrypted MAY be used.</t>
-
+			<t>EAP-TLS peer and server implementations supporting TLS 1.3 or higher MUST support anonymous NAIs (Network Access Identifiers) (Section 2.4 in <xref target="RFC7542"/>) and a client supporting TLS 1.3 MUST NOT send its username in cleartext. It is RECOMMENDED to use anonymous NAIs, but other solutions where the username is encrypted MAY be used.</t>
+				
 			<t>As the certificate messages in TLS 1.3 are encrypted, there is no need to send an empty certificate_list or perform a second handshake (as needed by EAP-TLS with earlier versions of TLS). When EAP-TLS is used with TLS version 1.3 or higher the EAP-TLS peer and EAP-TLS server SHALL follow the processing specified by the used version of TLS. For TLS 1.3 this means that the EAP-TLS peer only sends an empty certificate_list if it does not have an appropriate certificate to send, and the EAP-TLS server MAY treat an empty certificate_list as a terminal condition.</t>
 
 			<t>EAP-TLS with TLS 1.3 is always used with privacy, this does not add any extra round-trips and the message flow with privacy is just the normal message flow as shown in <xref target="figbase1"/>.</t>
@@ -436,7 +436,7 @@ Session-Id   = 0x0D || Method-Id
 
 		<t>Using EAP-TLS with TLS 1.3 does not change the security claims for EAP-TLS as given in Section 4.1 of <xref target="RFC5216"/>. However, it strengthens several of the claims as described in the following updates to the notes given in Section 4.1 of <xref target="RFC5216"/>.</t>
 
-		<t>[2] Confidentiality: The TLS 1.3 handshake offers much better confidentiality than earlier versions of TLS by mandating cipher suites with confidentiality and encrypting certificates and some of the extensions, see <xref target="RFC8446"/>. When using EAP-TLS with TLS 1.3, the use of privacy does not cause any additional round-trips.</t>
+		<t>[2] Confidentiality: The TLS 1.3 handshake offers much better confidentiality than earlier versions of TLS by mandating cipher suites with confidentiality and encrypting certificates and some of the extensions, see <xref target="RFC8446"/>. When using EAP-TLS with TLS 1.3, the use of privacy is mandatory and does not cause any additional round-trips.</t>
 
 		<t>[3] Key strength: TLS 1.3 forbids all algorithms with known weaknesses including 3DES, CBC mode, RC4, SHA-1, and MD5. TLS 1.3 only supports cryptographic algorithms offering at least 112-bit security, see <xref target="RFC8446"/>.</t>
 
