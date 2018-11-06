@@ -48,7 +48,7 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
 
 <abstract>
 	<t>
-	This document specifies the use of EAP-TLS with TLS 1.3 while remaining backwards compatible with existing implementations of EAP-TLS. TLS 1.3 provides significantly improved security, privacy, and reduced latency when compared to earlier versions of TLS. EAP-TLS with TLS 1.3 provides significantly improved protection against pervasive monitoring by mandating support and use of privacy. This document updates RFC 5216.
+	This document specifies the use of EAP-TLS with TLS 1.3 while remaining backwards compatible with existing implementations of EAP-TLS. TLS 1.3 provides significantly improved security, privacy, and reduced latency when compared to earlier versions of TLS. EAP-TLS with TLS 1.3 provides significantly improved protection against pervasive monitoring by mandating use of privacy. This document updates RFC 5216.
 	</t>
 </abstract>
 
@@ -487,7 +487,7 @@ Session-Id   = 0x0D || Method-Id
 
 		<t>As required by <xref target="RFC7258"/>, work on IETF protocols needs to consider the effects of pervasive monitoring and mitigate them when possible.</t>
 
-		<t>Pervasive Monitoring is widespread surveillance of users. By encrypting more information, TLS 1.3 offers much better protection against pervasive monitoring. In addition to the privacy attacks discussed above, surveillance on a large scale may enable tracking of a user over a wider geographical area and across different access networks. Using information from EAP-TLS together with information gathered from other protocols increases the risk of identifying individual users.</t>
+		<t>Pervasive Monitoring is widespread surveillance of users. By encrypting more information and by mandating the use of privacy, TLS 1.3 offers much better protection against pervasive monitoring. In addition to the privacy attacks discussed above, surveillance on a large scale may enable tracking of a user over a wider geographical area and across different access networks. Using information from EAP-TLS together with information gathered from other protocols increases the risk of identifying individual users.</t>
 	</section>
 	
 </section>
