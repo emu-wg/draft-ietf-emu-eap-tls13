@@ -317,7 +317,7 @@ ul.toc li {
 
   <meta name="dct.creator" content="Mattsson, J. and M. Sethi" />
   <meta name="dct.identifier" content="urn:ietf:id:draft-ietf-emu-eap-tls13-latest" />
-  <meta name="dct.issued" scheme="ISO8601" content="2018-09" />
+  <meta name="dct.issued" scheme="ISO8601" content="2018-10" />
   <meta name="dct.abstract" content="This document specifies the use of EAP-TLS with TLS 1.3 while remaining backwards compatible with existing implementations of EAP-TLS. TLS 1.3 provides significantly improved security, privacy, and reduced latency when compared to earlier versions of TLS. EAP-TLS with TLS 1.3 provides significantly improved protection against pervasive monitoring by mandating use of privacy. This document updates RFC 5216.  " />
   <meta name="description" content="This document specifies the use of EAP-TLS with TLS 1.3 while remaining backwards compatible with existing implementations of EAP-TLS. TLS 1.3 provides significantly improved security, privacy, and reduced latency when compared to earlier versions of TLS. EAP-TLS with TLS 1.3 provides significantly improved protection against pervasive monitoring by mandating use of privacy. This document updates RFC 5216.  " />
 
@@ -342,10 +342,10 @@ ul.toc li {
 </tr>
 <tr>
 <td class="left">Intended status: Standards Track</td>
-<td class="right">November 9, 2018</td>
+<td class="right">November 10, 2018</td>
 </tr>
 <tr>
-<td class="left">Expires: May 13, 2019</td>
+<td class="left">Expires: May 14, 2019</td>
 <td class="right"></td>
 </tr>
 
@@ -362,7 +362,7 @@ ul.toc li {
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on May 13, 2019.</p>
+<p>This Internet-Draft will expire on May 14, 2019.</p>
 <h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
 <p>Copyright (c) 2018 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
 <p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
@@ -565,12 +565,12 @@ ul.toc li {
 <p id="rfc.section.2.1.3.p.1">TLS 1.3 changes both the message flow and the handshake messages compared to earlier versions of TLS. Therefore, some normative text in Section 2.1.3 of RFC 5216 <a href="#RFC5216" class="xref">[RFC5216]</a> does not apply for TLS 1.3 or higher. The two paragraphs below replaces the corresponding paragraphs in Section 2.1.3 of RFC 5216 <a href="#RFC5216" class="xref">[RFC5216]</a> when EAP-TLS is used with TLS 1.3 or higher. The other paragraphs in Section 2.1.3 of RFC 5216 <a href="#RFC5216" class="xref">[RFC5216]</a> still apply with the exception that SessionID is deprecated.  </p>
 
 <ul class="empty">
-<li>If the EAP server authenticates successfully the EAP peer MUST send an EAP-Response message with EAP-Type=EAP-TLS containing TLS records conforming to the processing in the version of TLS used.</li>
-<li>If the EAP peer authenticates successfully the EAP server MUST send an EAP-Request packet with EAP-Type=EAP-TLS containing TLS records conforming to the processing in the version of TLS used. The message flow ends with the EAP server sending an EAP-Success message.</li>
+<li>If the EAP server authenticates successfully, the EAP peer MUST send an EAP-Response message with EAP-Type=EAP-TLS containing TLS records conforming to the version of TLS used.</li>
+<li>If the EAP peer authenticates successfully, the EAP server MUST send an EAP-Request packet with EAP-Type=EAP-TLS containing TLS records conforming to the version of TLS used. The message flow ends with the EAP server sending an EAP-Success message.</li>
 </ul>
 
 <p> </p>
-<p id="rfc.section.2.1.3.p.2">Figures <a href="#figterm1" class="xref">4</a>,  <a href="#figterm2" class="xref">5</a>,  <a href="#figterm3" class="xref">6</a>, and <a href="#figterm4" class="xref">7</a> illustrate messages flows in several cases where the EAP peer or EAP server sends a TLS fatal alert message. TLS warning alerts generally mean that the connection can continue normally and does not change the message flow. Note that the party receiving a TLS warning alert may choose to terminate the connection by sending a TLS fatal alert, which may add an extra round-trip, see <a href="#RFC8446" class="xref">[RFC8446]</a>. </p>
+<p id="rfc.section.2.1.3.p.2">Figures <a href="#figterm1" class="xref">4</a>,  <a href="#figterm2" class="xref">5</a>,  <a href="#figterm3" class="xref">6</a>, and <a href="#figterm4" class="xref">7</a> illustrate message flows in several cases where the EAP peer or EAP server sends a TLS fatal alert message. TLS warning alerts generally mean that the connection can continue normally and does not change the message flow. Note that the party receiving a TLS warning alert may choose to terminate the connection by sending a TLS fatal alert, which may add an extra round-trip, see <a href="#RFC8446" class="xref">[RFC8446]</a>. </p>
 <p id="rfc.section.2.1.3.p.3">In the case where the server rejects the ClientHello, the conversation will appear as shown in <a href="#figterm1" class="xref">Figure 4</a>.</p>
 <div id="rfc.figure.4"></div>
 <div id="figterm1"></div>
@@ -711,7 +711,7 @@ ul.toc li {
 <p id="rfc.section.2.1.4.p.1">TLS 1.3 significantly improves privacy when compared to earlier versions of TLS by forbidding cipher suites without confidentiality and encrypting large parts of the TLS handshake including the certificate messages.</p>
 <p id="rfc.section.2.1.4.p.2">EAP-TLS peer and server implementations supporting TLS 1.3 or higher MUST support anonymous NAIs (Network Access Identifiers) (Section 2.4 in <a href="#RFC7542" class="xref">[RFC7542]</a>) and a client supporting TLS 1.3 MUST NOT send its username in cleartext in the Identity Response. It is RECOMMENDED to use anonymous NAIs, but other solutions where the username is encrypted MAY be used.</p>
 <p id="rfc.section.2.1.4.p.3">As the certificate messages in TLS 1.3 are encrypted, there is no need to send an empty certificate_list or perform a second handshake (as needed by EAP-TLS with earlier versions of TLS). When EAP-TLS is used with TLS version 1.3 or higher the EAP-TLS peer and EAP-TLS server SHALL follow the processing specified by the used version of TLS. For TLS 1.3 this means that the EAP-TLS peer only sends an empty certificate_list if it does not have an appropriate certificate to send, and the EAP-TLS server MAY treat an empty certificate_list as a terminal condition.</p>
-<p id="rfc.section.2.1.4.p.4">EAP-TLS with TLS 1.3 is always used with privacy, this does not add any extra round-trips and the message flow with privacy is just the normal message flow as shown in <a href="#figbase1" class="xref">Figure 1</a>.</p>
+<p id="rfc.section.2.1.4.p.4">EAP-TLS with TLS 1.3 is always used with privacy since this does not add any extra round-trips and the message flow with privacy is just the normal message flow as shown in <a href="#figbase1" class="xref">Figure 1</a>.</p>
 <h1 id="rfc.section.2.1.5">
 <a href="#rfc.section.2.1.5">2.1.5.</a> Fragmentation</h1>
 <p id="rfc.section.2.1.5.p.1">Including ContentType and ProtocolVersion a single TLS record may be up to 16387 octets in length. Some EAP implementations and access networks may limit the number of EAP packet exchanges that can be handled. To avoid fragmentation, it is RECOMMENDED to keep the sizes of client, server, and trust anchor certificates small and the length of the certificate chains short. In addition, it is RECOMMENDED to use mechanisms that reduce the sizes of Certificate messages.</p>
