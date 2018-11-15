@@ -65,7 +65,7 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
 
 	<t>This document defines how to use EAP-TLS with TLS 1.3 (or higher) and does not change how EAP-TLS is used with older versions of TLS. While this document updates EAP-TLS <xref target="RFC5216"/>, it remains backwards compatible with it and existing implementations of EAP-TLS. This document only describes differences compared to <xref target="RFC5216"/>.</t>
 
-	<t>In addition to the improved security and privacy offered by TLS 1.3, there are other significant benefits of using EAP-TLS with TLS 1.3. Privacy is achieved without any additional round-trips, and TLS 1.3 introduces more possibilities to reduce fragmentation when compared to earlier versions of TLS.</t>
+	<t>In addition to the improved security and privacy offered by TLS 1.3, there are other significant benefits of using EAP-TLS with TLS 1.3. Privacy is mandatory and achieved without any additional round-trips, revocation checking is mandatory and easy with OCSP stapling, and TLS 1.3 introduces more possibilities to reduce fragmentation when compared to earlier versions of TLS.</t>
 
 	<section title='Requirements and Terminology'>
 
@@ -438,6 +438,8 @@ Session-Id   = 0x0D || Method-Id
 
 		<t>Using EAP-TLS with TLS 1.3 does not change the security claims for EAP-TLS as given in Section 4.1 of <xref target="RFC5216"/>. However, it strengthens several of the claims as described in the following updates to the notes given in Section 4.1 of <xref target="RFC5216"/>.</t>
 
+		<t>[1] Mutual authentication: By mandating revocation checking of certificates, the authentication in EAP-TLS with TLS 1.3 is stronger as authentication with revoked certificates will always fail.</t>
+					
 		<t>[2] Confidentiality: The TLS 1.3 handshake offers much better confidentiality than earlier versions of TLS by mandating cipher suites with confidentiality and encrypting certificates and some of the extensions, see <xref target="RFC8446"/>. When using EAP-TLS with TLS 1.3, the use of privacy is mandatory and does not cause any additional round-trips.</t>
 
 		<t>[3] Key strength: TLS 1.3 forbids all algorithms with known weaknesses including 3DES, CBC mode, RC4, SHA-1, and MD5. TLS 1.3 only supports cryptographic algorithms offering at least 112-bit security, see <xref target="RFC8446"/>.</t>
@@ -461,7 +463,7 @@ Session-Id   = 0x0D || Method-Id
 		
 		<t>The OCSP status handling in TLS 1.3 is different from earlier versions of TLS, see Section 4.4.2.1 of <xref target="RFC8446"/>. In TLS 1.3 the OCSP information is carried in the CertificateEntry containing the associated certificate instead of a separate CertificateStatus message as in <xref target="RFC4366"/>. This enables sending OCSP information for all certificates in the certificate chain.</t>
 
-		<t>EAP-TLS peers and servers supporting TLS 1.3 SHOULD support Certificate Status Requests (OCSP stapling) as specified in <xref target="RFC6066"/> and Section 4.4.2.1 of <xref target="RFC8446"/>. The use of Certificate Status Requests to determine the current status of the EAP server's certificate is RECOMMENDED.</t>
+		<t>EAP-TLS peers and servers supporting TLS 1.3 MUST support Certificate Status Requests (OCSP stapling) as specified in <xref target="RFC6066"/> and Section 4.4.2.1 of <xref target="RFC8466"/>.  When EAP-TLS is used with TLS 1.3, the peer and server MUST use Certificate Status Requests <xref target="RFC6066"/> and the EAP peer MUST treat a CertificateEntry (except the trust anchor) without a CertificateStatus extension as invalid.</t>
 
 	</section>
 
