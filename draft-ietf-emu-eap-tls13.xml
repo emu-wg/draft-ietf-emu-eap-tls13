@@ -461,9 +461,9 @@ Session-Id   = 0x0D || Method-Id
 
 	<section title="Certificate Revocation">
 		
-		<t>The OCSP status handling in TLS 1.3 is different from earlier versions of TLS, see Section 4.4.2.1 of <xref target="RFC8466"/>. In TLS 1.3 the OCSP information is carried in the CertificateEntry containing the associated certificate instead of a separate CertificateStatus message as in <xref target="RFC4366"/>. This enables sending OCSP information for all certificates in the certificate chain.</t>
+		<t>The OCSP status handling in TLS 1.3 is different from earlier versions of TLS, see Section 4.4.2.1 of <xref target="RFC8446"/>. In TLS 1.3 the OCSP information is carried in the CertificateEntry containing the associated certificate instead of a separate CertificateStatus message as in <xref target="RFC4366"/>. This enables sending OCSP information for all certificates in the certificate chain.</t>
 
-		<t>EAP-TLS peers and servers supporting TLS 1.3 MUST support Certificate Status Requests (OCSP stapling) as specified in <xref target="RFC6066"/> and Section 4.4.2.1 of <xref target="RFC8466"/>.  When EAP-TLS is used with TLS 1.3, the peer and server MUST use Certificate Status Requests <xref target="RFC6066"/> and the EAP peer MUST treat a CertificateEntry (except the trust anchor) without a CertificateStatus extension as invalid.</t>
+		<t>EAP-TLS peers and servers supporting TLS 1.3 MUST support Certificate Status Requests (OCSP stapling) as specified in <xref target="RFC6066"/> and Section 4.4.2.1 of <xref target="RFC8446"/>.  When EAP-TLS is used with TLS 1.3, the peer and server MUST use Certificate Status Requests <xref target="RFC6066"/> and the EAP peer MUST treat a CertificateEntry (except the trust anchor) without a CertificateStatus extension as invalid.</t>
 
 	</section>
 
