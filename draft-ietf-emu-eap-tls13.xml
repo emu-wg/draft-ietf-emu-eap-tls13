@@ -162,6 +162,35 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
                               <--------               EAP-Success
 ]]></artwork></figure>
 
+<t>In the case where EAP-TLS is used without peer authentication (e.g., emergency services, as described in <xref target="RFC7406"/>) the conversation will appear as shown in <xref target="figbase3"/>.</t>
+
+<figure anchor="figbase3" title="EAP-TLS without peer authentication" align="center"><artwork><![CDATA[
+ EAP Peer                                              EAP Server
+
+                                                      EAP-Request/
+                              <--------                  Identity
+ EAP-Response/
+ Identity (Privacy-Friendly)  -------->
+                                                      EAP-Request/
+                                                 EAP-Type=EAP-TLS
+                              <--------                (TLS Start)
+ EAP-Response/
+ EAP-Type=EAP-TLS
+(TLS ClientHello)             -------->
+                                                      EAP-Request/
+                                                 EAP-Type=EAP-TLS
+                                                 (TLS ServerHello,
+                                          TLS EncryptedExtensions,
+                                                  TLS Certificate,
+                                            TLS CertificateVerify,
+                                                     TLS Finished,
+                              <--------          TLS empty record)
+ EAP-Response/
+ EAP-Type=EAP-TLS
+(TLS Finished)                -------->
+                              <--------               EAP-Success
+]]></artwork></figure>
+			
 		</section>
 
 
@@ -568,6 +597,7 @@ Session-Id   = 0x0D || Method-Id
 	<?rfc include='reference.RFC.5246'?>
 	<?rfc include='reference.RFC.5247'?>
 	<?rfc include='reference.RFC.6973'?>
+	<?rfc include='reference.RFC.7406'?>
 	<?rfc include='reference.RFC.7258'?>
    <?rfc include='reference.I-D.ietf-tls-certificate-compression'?>
 </references>
