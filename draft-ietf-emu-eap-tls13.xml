@@ -523,9 +523,14 @@ Session-Id   = 0x0D || Method-Id
 		<t>As required by <xref target="RFC7258"/>, work on IETF protocols needs to consider the effects of pervasive monitoring and mitigate them when possible.</t>
 
 		<t>Pervasive Monitoring is widespread surveillance of users. By encrypting more information and by mandating the use of privacy, TLS 1.3 offers much better protection against pervasive monitoring. In addition to the privacy attacks discussed above, surveillance on a large scale may enable tracking of a user over a wider geographical area and across different access networks. Using information from EAP-TLS together with information gathered from other protocols increases the risk of identifying individual users.</t>
+	
 	</section>
 	
-</section>
+	<section title="Discovered Vulnerabilities">
+
+		<t>Over the years, there have been several serious attacks on earlier versions of Transport Layer Security (TLS), including attacks on its most commonly used ciphers and modes of operation. <xref target="RFC7457"/> summarizes the attacks that were known at the time of publishing and <xref target="RFC7525"/> provides recommendations for improving the security of deployed services that use TLS. However, many of the attacks are less serious for EAP-TLS as EAP-TLS only uses the TLS handshake and does not protect any application data. EAP-TLS implementations SHOULD mitigate known attacks and follow the recommendations in <xref target="RFC7525"/>. The use of TLS 1.3 mitigates most of the known attacks.</t>
+
+	</section>
 
  </middle>
 
@@ -597,6 +602,8 @@ Session-Id   = 0x0D || Method-Id
 	<?rfc include='reference.RFC.6973'?>
 	<?rfc include='reference.RFC.7406'?>
 	<?rfc include='reference.RFC.7258'?>
+	<?rfc include='reference.RFC.7457'?>
+	<?rfc include='reference.RFC.7525'?>	
    <?rfc include='reference.I-D.ietf-tls-certificate-compression'?>
 </references>
 
