@@ -532,9 +532,11 @@ Session-Id   = 0x0D || Method-Id
 
 	</section>
 
- </middle>
+</section>
 
- <back>
+</middle>
+
+<back>
 
 <references title='Normative References'>
 	<?rfc include='reference.RFC.2119'?>
