@@ -415,8 +415,10 @@ IV           = TLS-Exporter("EXPORTER_EAP_TLS_IV", "", 64)
 Method-Id    = TLS-Exporter("EXPORTER_EAP_TLS_Method-Id", "", 64)
 Session-Id   = 0x0D || Method-Id
 ]]></artwork></figure>
+			
+		Note that the key derivation MUST use the length values given above.  Where in TLS 1.2 and earlier it was possible to truncate the output by requesting less data from the TLS-Exporter function, this practice is not possible with TLS 1.3.  If an implementation intends to use only part of the output of the TLS-Exporter function, then it MUST ask for the full output, and then only use part of that output.  Failure to do so will result in incorrect values being calculated for the above keying material.</t>
 
-		By using the TLS exporter, EAP-TLS can use any TLS 1.3 implementation without having to extract the Master Secret, ClientHello.random, and ServerHello.random in a non-standard way.</t>
+		<t>By using the TLS exporter, EAP-TLS can use any TLS 1.3 implementation without having to extract the Master Secret, ClientHello.random, and ServerHello.random in a non-standard way.</t>
 
 		<t>All other parameters such as MSK and EMSK are derived as specified in EAP-TLS <xref target="RFC5216"/>, Section 2.3. The use of these keys is specific to the lower layer, as described <xref target="RFC5247"/>.</t>
 
