@@ -529,6 +529,20 @@ SEND-IV      = IV(32, 63)
 
 	</section>
 	
+	<section title="Authorization">
+
+		<t>EAP-TLS may be encapsulated in other protocols, such as PPP <xref target="RFC1661"/>, RADIUS <xref target="RFC2865"/>, Diameter <xref target="RFC6733"/>, or PANA <xref target="RFC5191"/>.  Systems implementing those protocols can make policy decisions and enforce authorization based on information from the EAP-TLS exchange.</t>
+		
+		<t>As noted in Section 2.2, the identity presented in EAP-Response/Identity is unauthenticated and trivial for an attacker to forge, modify, or replay. Authorization MUST NOT be based on unauthenticated information. Authorization MUST be based on authenticated information such as information in the certificate or the PSK identity and cached information provisioned for resumption as described in Section 5.10.</t>
+
+	</section>
+
+	<section title="Resumption">
+
+		<t>TODO</t>
+		
+	</section>
+
 	<section title="Privacy Considerations">
 		
 		<t><xref target="RFC6973"/> suggests that the privacy considerations of IETF protocols be documented.</t>
@@ -556,14 +570,6 @@ SEND-IV      = IV(32, 63)
 	<section title="Discovered Vulnerabilities">
 
 		<t>Over the years, there have been several serious attacks on earlier versions of Transport Layer Security (TLS), including attacks on its most commonly used ciphers and modes of operation. <xref target="RFC7457"/> summarizes the attacks that were known at the time of publishing and <xref target="RFC7525"/> provides recommendations for improving the security of deployed services that use TLS. However, many of the attacks are less serious for EAP-TLS as EAP-TLS only uses the TLS handshake and does not protect any application data. EAP-TLS implementations SHOULD mitigate known attacks and follow the recommendations in <xref target="RFC7525"/>. The use of TLS 1.3 mitigates most of the known attacks.</t>
-
-	</section>
-
-	<section title="Authorization">
-
-		<t>EAP-TLS may be encapsulated in other protocols, such as PPP <xref target="RFC1661"/>, RADIUS <xref target="RFC2865"/>, Diameter <xref target="RFC6733"/>, or PANA <xref target="RFC5191"/>.  Systems implementing those protocols can make policy decisions and enforce authorization based on information from the EAP-TLS exchange.</t>
-		
-		<t>As noted in Section 2.2, the identity presented in EAP-Response/Identity is unauthenticated and trivial for an attacker to forge, modify, or replay. Authorization MUST NOT be based on unauthenticated information. Authorization MUST be based on authenticated information such as information in the certificate or the PSK identity provisioned for resumption as described in Section 5.10. </t>
 
 	</section>
 
