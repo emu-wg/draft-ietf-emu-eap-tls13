@@ -531,13 +531,15 @@ SEND-IV      = IV(32, 63)
 	
 	<section title="Authorization">
 
-		<t>EAP-TLS may be encapsulated in other protocols, such as PPP <xref target="RFC1661"/>, RADIUS <xref target="RFC2865"/>, Diameter <xref target="RFC6733"/>, or PANA <xref target="RFC5191"/>.  Systems implementing those protocols can make policy decisions and enforce authorization based on information from the EAP-TLS exchange.</t>
+		<t>EAP-TLS may be encapsulated in other protocols, such as PPP <xref target="RFC1661"/>, RADIUS <xref target="RFC2865"/>, Diameter <xref target="RFC6733"/>, or PANA <xref target="RFC5191"/>. Systems implementing those protocols interact with EAP-TLS and can make policy decisions and enforce authorization based on information from the EAP-TLS exchange.</t>
 		
-		<t>As noted in Section 2.2, the identity presented in EAP-Response/Identity is unauthenticated and trivial for an attacker to forge, modify, or replay. Authorization MUST NOT be based on unauthenticated information. Authorization MUST be based on authenticated information such as information in the certificate or the PSK identity and cached information provisioned for resumption as described in Section 5.10.</t>
+		<t>As noted in Section 2.2, the identity presented in EAP-Response/Identity is unauthenticated and trivial for an attacker to forge, modify, or replay. Authorization MUST NOT be based on unauthenticated information. Authorization MUST be based on authenticated information such as information in the certificate or the PSK identity and cached information provisioned for resumption as described in <xref target="secres"/>.</t>
+		
+		<t>Note that the requirements for Network Access Identifiers (NAIs) specified in Section 4 of <xref target="RFC7542"/> still apply and MUST be followed.</t>
 
 	</section>
 
-	<section title="Resumption">
+	<section title="Resumption" anchor="secres">
 
 		<t>TODO</t>
 		
