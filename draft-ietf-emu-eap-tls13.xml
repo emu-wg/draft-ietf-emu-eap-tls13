@@ -535,7 +535,7 @@ SEND-IV      = IV(32, 63)
 
 		<t>As noted in Section 2.2, the identity presented in EAP-Response/Identity is not authenticated by EAP-TLS and therefore trivial for an attacker to forge, modify, or replay. Authorization and accounting MUST be based on authenticated information such as information in the certificate or the PSK identity and cached information provisioned for resumption as described in <xref target="secres"/>. Note that the requirements for Network Access Identifiers (NAIs) specified in Section 4 of <xref target="RFC7542"/> still apply and MUST be followed. </t>
 
-		<t>Policy decisions are often based on a mixture of information from TLS, EAP, and encapsulating protocols. EAP servers MAY reject conversations based on unauthenticated information such as an unknown MAC addresses or a identity provided in in EAP-Response/Identity that do not match a certain policy.</t>
+		<t>Policy decisions are often based on a mixture of information from TLS, EAP, and encapsulating protocols. EAP servers MAY reject conversations based on unauthenticated information such as an unknown MAC address or an identity provided in in EAP-Response/Identity that do not match a certain policy.</t>
 
 	</section>
 
