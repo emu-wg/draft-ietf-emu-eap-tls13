@@ -405,7 +405,7 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
 
 	<section title='Identity Verification'>
 
-		<t>The identity presented in the EAP-Response/Identity is unauthenticated information, and SHALL NOT be used for accounting purposes or to give authorization. The authenticator and the EAP server MAY examine the identity presented in EAP-Response/Identity for purposes such as routing and EAP method selection. They MAY reject conversations if the identity does not match their policy. Note that this also applies to resumption, see <xref target="resumption"/> and <xref target="seccon"/>.</t>
+		<t>The identity presented in the EAP-Response/Identity is not authenticated by EAP-TLS. Unauthenticated information SHALL NOT be used for accounting purposes or to give authorization.  The authenticator and the EAP server MAY examine the identity presented in EAP-Response/Identity for purposes such as routing and EAP method selection.  They MAY reject conversations if the identity does not match their policy. Note that this also applies to resumption, see <xref target="resumption"/>, <xref target="secauth"/>, and <xref target="secres"/>.</t>
 
 	</section>
 
@@ -529,7 +529,7 @@ SEND-IV      = IV(32, 63)
 
 	</section>
 	
-	<section title="Authorization">
+	<section title="Authorization" anchor="secauth">
 
 		<t>EAP-TLS may be encapsulated in other protocols, such as PPP <xref target="RFC1661"/>, RADIUS <xref target="RFC2865"/>, Diameter <xref target="RFC6733"/>, or PANA <xref target="RFC5191"/>. Systems implementing those protocols interact with EAP-TLS and can make policy decisions and enforce authorization based on information from the EAP-TLS exchange.</t>
 		
