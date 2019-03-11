@@ -401,7 +401,8 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
 
 	<section title='Identity Verification' anchor="identity">
 
-		<t>The identity provided in the EAP-Response/Identity is not authenticated by EAP-TLS. Unauthenticated information SHALL NOT be used for accounting purposes or to give authorization.  The authenticator and the EAP server MAY examine the identity presented in EAP-Response/Identity for purposes such as routing and EAP method selection.  They MAY reject conversations if the identity does not match their policy. Note that this also applies to resumption, see <xref target="resumption"/>, <xref target="secauth"/>, and <xref target="secres"/>.</t>
+		
+		<t>The identity provided in the EAP-Response/Identity is not authenticated by EAP-TLS. Unauthenticated information SHALL NOT be used for accounting purposes or to give authorization.  The authenticator and the EAP server MAY examine the identity presented in EAP-Response/Identity for purposes such as routing and EAP method selection.  They MAY reject conversations if the identity does not match their policy. Note that this also applies to resumption, see Sections <xref target="resumption" format="counter"/>, <xref target="secauth" format="counter"/>, and <xref target="secres" format="counter"/>.</t>
 
 	</section>
 
