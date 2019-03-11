@@ -85,14 +85,14 @@ Table of Contents
      5.4.  Certificate Revocation  . . . . . . . . . . . . . . . . .  18
      5.5.  Packet Modification Attacks . . . . . . . . . . . . . . .  19
      5.6.  Authorization . . . . . . . . . . . . . . . . . . . . . .  19
-     5.7.  Resumption  . . . . . . . . . . . . . . . . . . . . . . .  19
+     5.7.  Resumption  . . . . . . . . . . . . . . . . . . . . . . .  20
      5.8.  Privacy Considerations  . . . . . . . . . . . . . . . . .  21
      5.9.  Pervasive Monitoring  . . . . . . . . . . . . . . . . . .  22
-     5.10. Discovered Vulnerabilities  . . . . . . . . . . . . . . .  22
-   6.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  22
-     6.1.  Normative References  . . . . . . . . . . . . . . . . . .  22
+     5.10. Discovered Vulnerabilities  . . . . . . . . . . . . . . .  23
+   6.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  23
+     6.1.  Normative References  . . . . . . . . . . . . . . . . . .  23
      6.2.  Informative references  . . . . . . . . . . . . . . . . .  24
-   Appendix A.  Updated references . . . . . . . . . . . . . . . . .  26
+   Appendix A.  Updated references . . . . . . . . . . . . . . . . .  27
    Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  27
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  27
 
@@ -797,14 +797,14 @@ Internet-Draft            EAP-TLS with TLS 1.3                March 2019
 
 2.2.  Identity Verification
 
-   The identity presented in the EAP-Response/Identity is
-   unauthenticated information, and SHALL NOT be used for accounting
-   purposes or to give authorization.  The authenticator and the EAP
-   server MAY examine the identity presented in EAP-Response/Identity
-   for purposes such as routing and EAP method selection.  They MAY
-   reject conversations if the identity does not match their policy.
-   Note that this also applies to resumption, see Section 2.1.2 and
-   Section 5.
+   The identity provided in the EAP-Response/Identity is not
+   authenticated by EAP-TLS.  Unauthenticated information SHALL NOT be
+   used for accounting purposes or to give authorization.  The
+   authenticator and the EAP server MAY examine the identity presented
+   in EAP-Response/Identity for purposes such as routing and EAP method
+   selection.  They MAY reject conversations if the identity does not
+   match their policy.  Note that this also applies to resumption, see
+   Section 2.1.2, Section 5.6, and Section 5.7.
 
 2.3.  Key Hierarchy
 
@@ -1038,25 +1038,25 @@ Internet-Draft            EAP-TLS with TLS 1.3                March 2019
    [RFC1661], RADIUS [RFC2865], Diameter [RFC6733], or PANA [RFC5191].
    Systems implementing those protocols interact with EAP-TLS and can
    make policy decisions and enforce authorization based on information
-   from the EAP-TLS exchange.
+   from the EAP-TLS exchange.  The encapsulating protocols can also
+   provide additional, non-EAP information to the EAP server.  This
+   information can include, but is not limited to, information about the
+   authenticator, information about the EAP peer, or information about
+   the protocol layers below EAP (MAC addresses, IP addresses, port
+   numbers, WiFi SSID, etc.).
 
    As noted in Section 2.2, the identity presented in EAP-Response/
-   Identity is unauthenticated and trivial for an attacker to forge,
-   modify, or replay.  Authorization MUST NOT be based on
-   unauthenticated information.  Authorization MUST be based on
-   authenticated information such as information in the certificate or
-   the PSK identity and cached information provisioned for resumption as
-   described in Section 5.7.
+   Identity is not authenticated by EAP-TLS and therefore trivial for an
+   attacker to forge, modify, or replay.  Authorization and accounting
+   MUST be based on authenticated information such as information in the
+   certificate or the PSK identity and cached information provisioned
+   for resumption as described in Section 5.7.  Note that the
+   requirements for Network Access Identifiers (NAIs) specified in
+   Section 4 of [RFC7542] still apply and MUST be followed.
 
-   Note that the requirements for Network Access Identifiers (NAIs)
-   specified in Section 4 of [RFC7542] still apply and MUST be followed.
-
-5.7.  Resumption
-
-   There are a number of security issues related to resumption that are
-   not described in [RFC5216].  The problems, guidelines, and
-   requirements in this section therefore applies to all version of TLS.
-
+   Policy decisions are often based on a mixture of information from
+   TLS, EAP, and encapsulating protocols.  EAP servers MAY reject
+   conversations based on unauthenticated information such as an unknown
 
 
 
@@ -1066,16 +1066,23 @@ Mattsson & Sethi       Expires September 12, 2019              [Page 19]
 Internet-Draft            EAP-TLS with TLS 1.3                March 2019
 
 
+   MAC address or an identity provided in in EAP-Response/Identity that
+   do not match a certain policy.
+
+5.7.  Resumption
+
+   There are a number of security issues related to resumption that are
+   not described in [RFC5216].  The problems, guidelines, and
+   requirements in this section therefore applies to all version of TLS.
+
    When resumption occurs, it is based on cached information at the TLS
-   layer.  The only information provided outside of TLS is the identity
-   provided in the EAP-Response/Identity and as described in
-   Section 2.2, this identity is unauthenticated information and cannot
-   be used for authorization.
+   layer.  As described in Section 2.2, the identity provided in the
+   EAP-Response/Identity is not authenticated by EAP-TLS.
 
    To be able to enable resumption in a secure way, the EAP peer and EAP
-   server needs to be able to securely retrieve information such as
+   server need to be able to securely retrieve information such as
    certificate chains, revocation status, and authorization information
-   from the initial full handshake.  We use the "cached data" to
+   from the initial full handshake.  We use the term "cached data" to
    describe such information.  Any authorization applied during
    resumption MUST be done using this cached data.
 
@@ -1105,15 +1112,8 @@ Internet-Draft            EAP-TLS with TLS 1.3                March 2019
    such an identity, accounting is impossible without access to cached
    data.
 
-   Any security policies for authorization and revocation MUST be
-   followed also for resumption.  The EAP client and server MAY need to
-   recheck the authorization and revocation status of the other party.
-   The certificates may have been revoked since the initial full
-   handshake and the authorizations of the other party may have been
-   reduced.
-
-
-
+   Some information such as IP addresses and the identity provided in
+   EAP-Response/Identity may change between the initial full handshake
 
 
 
@@ -1121,6 +1121,37 @@ Mattsson & Sethi       Expires September 12, 2019              [Page 20]
 
 Internet-Draft            EAP-TLS with TLS 1.3                March 2019
 
+
+   and resumption.  This change creates a "Time of check, time of use"
+   (TOCTOU) security vulnerability.  A malicious or compromised user
+   could supply one set of data during authentication, and a different
+   set of data during resumption, potentially leading to them obtaining
+   access that they should not have.
+
+   If any authorization, accounting, or policy decisions were made with
+   information that have changed since the initial full handshake and
+   resumption, and if change may lead to a different decision, such
+   decisions MUST be reevaluated.  It is RECOMMENDED that authorization,
+   accounting, and policy decisions are reevaluated based on the
+   information given in the resumption.  EAP servers MAY reject
+   resumption where the information supplied during resumption does not
+   match the information supplied during the original authentication.
+   Where a good decision is unclear, EAP servers SHOULD err on the side
+   of caution, and therefore reject the resumption.
+
+   Any security policies for authorization and revocation MUST be
+   followed also for resumption.  The EAP client and server MAY need to
+   recheck the authorization and revocation status of the other party.
+   The certificates may have been revoked since the initial full
+   handshake and the authorizations of the other party may have been
+   reduced.
+
+   It is difficult to state the above requirements more precisely.  It
+   may be switch ports, and still use resumption.  Where EAP servers
+   determine that the user is acting maliciously, they MUST reject the
+   resumption.  It is up to each implementation and / or deploymentment
+   of EAP-TLS to determine which information to examine, and which
+   policies apply.
 
 5.8.  Privacy Considerations
 
@@ -1137,6 +1168,15 @@ Internet-Draft            EAP-TLS with TLS 1.3                March 2019
    first EAP-Response.  The other fields in the EAP-TLS Request and the
    EAP-TLS Response packets do not contain any cleartext privacy
    sensitive information.
+
+
+
+
+
+Mattsson & Sethi       Expires September 12, 2019              [Page 21]
+
+Internet-Draft            EAP-TLS with TLS 1.3                March 2019
+
 
    Tracking of users by eavesdropping on identity responses or
    certificates is a well-known problem in many EAP methods.  When EAP-
@@ -1170,14 +1210,6 @@ Internet-Draft            EAP-TLS with TLS 1.3                March 2019
    RSA key exchange is vulnerable to disclosure of the peer username.
    An active attacker can in this case make the EAP peer believe that an
    EAP server supporting TLS 1.3 only supports TLS 1.2 (or lower)
-
-
-
-Mattsson & Sethi       Expires September 12, 2019              [Page 21]
-
-Internet-Draft            EAP-TLS with TLS 1.3                March 2019
-
-
    without privacy.  The attacker can simply impersonate the EAP server
    and negotiate TLS 1.2 (or lower) with static RSA key exchange and
    send an TLS alert message when the EAP peer tries to use privacy by
@@ -1193,6 +1225,14 @@ Internet-Draft            EAP-TLS with TLS 1.3                March 2019
 
    As required by [RFC7258], work on IETF protocols needs to consider
    the effects of pervasive monitoring and mitigate them when possible.
+
+
+
+
+Mattsson & Sethi       Expires September 12, 2019              [Page 22]
+
+Internet-Draft            EAP-TLS with TLS 1.3                March 2019
+
 
    Pervasive Monitoring is widespread surveillance of users.  By
    encrypting more information and by mandating the use of privacy, TLS
@@ -1225,15 +1265,6 @@ Internet-Draft            EAP-TLS with TLS 1.3                March 2019
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/info/rfc2119>.
 
-
-
-
-
-Mattsson & Sethi       Expires September 12, 2019              [Page 22]
-
-Internet-Draft            EAP-TLS with TLS 1.3                March 2019
-
-
    [RFC3748]  Aboba, B., Blunk, L., Vollbrecht, J., Carlson, J., and H.
               Levkowetz, Ed., "Extensible Authentication Protocol
               (EAP)", RFC 3748, DOI 10.17487/RFC3748, June 2004,
@@ -1248,6 +1279,16 @@ Internet-Draft            EAP-TLS with TLS 1.3                March 2019
               Infrastructure Certificate and Certificate Revocation List
               (CRL) Profile", RFC 5280, DOI 10.17487/RFC5280, May 2008,
               <https://www.rfc-editor.org/info/rfc5280>.
+
+
+
+
+
+
+Mattsson & Sethi       Expires September 12, 2019              [Page 23]
+
+Internet-Draft            EAP-TLS with TLS 1.3                March 2019
+
 
    [RFC5705]  Rescorla, E., "Keying Material Exporters for Transport
               Layer Security (TLS)", RFC 5705, DOI 10.17487/RFC5705,
@@ -1282,14 +1323,6 @@ Internet-Draft            EAP-TLS with TLS 1.3                March 2019
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/info/rfc8174>.
 
-
-
-
-Mattsson & Sethi       Expires September 12, 2019              [Page 23]
-
-Internet-Draft            EAP-TLS with TLS 1.3                March 2019
-
-
    [RFC8446]  Rescorla, E., "The Transport Layer Security (TLS) Protocol
               Version 1.3", RFC 8446, DOI 10.17487/RFC8446, August 2018,
               <https://www.rfc-editor.org/info/rfc8446>.
@@ -1300,6 +1333,18 @@ Internet-Draft            EAP-TLS with TLS 1.3                March 2019
               Ghedini, A. and V. Vasiliev, "TLS Certificate
               Compression", draft-ietf-tls-certificate-compression-04
               (work in progress), October 2018.
+
+
+
+
+
+
+
+
+Mattsson & Sethi       Expires September 12, 2019              [Page 24]
+
+Internet-Draft            EAP-TLS with TLS 1.3                March 2019
+
 
    [IEEE-802.11]
               Institute of Electrical and Electronics Engineers, "IEEE
@@ -1338,14 +1383,6 @@ Internet-Draft            EAP-TLS with TLS 1.3                March 2019
               RFC 2865, DOI 10.17487/RFC2865, June 2000,
               <https://www.rfc-editor.org/info/rfc2865>.
 
-
-
-
-Mattsson & Sethi       Expires September 12, 2019              [Page 24]
-
-Internet-Draft            EAP-TLS with TLS 1.3                March 2019
-
-
    [RFC3280]  Housley, R., Polk, W., Ford, W., and D. Solo, "Internet
               X.509 Public Key Infrastructure Certificate and
               Certificate Revocation List (CRL) Profile", RFC 3280,
@@ -1356,6 +1393,14 @@ Internet-Draft            EAP-TLS with TLS 1.3                March 2019
               Network Access Identifier", RFC 4282,
               DOI 10.17487/RFC4282, December 2005,
               <https://www.rfc-editor.org/info/rfc4282>.
+
+
+
+
+Mattsson & Sethi       Expires September 12, 2019              [Page 25]
+
+Internet-Draft            EAP-TLS with TLS 1.3                March 2019
+
 
    [RFC4346]  Dierks, T. and E. Rescorla, "The Transport Layer Security
               (TLS) Protocol Version 1.1", RFC 4346,
@@ -1392,16 +1437,6 @@ Internet-Draft            EAP-TLS with TLS 1.3                March 2019
               DOI 10.17487/RFC6733, October 2012,
               <https://www.rfc-editor.org/info/rfc6733>.
 
-
-
-
-
-
-Mattsson & Sethi       Expires September 12, 2019              [Page 25]
-
-Internet-Draft            EAP-TLS with TLS 1.3                March 2019
-
-
    [RFC6973]  Cooper, A., Tschofenig, H., Aboba, B., Peterson, J.,
               Morris, J., Hansen, M., and R. Smith, "Privacy
               Considerations for Internet Protocols", RFC 6973,
@@ -1411,6 +1446,17 @@ Internet-Draft            EAP-TLS with TLS 1.3                March 2019
    [RFC7258]  Farrell, S. and H. Tschofenig, "Pervasive Monitoring Is an
               Attack", BCP 188, RFC 7258, DOI 10.17487/RFC7258, May
               2014, <https://www.rfc-editor.org/info/rfc7258>.
+
+
+
+
+
+
+
+Mattsson & Sethi       Expires September 12, 2019              [Page 26]
+
+Internet-Draft            EAP-TLS with TLS 1.3                March 2019
+
 
    [RFC7301]  Friedl, S., Popov, A., Langley, A., and E. Stephan,
               "Transport Layer Security (TLS) Application-Layer Protocol
@@ -1449,15 +1495,6 @@ Appendix A.  Updated references
 
    All references to [RFC4282] are updated with [RFC7542].
 
-
-
-
-
-Mattsson & Sethi       Expires September 12, 2019              [Page 26]
-
-Internet-Draft            EAP-TLS with TLS 1.3                March 2019
-
-
 Acknowledgments
 
    The authors want to thank Alan DeKok, Ari Keraenen, Bernard Aboba,
@@ -1465,6 +1502,17 @@ Acknowledgments
    Torvinen for comments and suggestions on the draft.
 
 Authors' Addresses
+
+
+
+
+
+
+
+Mattsson & Sethi       Expires September 12, 2019              [Page 27]
+
+Internet-Draft            EAP-TLS with TLS 1.3                March 2019
+
 
    John Mattsson
    Ericsson
@@ -1509,4 +1557,12 @@ Authors' Addresses
 
 
 
-Mattsson & Sethi       Expires September 12, 2019              [Page 27]
+
+
+
+
+
+
+
+
+Mattsson & Sethi       Expires September 12, 2019              [Page 28]
