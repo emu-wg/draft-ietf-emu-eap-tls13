@@ -541,7 +541,19 @@ SEND-IV      = IV(32, 63)
 
 	<section title="Resumption" anchor="secres">
 
-		<t>TODO</t>
+		<t>There are a number of security issues related to resumption that are not described in <xref target="RFC5216"/>. The problems, guidelines, and requirements in this section therefore applies to all version of TLS.</t>
+
+		<t>When resumption occurs, it is based on cached information at the TLS layer. The only information provided outside of TLS is the identity provided in the EAP-Response/Identity and as described in Section 2.2, this identity is unauthenticated information and cannot be used for authorization. While the identity could theoretically be used to transfer authorization tokens, such solutions are outside the scope of this document.</t>
+
+		<t>To be able to enable resumption in a secure way, the EAP peer and EAP server needs to be able to securely retrieve information such as certificate chains, revocation status, and authorization information from the initial full handshake. We use the "cached data" to describe such information. Any authorization applied during resumption MUST be done using this cached data.</t>
+
+		<t>There are two ways to retrieve the needed information. The first method is that the TLS server and client caches the information locally, identified by an identifier and secured by the other party showing proof-of-position of a key obtained from the initial full handshake. For TLS versions before 1.3, the identifier can be the session ID, for TLS 1.3, the identifier is the PSK identity. The second method is via <xref target="RFC5077"/>, where the TLS server encapsulates the information into a ticket and forwards it to the client.  The client can subsequently do resumption using the obtained ticket. Note that the client still need to cache the information locally. The following requirements apply to both methods.</t>
+
+		<t>If the EAP server or EAP client do not apply any authorization policies, they MAY allow resumption where no cached data is available. In all other cases, they MUST cache data during the initial full authentication to enable resumption. The cached data MUST be sufficient to make authorization decisions during resumption. If cached data cannot be retrieved in a secure way, resumption MUST NOT be done.</t>
+
+		<t>The above requirements also apply if the EAP server expects some system to perform accounting for the session.  Since accounting must be tied to an authenticated identity, and resumption does not supply such an identity, accounting is impossible without access to cached data.</t>
+
+		<t>Any security policies for authorization and revocation MUST be followed also for resumption. The EAP client and server MAY need to recheck the authorization and revocation status of the other party. The certificates may have been revoked since the initial full handshake and the authorizations of the other party may have been reduced.</t>
 		
 	</section>
 
