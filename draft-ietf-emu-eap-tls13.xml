@@ -403,7 +403,7 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
 
 	</section>
 
-	<section title='Identity Verification'>
+	<section title='Identity Verification' anchor="identity">
 
 		<t>The identity provided in the EAP-Response/Identity is not authenticated by EAP-TLS. Unauthenticated information SHALL NOT be used for accounting purposes or to give authorization.  The authenticator and the EAP server MAY examine the identity presented in EAP-Response/Identity for purposes such as routing and EAP method selection.  They MAY reject conversations if the identity does not match their policy. Note that this also applies to resumption, see <xref target="resumption"/>, <xref target="secauth"/>, and <xref target="secres"/>.</t>
 
@@ -533,19 +533,19 @@ SEND-IV      = IV(32, 63)
 
 		<t>EAP-TLS may be encapsulated in other protocols, such as PPP <xref target="RFC1661"/>, RADIUS <xref target="RFC2865"/>, Diameter <xref target="RFC6733"/>, or PANA <xref target="RFC5191"/>. Systems implementing those protocols interact with EAP-TLS and can make policy decisions and enforce authorization based on information from the EAP-TLS exchange. The encapsulating protocols can also provide additional, non-EAP information to the EAP server.  This information can include, but is not limited to, information about the authenticator, information about the EAP peer, or information about the protocol layers below EAP (MAC addresses, IP addresses, port numbers, WiFi SSID, etc.).</t>
 
-		<t>As noted in Section 2.2, the identity presented in EAP-Response/Identity is not authenticated by EAP-TLS and therefore trivial for an attacker to forge, modify, or replay. Authorization and accounting MUST be based on authenticated information such as information in the certificate or the PSK identity and cached information provisioned for resumption as described in <xref target="secres"/>. Note that the requirements for Network Access Identifiers (NAIs) specified in Section 4 of <xref target="RFC7542"/> still apply and MUST be followed. </t>
+		<t>As noted in <xref target="identity"/>, the identity presented in EAP-Response/Identity is not authenticated by EAP-TLS and therefore trivial for an attacker to forge, modify, or replay. Authorization and accounting MUST be based on authenticated information such as information in the certificate or the PSK identity and cached information provisioned for resumption as described in <xref target="secres"/>. Note that the requirements for Network Access Identifiers (NAIs) specified in Section 4 of <xref target="RFC7542"/> still apply and MUST be followed. </t>
 
 		<t>Policy decisions are often based on a mixture of information from TLS, EAP, and encapsulating protocols. EAP servers MAY reject conversations based on unauthenticated information such as an unknown MAC address or an identity provided in in EAP-Response/Identity that do not match a certain policy.</t>
 
-	</section>
-
+	</section>	
+	
 	<section title="Resumption" anchor="secres">
 
 		<t>There are a number of security issues related to resumption that are not described in <xref target="RFC5216"/>. The problems, guidelines, and requirements in this section therefore applies to all version of TLS.</t>
 
-		<t>When resumption occurs, it is based on cached information at the TLS layer. The only information provided outside of TLS is the identity provided in the EAP-Response/Identity and as described in Section 2.2, this identity is unauthenticated information and cannot be used for authorization. While the identity could theoretically be used to transfer authorization tokens, such solutions are outside the scope of this document.</t>
-
-		<t>To be able to enable resumption in a secure way, the EAP peer and EAP server needs to be able to securely retrieve information such as certificate chains, revocation status, and authorization information from the initial full handshake. We use the "cached data" to describe such information. Any authorization applied during resumption MUST be done using this cached data.</t>
+		<t>When resumption occurs, it is based on cached information at the TLS layer. As described in <xref target="identity"/>, the identity provided in the EAP-Response/Identity is not authenticated by EAP-TLS. While the identity could theoretically be used to transfer authorization tokens, such solutions are outside the scope of this document.</t>
+		
+		<t>To be able to enable resumption in a secure way, the EAP peer and EAP server need to be able to securely retrieve information such as certificate chains, revocation status, and authorization information from the initial full handshake. We use the term "cached data" to describe such information. Any authorization applied during resumption MUST be done using this cached data.</t>
 
 		<t>There are two ways to retrieve the needed information. The first method is that the TLS server and client caches the information locally, identified by an identifier and secured by the other party showing proof-of-position of a key obtained from the initial full handshake. For TLS versions before 1.3, the identifier can be the session ID, for TLS 1.3, the identifier is the PSK identity. The second method is via <xref target="RFC5077"/>, where the TLS server encapsulates the information into a ticket and forwards it to the client.  The client can subsequently do resumption using the obtained ticket. Note that the client still need to cache the information locally. The following requirements apply to both methods.</t>
 
