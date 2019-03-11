@@ -697,6 +697,12 @@ SEND-IV      = IV(32, 63)
 	</t>
 </section>
 
+<section title="Contributors" numbered="false">
+	<t>
+	Alan DeKok, FreeRADIUS
+	</t>
+</section>
+
 </back>
 
 </rfc>
