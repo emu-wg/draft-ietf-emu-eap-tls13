@@ -5,8 +5,8 @@
 Network Working Group                                        J. Mattsson
 Internet-Draft                                                  M. Sethi
 Updates: 5216 (if approved)                                     Ericsson
-Intended status: Standards Track                       February 12, 2019
-Expires: August 16, 2019
+Intended status: Standards Track                          March 11, 2019
+Expires: September 12, 2019
 
 
                        Using EAP-TLS with TLS 1.3
@@ -36,7 +36,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on August 16, 2019.
+   This Internet-Draft will expire on September 12, 2019.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Mattsson & Sethi         Expires August 16, 2019                [Page 1]
+Mattsson & Sethi       Expires September 12, 2019               [Page 1]
 
-Internet-Draft            EAP-TLS with TLS 1.3             February 2019
+Internet-Draft            EAP-TLS with TLS 1.3                March 2019
 
 
    the Trust Legal Provisions and are provided without warranty as
@@ -66,7 +66,7 @@ Table of Contents
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
      1.1.  Requirements and Terminology  . . . . . . . . . . . . . .   3
    2.  Protocol Overview . . . . . . . . . . . . . . . . . . . . . .   3
-     2.1.  Overview of the EAP-TLS Conversation  . . . . . . . . . .   3
+     2.1.  Overview of the EAP-TLS Conversation  . . . . . . . . . .   4
        2.1.1.  Base Case . . . . . . . . . . . . . . . . . . . . . .   4
        2.1.2.  Resumption  . . . . . . . . . . . . . . . . . . . . .   7
        2.1.3.  Termination . . . . . . . . . . . . . . . . . . . . .   9
@@ -75,24 +75,26 @@ Table of Contents
      2.2.  Identity Verification . . . . . . . . . . . . . . . . . .  15
      2.3.  Key Hierarchy . . . . . . . . . . . . . . . . . . . . . .  15
      2.4.  Parameter Negotiation and Compliance Requirements . . . .  16
-     2.5.  EAP State Machines  . . . . . . . . . . . . . . . . . . .  16
+     2.5.  EAP State Machines  . . . . . . . . . . . . . . . . . . .  17
    3.  Detailed Description of the EAP-TLS Protocol  . . . . . . . .  17
    4.  IANA considerations . . . . . . . . . . . . . . . . . . . . .  17
-   5.  Security Considerations . . . . . . . . . . . . . . . . . . .  17
-     5.1.  Security Claims . . . . . . . . . . . . . . . . . . . . .  17
+   5.  Security Considerations . . . . . . . . . . . . . . . . . . .  18
+     5.1.  Security Claims . . . . . . . . . . . . . . . . . . . . .  18
      5.2.  Peer and Server Identities  . . . . . . . . . . . . . . .  18
      5.3.  Certificate Validation  . . . . . . . . . . . . . . . . .  18
      5.4.  Certificate Revocation  . . . . . . . . . . . . . . . . .  18
      5.5.  Packet Modification Attacks . . . . . . . . . . . . . . .  19
-     5.6.  Privacy Considerations  . . . . . . . . . . . . . . . . .  19
-     5.7.  Pervasive Monitoring  . . . . . . . . . . . . . . . . . .  20
-     5.8.  Discovered Vulnerabilities  . . . . . . . . . . . . . . .  20
-   6.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  20
-     6.1.  Normative References  . . . . . . . . . . . . . . . . . .  21
-     6.2.  Informative references  . . . . . . . . . . . . . . . . .  22
-   Appendix A.  Updated references . . . . . . . . . . . . . . . . .  24
-   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  24
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  24
+     5.6.  Authorization . . . . . . . . . . . . . . . . . . . . . .  19
+     5.7.  Resumption  . . . . . . . . . . . . . . . . . . . . . . .  19
+     5.8.  Privacy Considerations  . . . . . . . . . . . . . . . . .  21
+     5.9.  Pervasive Monitoring  . . . . . . . . . . . . . . . . . .  22
+     5.10. Discovered Vulnerabilities  . . . . . . . . . . . . . . .  22
+   6.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  22
+     6.1.  Normative References  . . . . . . . . . . . . . . . . . .  22
+     6.2.  Informative references  . . . . . . . . . . . . . . . . .  24
+   Appendix A.  Updated references . . . . . . . . . . . . . . . . .  26
+   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  27
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  27
 
 1.  Introduction
 
@@ -104,18 +106,18 @@ Table of Contents
    protocol for cryptographic algorithms and protocol version
    negotiation, mutual authentication, and establishment of shared
    secret keying material.  EAP-TLS is widely supported for
+
+
+
+Mattsson & Sethi       Expires September 12, 2019               [Page 2]
+
+Internet-Draft            EAP-TLS with TLS 1.3                March 2019
+
+
    authentication in IEEE 802.11 [IEEE-802.11] networks (Wi-Fi) using
    IEEE 802.1X [IEEE-802.1X] and it's the default mechanism for
-
-
-
-Mattsson & Sethi         Expires August 16, 2019                [Page 2]
-
-Internet-Draft            EAP-TLS with TLS 1.3             February 2019
-
-
-   certificate based authentication in MulteFire [MulteFire] and 3GPP 5G
-   [TS.33.501] networks.  EAP-TLS [RFC5216] references TLS 1.0 [RFC2246]
+   certificate based authentication in 3GPP 5G [TS.33.501] and MulteFire
+   [MulteFire] networks.  EAP-TLS [RFC5216] references TLS 1.0 [RFC2246]
    and TLS 1.1 [RFC4346], but works perfectly also with TLS 1.2
    [RFC5246].
 
@@ -157,18 +159,18 @@ Internet-Draft            EAP-TLS with TLS 1.3             February 2019
 
 2.  Protocol Overview
 
-2.1.  Overview of the EAP-TLS Conversation
 
 
 
 
 
 
-
-Mattsson & Sethi         Expires August 16, 2019                [Page 3]
+Mattsson & Sethi       Expires September 12, 2019               [Page 3]
 
-Internet-Draft            EAP-TLS with TLS 1.3             February 2019
+Internet-Draft            EAP-TLS with TLS 1.3                March 2019
 
+
+2.1.  Overview of the EAP-TLS Conversation
 
 2.1.1.  Base Case
 
@@ -191,14 +193,11 @@ Internet-Draft            EAP-TLS with TLS 1.3             February 2019
    keys.  Pre-Shared Key (PSK) authentication SHALL NOT be used except
    for resumption.  SessionID is deprecated in TLS 1.3 and the EAP
    server SHALL ignore the legacy_session_id field if TLS 1.3 is
-   negotiated.  Resumption is handled as described in Section 2.1.2.
-   After the TLS handshake has completed and all Post-Handshake messages
-   have been sent, the EAP server sends EAP-Success.
-
-   As stated in [RFC5216], the TLS cipher suite shall not be used to
-   protect application data.  This applies also for early application
-   data.  When EAP-TLS is used with TLS 1.3, early application data
-   SHALL NOT be used.
+   negotiated.  TLS 1.3 introduces early application data; early
+   application data SHALL NOT be used with EAP-TLS.  Resumption is
+   handled as described in Section 2.1.2.  After the TLS handshake has
+   completed and all Post-Handshake messages have been sent, the EAP
+   server sends EAP-Success.
 
    In the case where EAP-TLS with mutual authentication is successful,
    the conversation will appear as shown in Figure 1.  The EAP server
@@ -221,9 +220,10 @@ Internet-Draft            EAP-TLS with TLS 1.3             February 2019
 
 
 
-Mattsson & Sethi         Expires August 16, 2019                [Page 4]
+
+Mattsson & Sethi       Expires September 12, 2019               [Page 4]
 
-Internet-Draft            EAP-TLS with TLS 1.3             February 2019
+Internet-Draft            EAP-TLS with TLS 1.3                March 2019
 
 
     EAP Peer                                              EAP Server
@@ -277,9 +277,9 @@ Internet-Draft            EAP-TLS with TLS 1.3             February 2019
 
 
 
-Mattsson & Sethi         Expires August 16, 2019                [Page 5]
+Mattsson & Sethi       Expires September 12, 2019               [Page 5]
 
-Internet-Draft            EAP-TLS with TLS 1.3             February 2019
+Internet-Draft            EAP-TLS with TLS 1.3                March 2019
 
 
     EAP Peer                                              EAP Server
@@ -333,9 +333,9 @@ Internet-Draft            EAP-TLS with TLS 1.3             February 2019
 
 
 
-Mattsson & Sethi         Expires August 16, 2019                [Page 6]
+Mattsson & Sethi       Expires September 12, 2019               [Page 6]
 
-Internet-Draft            EAP-TLS with TLS 1.3             February 2019
+Internet-Draft            EAP-TLS with TLS 1.3                March 2019
 
 
     EAP Peer                                              EAP Server
@@ -389,9 +389,9 @@ Internet-Draft            EAP-TLS with TLS 1.3             February 2019
 
 
 
-Mattsson & Sethi         Expires August 16, 2019                [Page 7]
+Mattsson & Sethi       Expires September 12, 2019               [Page 7]
 
-Internet-Draft            EAP-TLS with TLS 1.3             February 2019
+Internet-Draft            EAP-TLS with TLS 1.3                March 2019
 
 
    used to bootstrap the cryptographic state instead of a full
@@ -445,9 +445,9 @@ Internet-Draft            EAP-TLS with TLS 1.3             February 2019
 
 
 
-Mattsson & Sethi         Expires August 16, 2019                [Page 8]
+Mattsson & Sethi       Expires September 12, 2019               [Page 8]
 
-Internet-Draft            EAP-TLS with TLS 1.3             February 2019
+Internet-Draft            EAP-TLS with TLS 1.3                March 2019
 
 
    purpose (see Section 3.1 of [RFC7301]), there appears to be no
@@ -501,9 +501,9 @@ Internet-Draft            EAP-TLS with TLS 1.3             February 2019
 
 
 
-Mattsson & Sethi         Expires August 16, 2019                [Page 9]
+Mattsson & Sethi       Expires September 12, 2019               [Page 9]
 
-Internet-Draft            EAP-TLS with TLS 1.3             February 2019
+Internet-Draft            EAP-TLS with TLS 1.3                March 2019
 
 
     EAP Peer                                              EAP Server
@@ -557,9 +557,9 @@ Internet-Draft            EAP-TLS with TLS 1.3             February 2019
 
 
 
-Mattsson & Sethi         Expires August 16, 2019               [Page 10]
+Mattsson & Sethi       Expires September 12, 2019              [Page 10]
 
-Internet-Draft            EAP-TLS with TLS 1.3             February 2019
+Internet-Draft            EAP-TLS with TLS 1.3                March 2019
 
 
     EAP Peer                                              EAP Server
@@ -613,9 +613,9 @@ Internet-Draft            EAP-TLS with TLS 1.3             February 2019
 
 
 
-Mattsson & Sethi         Expires August 16, 2019               [Page 11]
+Mattsson & Sethi       Expires September 12, 2019              [Page 11]
 
-Internet-Draft            EAP-TLS with TLS 1.3             February 2019
+Internet-Draft            EAP-TLS with TLS 1.3                March 2019
 
 
     EAP Peer                                              EAP Server
@@ -669,9 +669,9 @@ Internet-Draft            EAP-TLS with TLS 1.3             February 2019
 
 
 
-Mattsson & Sethi         Expires August 16, 2019               [Page 12]
+Mattsson & Sethi       Expires September 12, 2019              [Page 12]
 
-Internet-Draft            EAP-TLS with TLS 1.3             February 2019
+Internet-Draft            EAP-TLS with TLS 1.3                March 2019
 
 
     EAP Peer                                              EAP Server
@@ -725,9 +725,9 @@ Internet-Draft            EAP-TLS with TLS 1.3             February 2019
 
 
 
-Mattsson & Sethi         Expires August 16, 2019               [Page 13]
+Mattsson & Sethi       Expires September 12, 2019              [Page 13]
 
-Internet-Draft            EAP-TLS with TLS 1.3             February 2019
+Internet-Draft            EAP-TLS with TLS 1.3                March 2019
 
 
    username in cleartext in the Identity Response.  It is RECOMMENDED to
@@ -751,12 +751,19 @@ Internet-Draft            EAP-TLS with TLS 1.3             February 2019
 2.1.5.  Fragmentation
 
    Including ContentType and ProtocolVersion a single TLS record may be
-   up to 16387 octets in length.  Some EAP implementations and access
-   networks may limit the number of EAP packet exchanges that can be
-   handled.  To avoid fragmentation, it is RECOMMENDED to keep the sizes
-   of client, server, and trust anchor certificates small and the length
-   of the certificate chains short.  In addition, it is RECOMMENDED to
-   use mechanisms that reduce the sizes of Certificate messages.
+   up to 16387 octets in length.  EAP-TLS fragmentation support is
+   provided through addition of a flags octet within the EAP-Response
+   and EAP-Request packets, as well as a TLS Message Length field of
+   four octets.  Unfragmented messages MAY have the L bit set and
+   include the length of the message (though this information is
+   redundant).
+
+   Some EAP implementations and access networks may limit the number of
+   EAP packet exchanges that can be handled.  To avoid fragmentation, it
+   is RECOMMENDED to keep the sizes of client, server, and trust anchor
+   certificates small and the length of the certificate chains short.
+   In addition, it is RECOMMENDED to use mechanisms that reduce the
+   sizes of Certificate messages.
 
    While Elliptic Curve Cryptography (ECC) was optional for earlier
    version of TLS, TLS 1.3 mandates support of ECC (see Section 9 of
@@ -771,27 +778,33 @@ Internet-Draft            EAP-TLS with TLS 1.3             February 2019
    Endpoints SHOULD reduce the sizes of Certificate messages by omitting
    certificates that the other endpoint is known to possess.  When using
    TLS 1.3, all certificates that specifies a trust anchor may be
+
+
+
+Mattsson & Sethi       Expires September 12, 2019              [Page 14]
+
+Internet-Draft            EAP-TLS with TLS 1.3                March 2019
+
+
    omitted (see Section 4.4.2 of [RFC8446]).  When using TLS 1.2 or
    earlier, only the self-signed certificate that specifies the root
    certificate authority may be omitted (see Section 7.4.2 of
    [RFC5246]).  EAP-TLS peers and servers SHOULD support and use the
    Cached Information Extension as specified in [RFC7924].  EAP-TLS
    peers and servers MAY use other extensions for reducing the sizes of
-
-
-
-
-Mattsson & Sethi         Expires August 16, 2019               [Page 14]
-
-Internet-Draft            EAP-TLS with TLS 1.3             February 2019
-
-
    Certificate messages, e.g. certificate compression
    [I-D.ietf-tls-certificate-compression].
 
 2.2.  Identity Verification
 
-   No updates to [RFC5216].
+   The identity presented in the EAP-Response/Identity is
+   unauthenticated information, and SHALL NOT be used for accounting
+   purposes or to give authorization.  The authenticator and the EAP
+   server MAY examine the identity presented in EAP-Response/Identity
+   for purposes such as routing and EAP method selection.  They MAY
+   reject conversations if the identity does not match their policy.
+   Note that this also applies to resumption, see Section 2.1.2 and
+   Section 5.
 
 2.3.  Key Hierarchy
 
@@ -819,6 +832,16 @@ Internet-Draft            EAP-TLS with TLS 1.3             February 2019
    manner as with EAP-TLS [RFC5216], Section 2.3.  The definitions are
    repeated below for simplicity:
 
+
+
+
+
+
+Mattsson & Sethi       Expires September 12, 2019              [Page 15]
+
+Internet-Draft            EAP-TLS with TLS 1.3                March 2019
+
+
    MSK          = Key_Material(0, 63)
    EMSK         = Key_Material(64, 127)
    Enc-RECV-Key = MSK(0, 31)
@@ -834,14 +857,6 @@ Internet-Draft            EAP-TLS with TLS 1.3             February 2019
    by requesting less data from the TLS-Exporter function, this practice
    is not possible with TLS 1.3.  If an implementation intends to use
    only part of the output of the TLS-Exporter function, then it MUST
-
-
-
-Mattsson & Sethi         Expires August 16, 2019               [Page 15]
-
-Internet-Draft            EAP-TLS with TLS 1.3             February 2019
-
-
    ask for the full output, and then only use part of that output.
    Failure to do so will result in incorrect values being calculated for
    the above keying material.
@@ -873,6 +888,20 @@ Internet-Draft            EAP-TLS with TLS 1.3             February 2019
    TLS 1.3 the compliance requirements are defined in Section 9 of
    [RFC8446].
 
+
+
+
+
+
+Mattsson & Sethi       Expires September 12, 2019              [Page 16]
+
+Internet-Draft            EAP-TLS with TLS 1.3                March 2019
+
+
+   While EAP-TLS does not protect any application data, the negotiated
+   cipher suites and algorithms MAY be used to secure data as done in
+   other TLS-based EAP methods.
+
 2.5.  EAP State Machines
 
    TLS 1.3 [RFC8446] introduces Post-Handshake messages.  These Post-
@@ -890,21 +919,8 @@ Internet-Draft            EAP-TLS with TLS 1.3             February 2019
    record with TLSPlaintext.type = application_data and
    TLSPlaintext.length = 0) to the last handshake record.  After sending
    an empty application data record, the EAP server may only send an
-
-
-
-Mattsson & Sethi         Expires August 16, 2019               [Page 16]
-
-Internet-Draft            EAP-TLS with TLS 1.3             February 2019
-
-
    EAP-Success, an EAP-Failure, or an EAP-Request with a TLS Alert
    Message.
-
-   Note that the use of an empty application data record does not
-   violate the requirement that the TLS cipher suite shall not be used
-   to protect application data, as the application data is the empty
-   string, no application data is protected.
 
 3.  Detailed Description of the EAP-TLS Protocol
 
@@ -927,6 +943,17 @@ Internet-Draft            EAP-TLS with TLS 1.3             February 2019
 
    o  "EXPORTER_EAP_TLS_Method-Id"
 
+
+
+
+
+
+
+Mattsson & Sethi       Expires September 12, 2019              [Page 17]
+
+Internet-Draft            EAP-TLS with TLS 1.3                March 2019
+
+
 5.  Security Considerations
 
 5.1.  Security Claims
@@ -946,13 +973,6 @@ Internet-Draft            EAP-TLS with TLS 1.3             February 2019
    the extensions, see [RFC8446].  When using EAP-TLS with TLS 1.3, the
    use of privacy is mandatory and does not cause any additional round-
    trips.
-
-
-
-Mattsson & Sethi         Expires August 16, 2019               [Page 17]
-
-Internet-Draft            EAP-TLS with TLS 1.3             February 2019
-
 
    [3] Key strength: TLS 1.3 forbids all algorithms with known
    weaknesses including 3DES, CBC mode, RC4, SHA-1, and MD5.  TLS 1.3
@@ -983,6 +1003,13 @@ Internet-Draft            EAP-TLS with TLS 1.3             February 2019
    EAP peer may not have Internet connectivity until authentication
    completes.
 
+
+
+Mattsson & Sethi       Expires September 12, 2019              [Page 18]
+
+Internet-Draft            EAP-TLS with TLS 1.3                March 2019
+
+
    EAP-TLS peers and servers supporting TLS 1.3 MUST support Certificate
    Status Requests (OCSP stapling) as specified in [RFC6066] and
    Section 4.4.2.1 of [RFC8446].  When EAP-TLS is used with TLS 1.3, the
@@ -1001,20 +1028,101 @@ Internet-Draft            EAP-TLS with TLS 1.3             February 2019
    message as in [RFC4366].  This enables sending OCSP information for
    all certificates in the certificate chain.
 
-
-
-
-
-Mattsson & Sethi         Expires August 16, 2019               [Page 18]
-
-Internet-Draft            EAP-TLS with TLS 1.3             February 2019
-
-
 5.5.  Packet Modification Attacks
 
    No updates to [RFC5216].
 
-5.6.  Privacy Considerations
+5.6.  Authorization
+
+   EAP-TLS may be encapsulated in other protocols, such as PPP
+   [RFC1661], RADIUS [RFC2865], Diameter [RFC6733], or PANA [RFC5191].
+   Systems implementing those protocols interact with EAP-TLS and can
+   make policy decisions and enforce authorization based on information
+   from the EAP-TLS exchange.
+
+   As noted in Section 2.2, the identity presented in EAP-Response/
+   Identity is unauthenticated and trivial for an attacker to forge,
+   modify, or replay.  Authorization MUST NOT be based on
+   unauthenticated information.  Authorization MUST be based on
+   authenticated information such as information in the certificate or
+   the PSK identity and cached information provisioned for resumption as
+   described in Section 5.7.
+
+   Note that the requirements for Network Access Identifiers (NAIs)
+   specified in Section 4 of [RFC7542] still apply and MUST be followed.
+
+5.7.  Resumption
+
+   There are a number of security issues related to resumption that are
+   not described in [RFC5216].  The problems, guidelines, and
+   requirements in this section therefore applies to all version of TLS.
+
+
+
+
+
+Mattsson & Sethi       Expires September 12, 2019              [Page 19]
+
+Internet-Draft            EAP-TLS with TLS 1.3                March 2019
+
+
+   When resumption occurs, it is based on cached information at the TLS
+   layer.  The only information provided outside of TLS is the identity
+   provided in the EAP-Response/Identity and as described in
+   Section 2.2, this identity is unauthenticated information and cannot
+   be used for authorization.  While the identity could theoretically be
+   used to transfer authorization tokens, such solutions are outside the
+   scope of this document.
+
+   To be able to enable resumption in a secure way, the EAP peer and EAP
+   server needs to be able to securely retrieve information such as
+   certificate chains, revocation status, and authorization information
+   from the initial full handshake.  We use the "cached data" to
+   describe such information.  Any authorization applied during
+   resumption MUST be done using this cached data.
+
+   There are two ways to retrieve the needed information.  The first
+   method is that the TLS server and client caches the information
+   locally, identified by an identifier and secured by the other party
+   showing proof-of-position of a key obtained from the initial full
+   handshake.  For TLS versions before 1.3, the identifier can be the
+   session ID, for TLS 1.3, the identifier is the PSK identity.  The
+   second method is via [RFC5077], where the TLS server encapsulates the
+   information into a ticket and forwards it to the client.  The client
+   can subsequently do resumption using the obtained ticket.  Note that
+   the client still need to cache the information locally.  The
+   following requirements apply to both methods.
+
+   If the EAP server or EAP client do not apply any authorization
+   policies, they MAY allow resumption where no cached data is
+   available.  In all other cases, they MUST cache data during the
+   initial full authentication to enable resumption.  The cached data
+   MUST be sufficient to make authorization decisions during resumption.
+   If cached data cannot be retrieved in a secure way, resumption MUST
+   NOT be done.
+
+   The above requirements also apply if the EAP server expects some
+   system to perform accounting for the session.  Since accounting must
+   be tied to an authenticated identity, and resumption does not supply
+   such an identity, accounting is impossible without access to cached
+   data.
+
+   Any security policies for authorization and revocation MUST be
+   followed also for resumption.  The EAP client and server MAY need to
+   recheck the authorization and revocation status of the other party.
+   The certificates may have been revoked since the initial full
+   handshake and the authorizations of the other party may have been
+   reduced.
+
+
+
+
+Mattsson & Sethi       Expires September 12, 2019              [Page 20]
+
+Internet-Draft            EAP-TLS with TLS 1.3                March 2019
+
+
+5.8.  Privacy Considerations
 
    [RFC6973] suggests that the privacy considerations of IETF protocols
    be documented.
@@ -1057,31 +1165,31 @@ Internet-Draft            EAP-TLS with TLS 1.3             February 2019
    can be formed by a fixed mapping that stays the same across multiple
    different authentications.
 
-
-
-
-
-Mattsson & Sethi         Expires August 16, 2019               [Page 19]
-
-Internet-Draft            EAP-TLS with TLS 1.3             February 2019
-
-
    An EAP peer with a policy allowing communication with EAP servers
-   supporting only TLS 1.2 (or lower) without privacy and with RSA key
-   exchange is vulnerable to disclosure of the peer username.  An active
-   attacker can in this case make the EAP peer believe that an EAP
-   server supporting TLS 1.3 only supports TLS 1.2 (or lower) without
-   privacy.  The attacker can simply impersonate the EAP server and
-   negotiate TLS 1.2 (or lower) with RSA key exchange and send an TLS
-   alert message when the EAP peer tries to use privacy by sending an
-   empty certificate message.  Since the attacker (impersonating the EAP
-   server) does not provide a proof-of-possession of the private key
-   until the Finished message when RSA key exchange is used, an EAP peer
-   may inadvertently disclose its identity (username) to an attacker.
-   Therefore, it is RECOMMENDED for EAP peers to not use EAP-TLS with
-   TLS 1.2 (or lower) and RSA based cipher suites without privacy.
+   supporting only TLS 1.2 (or lower) without privacy and with a static
+   RSA key exchange is vulnerable to disclosure of the peer username.
+   An active attacker can in this case make the EAP peer believe that an
+   EAP server supporting TLS 1.3 only supports TLS 1.2 (or lower)
 
-5.7.  Pervasive Monitoring
+
+
+Mattsson & Sethi       Expires September 12, 2019              [Page 21]
+
+Internet-Draft            EAP-TLS with TLS 1.3                March 2019
+
+
+   without privacy.  The attacker can simply impersonate the EAP server
+   and negotiate TLS 1.2 (or lower) with static RSA key exchange and
+   send an TLS alert message when the EAP peer tries to use privacy by
+   sending an empty certificate message.  Since the attacker
+   (impersonating the EAP server) does not provide a proof-of-possession
+   of the private key until the Finished message when a static RSA key
+   exchange is used, an EAP peer may inadvertently disclose its identity
+   (username) to an attacker.  Therefore, it is RECOMMENDED for EAP
+   peers to not use EAP-TLS with TLS 1.2 (or lower) and RSA based cipher
+   suites without privacy.
+
+5.9.  Pervasive Monitoring
 
    As required by [RFC7258], work on IETF protocols needs to consider
    the effects of pervasive monitoring and mitigate them when possible.
@@ -1095,7 +1203,7 @@ Internet-Draft            EAP-TLS with TLS 1.3             February 2019
    EAP-TLS together with information gathered from other protocols
    increases the risk of identifying individual users.
 
-5.8.  Discovered Vulnerabilities
+5.10.  Discovered Vulnerabilities
 
    Over the years, there have been several serious attacks on earlier
    versions of Transport Layer Security (TLS), including attacks on its
@@ -1110,24 +1218,21 @@ Internet-Draft            EAP-TLS with TLS 1.3             February 2019
 
 6.  References
 
-
-
-
-
-
-
-
-Mattsson & Sethi         Expires August 16, 2019               [Page 20]
-
-Internet-Draft            EAP-TLS with TLS 1.3             February 2019
-
-
 6.1.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/info/rfc2119>.
+
+
+
+
+
+Mattsson & Sethi       Expires September 12, 2019              [Page 22]
+
+Internet-Draft            EAP-TLS with TLS 1.3                March 2019
+
 
    [RFC3748]  Aboba, B., Blunk, L., Vollbrecht, J., Carlson, J., and H.
               Levkowetz, Ed., "Extensible Authentication Protocol
@@ -1168,16 +1273,6 @@ Internet-Draft            EAP-TLS with TLS 1.3             February 2019
               DOI 10.17487/RFC7924, July 2016,
               <https://www.rfc-editor.org/info/rfc7924>.
 
-
-
-
-
-
-Mattsson & Sethi         Expires August 16, 2019               [Page 21]
-
-Internet-Draft            EAP-TLS with TLS 1.3             February 2019
-
-
    [RFC8126]  Cotton, M., Leiba, B., and T. Narten, "Guidelines for
               Writing an IANA Considerations Section in RFCs", BCP 26,
               RFC 8126, DOI 10.17487/RFC8126, June 2017,
@@ -1186,6 +1281,14 @@ Internet-Draft            EAP-TLS with TLS 1.3             February 2019
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/info/rfc8174>.
+
+
+
+
+Mattsson & Sethi       Expires September 12, 2019              [Page 23]
+
+Internet-Draft            EAP-TLS with TLS 1.3                March 2019
+
 
    [RFC8446]  Rescorla, E., "The Transport Layer Security (TLS) Protocol
               Version 1.3", RFC 8446, DOI 10.17487/RFC8446, August 2018,
@@ -1216,6 +1319,10 @@ Internet-Draft            EAP-TLS with TLS 1.3             February 2019
    [MulteFire]
               MulteFire, "MulteFire Release 1.0.1 specification", 2017.
 
+   [RFC1661]  Simpson, W., Ed., "The Point-to-Point Protocol (PPP)",
+              STD 51, RFC 1661, DOI 10.17487/RFC1661, July 1994,
+              <https://www.rfc-editor.org/info/rfc1661>.
+
    [RFC2246]  Dierks, T. and C. Allen, "The TLS Protocol Version 1.0",
               RFC 2246, DOI 10.17487/RFC2246, January 1999,
               <https://www.rfc-editor.org/info/rfc2246>.
@@ -1226,12 +1333,17 @@ Internet-Draft            EAP-TLS with TLS 1.3             February 2019
               DOI 10.17487/RFC2560, June 1999,
               <https://www.rfc-editor.org/info/rfc2560>.
 
+   [RFC2865]  Rigney, C., Willens, S., Rubens, A., and W. Simpson,
+              "Remote Authentication Dial In User Service (RADIUS)",
+              RFC 2865, DOI 10.17487/RFC2865, June 2000,
+              <https://www.rfc-editor.org/info/rfc2865>.
 
 
 
-Mattsson & Sethi         Expires August 16, 2019               [Page 22]
+
+Mattsson & Sethi       Expires September 12, 2019              [Page 24]
 
-Internet-Draft            EAP-TLS with TLS 1.3             February 2019
+Internet-Draft            EAP-TLS with TLS 1.3                March 2019
 
 
    [RFC3280]  Housley, R., Polk, W., Ford, W., and D. Solo, "Internet
@@ -1255,6 +1367,16 @@ Internet-Draft            EAP-TLS with TLS 1.3             February 2019
               Extensions", RFC 4366, DOI 10.17487/RFC4366, April 2006,
               <https://www.rfc-editor.org/info/rfc4366>.
 
+   [RFC5077]  Salowey, J., Zhou, H., Eronen, P., and H. Tschofenig,
+              "Transport Layer Security (TLS) Session Resumption without
+              Server-Side State", RFC 5077, DOI 10.17487/RFC5077,
+              January 2008, <https://www.rfc-editor.org/info/rfc5077>.
+
+   [RFC5191]  Forsberg, D., Ohba, Y., Ed., Patil, B., Tschofenig, H.,
+              and A. Yegin, "Protocol for Carrying Authentication for
+              Network Access (PANA)", RFC 5191, DOI 10.17487/RFC5191,
+              May 2008, <https://www.rfc-editor.org/info/rfc5191>.
+
    [RFC5246]  Dierks, T. and E. Rescorla, "The Transport Layer Security
               (TLS) Protocol Version 1.2", RFC 5246,
               DOI 10.17487/RFC5246, August 2008,
@@ -1264,6 +1386,21 @@ Internet-Draft            EAP-TLS with TLS 1.3             February 2019
               Authentication Protocol (EAP) Key Management Framework",
               RFC 5247, DOI 10.17487/RFC5247, August 2008,
               <https://www.rfc-editor.org/info/rfc5247>.
+
+   [RFC6733]  Fajardo, V., Ed., Arkko, J., Loughney, J., and G. Zorn,
+              Ed., "Diameter Base Protocol", RFC 6733,
+              DOI 10.17487/RFC6733, October 2012,
+              <https://www.rfc-editor.org/info/rfc6733>.
+
+
+
+
+
+
+Mattsson & Sethi       Expires September 12, 2019              [Page 25]
+
+Internet-Draft            EAP-TLS with TLS 1.3                March 2019
+
 
    [RFC6973]  Cooper, A., Tschofenig, H., Aboba, B., Peterson, J.,
               Morris, J., Hansen, M., and R. Smith, "Privacy
@@ -1279,16 +1416,6 @@ Internet-Draft            EAP-TLS with TLS 1.3             February 2019
               "Transport Layer Security (TLS) Application-Layer Protocol
               Negotiation Extension", RFC 7301, DOI 10.17487/RFC7301,
               July 2014, <https://www.rfc-editor.org/info/rfc7301>.
-
-
-
-
-
-
-Mattsson & Sethi         Expires August 16, 2019               [Page 23]
-
-Internet-Draft            EAP-TLS with TLS 1.3             February 2019
-
 
    [RFC7406]  Schulzrinne, H., McCann, S., Bajko, G., Tschofenig, H.,
               and D. Kroeselberg, "Extensions to the Emergency Services
@@ -1322,6 +1449,15 @@ Appendix A.  Updated references
 
    All references to [RFC4282] are updated with [RFC7542].
 
+
+
+
+
+Mattsson & Sethi       Expires September 12, 2019              [Page 26]
+
+Internet-Draft            EAP-TLS with TLS 1.3                March 2019
+
+
 Acknowledgments
 
    The authors want to thank Alan DeKok, Ari Keraenen, Bernard Aboba,
@@ -1336,14 +1472,6 @@ Authors' Addresses
    Sweden
 
    Email: john.mattsson@ericsson.com
-
-
-
-
-
-Mattsson & Sethi         Expires August 16, 2019               [Page 24]
-
-Internet-Draft            EAP-TLS with TLS 1.3             February 2019
 
 
    Mohit Sethi
@@ -1381,20 +1509,4 @@ Internet-Draft            EAP-TLS with TLS 1.3             February 2019
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Mattsson & Sethi         Expires August 16, 2019               [Page 25]
+Mattsson & Sethi       Expires September 12, 2019              [Page 27]
