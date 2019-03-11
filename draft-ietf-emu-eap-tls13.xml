@@ -542,7 +542,7 @@ SEND-IV      = IV(32, 63)
 
 		<t>When resumption occurs, it is based on cached information at the TLS layer. As described in <xref target="identity"/>, the identity provided in the EAP-Response/Identity is not authenticated by EAP-TLS.</t>
 		
-		<t>To be able to enable resumption in a secure way, the EAP peer and EAP server need to be able to securely retrieve information such as certificate chains, revocation status, and authorization information from the initial full handshake. We use the term "cached data" to describe such information. Any authorization applied during resumption MUST be done using this cached data.</t>
+		<t>To perform resumption in a secure way, the EAP peer and EAP server need to be able to securely retrieve information such as certificate chains, revocation status, and other authorization information from the initial full handshake. We use the term "cached data" to describe such information. Any authorization applied during resumption MUST be done using this cached data.</t>
 
 		<t>There are two ways to retrieve the needed information. The first method is that the TLS server and client caches the information locally, identified by an identifier and secured by the other party showing proof-of-position of a key obtained from the initial full handshake. For TLS versions before 1.3, the identifier can be the session ID, for TLS 1.3, the identifier is the PSK identity. The second method is via <xref target="RFC5077"/>, where the TLS server encapsulates the information into a ticket and forwards it to the client.  The client can subsequently do resumption using the obtained ticket. Note that the client still need to cache the information locally. The following requirements apply to both methods.</t>
 
@@ -550,13 +550,13 @@ SEND-IV      = IV(32, 63)
 
 		<t>The above requirements also apply if the EAP server expects some system to perform accounting for the session.  Since accounting must be tied to an authenticated identity, and resumption does not supply such an identity, accounting is impossible without access to cached data.</t>
 
-		<t>Some information such as IP addresses and the identity provided in EAP-Response/Identity may change between the initial full handshake and resumption. This change creates a "Time of check, time of use" (TOCTOU) security vulnerability.  A malicious or compromised user could supply one set of data during authentication, and a different set of data during resumption, potentially leading to them obtaining access that they should not have.</t>
+		<t>Some information such as IP addresses and the identity provided in EAP-Response/Identity may change between the initial full handshake and resumption. This change creates a "Time of check, time of use" (TOCTOU) security vulnerability.  A malicious or compromised user could supply one set of data during the initial authentication, and a different set of data during resumption, potentially leading to them obtaining access that they should not have.</t>
 
 		<t>If any authorization, accounting, or policy decisions were made with information that have changed since the initial full handshake and resumption, and if change may lead to a different decision, such decisions MUST be reevaluated. It is RECOMMENDED that authorization, accounting, and policy decisions are reevaluated based on the information given in the resumption. EAP servers MAY reject resumption where the information supplied during resumption does not match the information supplied during the original authentication. Where a good decision is unclear, EAP servers SHOULD err on the side of caution, and therefore reject the resumption.</t>
 
 		<t>Any security policies for authorization and revocation MUST be followed also for resumption. The EAP client and server MAY need to recheck the authorization and revocation status of the other party. The certificates may have been revoked since the initial full handshake and the authorizations of the other party may have been reduced.</t>
 
-		<t>It is difficult to state the above requirements more precisely. It may be switch ports, and still use resumption. Where EAP servers determine that the user is acting maliciously, they MUST reject the resumption. It is up to each implementation and / or deploymentment of EAP-TLS to determine which information to examine, and which policies apply.</t>
+		<t>It is difficult to state the above requirements more precisely. If the EAP server determine that the user is acting maliciously, they MUST reject the resumption. It's up to each implementation and / or deploymentment of EAP-TLS to determine which information to examine, and which policies to apply.</t>
 
 	</section>
 
