@@ -224,10 +224,6 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
 
 			<t>As specified in Section 2.2 of <xref target="RFC8446"/>, the EAP peer SHOULD supply a "key_share" extension when offering resumption, which allows the EAP server to decline resumption and continue the handshake as a full handshake. The message flow in this case is given by <xref target="figbase1"/> or <xref target="figbase2"/>. If the EAP peer did not supply a "key_share" extension when offering resumption, the EAP server needs to reject the ClientHello and the EAP peer needs to restart a full handshake. The message flow in this case is given by <xref target="figterm1"/> followed by <xref target="figbase1"/> or <xref target="figbase2"/>.</t>
 
-			<t>Implementations SHOULD be capable of resumption across different TLS-based EAP types.  This recommendation is made for a few reasons. TLS is designed to allow a resumed connection to be for a different purpose (see Section 3.1 of <xref target="RFC7301"/>), there appears to be no compelling reason to forbid it, and implementations can always choose to reject resumption based on local policies.</t>
-
-			<t>Some EAP types have complex state and negotiation.  For this EAP types, resumption across different EAP types may not be possible, and if not possible, MUST be forbidden by both specifications and implementations.  Additional discussion of this topic is outside of the scope of this document.</t>
-
 		</section>
 
 		<section title='Termination'>
