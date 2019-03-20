@@ -332,46 +332,6 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
  EAP-Type=EAP-TLS             -------->
                               <--------               EAP-Failure
 ]]></artwork></figure>
-
-			<t>In the case where the client rejects a  NewSessionTicket, the conversation will appear as shown in <xref target="figterm4"/>.</t>
-
-<figure anchor="figterm4" title="EAP-TLS client rejection of NewSessionTicket" align="center"><artwork><![CDATA[
- EAP Peer                                              EAP Server
-
-                                                      EAP-Request/
-                              <--------                  Identity
- EAP-Response/
- Identity (Privacy-Friendly)  -------->
-
-                                                      EAP-Request/
-                                                 EAP-Type=EAP-TLS
-                              <--------                (TLS Start)
- EAP-Response/
- EAP-Type=EAP-TLS
-(TLS ClientHello)             -------->
-                                                      EAP-Request/
-                                                 EAP-Type=EAP-TLS
-                                                 (TLS ServerHello,
-                                          TLS EncryptedExtensions,
-                                           TLS CertificateRequest,
-                                                  TLS Certificate,
-                                            TLS CertificateVerify,
-                              <--------              TLS Finished)
- EAP-Response/
- EAP-Type=EAP-TLS
-(TLS Certificate,
- TLS CertificateVerify,
- TLS Finished)                -------->
-                                                      EAP-Request/
-                                                 EAP-Type=EAP-TLS
-                                            (TLS NewSessionTicket,
-                              <--------          TLS empty record)
- EAP-Response/
- EAP-Type=EAP-TLS
-(TLS Fatal Alert)
-                              -------->
-                              <--------               EAP-Failure
-]]></artwork></figure>
 			
 		</section>
 
