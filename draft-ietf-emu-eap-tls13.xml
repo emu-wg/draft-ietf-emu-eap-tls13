@@ -189,6 +189,45 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
 			
 		</section>
 
+		<section title="Hello Retry Request" anchor="helloretry">
+			<t>TLS 1.3 <xref target="RFC8446"/> defines that TLS servers can send a HelloRetryRequest message in response to a ClientHello if the server finds an acceptable set of parameters but the initial ClientHello does not contain all the needed information to continue the handshake.</t>
+
+			<t>An EAP-TLS peer and server SHOULD support the use of HelloRetryRequest message. As noted in Section 4.1.4 of <xref target="RFC8446"/>, the server MUST provide the supported_versions extensions and SHOULD contain the minimal set of extensions necessary for the client to generate a correct ClientHello pair. A HelloRetryRequest MUST NOT contain any extensions that were not first offered by the client in its ClientHello, with the exception of optionally the cookie extension.</t>
+
+			<t>The case of a successful EAP-TLS mutual authentication after the server has sent a HelloRetryRequest message is shown in <xref target="fighelloretryrequest"/>. Note the extra round-trip as a result of the HelloRetryRequest.</t>
+
+<figure anchor="fighelloretryrequest" title="EAP-TLS with Hello Retry Request" align="center"><artwork><![CDATA[
+ EAP Peer                                              EAP Server
+
+                                                      EAP-Request/
+                              <--------                  Identity
+ EAP-Response/
+ Identity (Privacy-Friendly)  -------->
+                                                      EAP-Request/
+                                                 EAP-Type=EAP-TLS
+                              <--------                (TLS Start)
+ EAP-Response/
+ EAP-Type=EAP-TLS
+(TLS ClientHello)             -------->
+                                                      EAP-Request/
+                                                 EAP-Type=EAP-TLS
+                                            (TLS HelloRetryRequest)
+                              <--------
+ EAP-Response/
+ EAP-Type=EAP-TLS
+(TLS ClientHello)             -------->
+                                                      EAP-Request/
+                                                 EAP-Type=EAP-TLS
+                                                 (TLS ServerHello,
+                                          TLS EncryptedExtensions,
+                                                     TLS Finished,
+                              <--------          TLS empty record)
+ EAP-Response/
+ EAP-Type=EAP-TLS
+(TLS Finished)                -------->
+                              <--------               EAP-Success
+]]></artwork></figure>
+	    </section>
 
 		<section title="Resumption" anchor="resumption">
 			<t>TLS 1.3 replaces the session resumption mechanisms in earlier versions of TLS with a new PSK exchange. When EAP-TLS is used with TLS version 1.3 or higher, EAP-TLS SHALL use a resumption mechanism compatible with that version of TLS.</t>
@@ -237,7 +276,7 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
 			</list>
 			</t>
 
-			<t>Figures <xref target="figterm1" format="counter"/>,  <xref target="figterm2" format="counter"/>,  <xref target="figterm3" format="counter"/>, and <xref target="figterm4" format="counter"/> illustrate message flows in several cases where the EAP peer or EAP server sends a TLS fatal alert message. TLS warning alerts generally mean that the connection can continue normally and does not change the message flow. Note that the party receiving a TLS warning alert may choose to terminate the connection by sending a TLS fatal alert, which may add an extra round-trip, see <xref target="RFC8446"/>. </t>
+			<t>Figures <xref target="figterm1" format="counter"/>,  <xref target="figterm2" format="counter"/>, and <xref target="figterm3" format="counter"/> illustrate message flows in several cases where the EAP peer or EAP server sends a TLS fatal alert message. TLS warning alerts generally mean that the connection can continue normally and does not change the message flow. Note that the party receiving a TLS warning alert may choose to terminate the connection by sending a TLS fatal alert, which may add an extra round-trip, see <xref target="RFC8446"/>. </t>
 			
 			<t>In the case where the server rejects the ClientHello, the conversation will appear as shown in <xref target="figterm1"/>.</t>
 
@@ -396,11 +435,9 @@ SEND-IV      = IV(32, 63)
 
 		<t>The use of these keys is specific to the lower layer, as described <xref target="RFC5247"/>.</t>
 
-		<t>Note that the key derivation MUST use the length values given above.  Where in TLS 1.2 and earlier it was possible to truncate the output by requesting less data from the TLS-Exporter function, this practice is not possible with TLS 1.3.  If an implementation intends to use only part of the output of the TLS-Exporter function, then it MUST ask for the full output, and then only use part of that output.  Failure to do so will result in incorrect values being calculated for the above keying material.</t>
+		<t>Note that the key derivation MUST use the length values given above.  While in TLS 1.2 and earlier it was possible to truncate the output by requesting less data from the TLS-Exporter function, this practice is not possible with TLS 1.3.  If an implementation intends to use only a part of the output of the TLS-Exporter function, then it MUST ask for the full output and then only use the desired part.  Failure to do so will result in incorrect values being calculated for the above keying material.</t>
 
 		<t>By using the TLS exporter, EAP-TLS can use any TLS 1.3 implementation without having to extract the Master Secret, ClientHello.random, and ServerHello.random in a non-standard way.</t>
-
-		<t>Other TLS-based EAP methods can perform similar key derivations by replacing the Type-Code with the value of their EAP type.  The Type-Code is defined to be 1 octet for values smaller than 256, otherwise it is a 32-bit number (four octets), in network byte order. Additional discussion of other EAP methods is outside of the scope of this document.</t>
 
 	</section>
 
@@ -495,7 +532,7 @@ SEND-IV      = IV(32, 63)
 		<t>Policy decisions are often based on a mixture of information from TLS, EAP, and encapsulating protocols. EAP servers MAY reject conversations based on examining unauthenticated information such as an unknown MAC address or an identity provided in in EAP-Response/Identity that do not match a certain policy.</t>
 
 	</section>	
-	
+
 	<section title="Resumption" anchor="secres">
 
 		<t>There are a number of security issues related to resumption that are not described in <xref target="RFC5216"/>. The problems, guidelines, and requirements in this section therefore applies to all version of TLS.</t>
