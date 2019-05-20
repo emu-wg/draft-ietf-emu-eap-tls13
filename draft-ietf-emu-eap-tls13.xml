@@ -118,8 +118,49 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
  TLS Finished)                -------->
                               <--------               EAP-Success
 ]]></artwork></figure>
-			
-<t>In the case where EAP-TLS is used without peer authentication (e.g., emergency services, as described in <xref target="RFC7406"/>) the conversation will appear as shown in <xref target="figbase3"/>.</t>
+
+			<section title="Hello Retry Request" anchor="helloretry">
+				<t>TLS 1.3 <xref target="RFC8446"/> defines that TLS servers can send a HelloRetryRequest message in response to a ClientHello if the server finds an acceptable set of parameters but the initial ClientHello does not contain all the needed information to continue the handshake.</t>
+
+				<t>An EAP-TLS peer and server SHOULD support the use of HelloRetryRequest message. As noted in Section 4.1.4 of <xref target="RFC8446"/>, the server MUST provide the supported_versions extensions and SHOULD contain the minimal set of extensions necessary for the client to generate a correct ClientHello pair. A HelloRetryRequest MUST NOT contain any extensions that were not first offered by the client in its ClientHello, with the exception of optionally the cookie extension.</t>
+
+				<t>The case of a successful EAP-TLS mutual authentication after the server has sent a HelloRetryRequest message is shown in <xref target="fighelloretryrequest"/>. Note the extra round-trip as a result of the HelloRetryRequest.</t>
+
+<figure anchor="fighelloretryrequest" title="EAP-TLS with Hello Retry Request" align="center"><artwork><![CDATA[
+ EAP Peer                                              EAP Server
+
+                                                      EAP-Request/
+                              <--------                  Identity
+ EAP-Response/
+ Identity (Privacy-Friendly)  -------->
+                                                      EAP-Request/
+                                                 EAP-Type=EAP-TLS
+                              <--------                (TLS Start)
+ EAP-Response/
+ EAP-Type=EAP-TLS
+(TLS ClientHello)             -------->
+                                                      EAP-Request/
+                                                 EAP-Type=EAP-TLS
+                                           (TLS HelloRetryRequest)
+                              <--------
+ EAP-Response/
+ EAP-Type=EAP-TLS
+(TLS ClientHello)             -------->
+                                                      EAP-Request/
+                                                 EAP-Type=EAP-TLS
+                                                 (TLS ServerHello,
+                                          TLS EncryptedExtensions,
+                                                     TLS Finished,
+                              <--------          TLS empty record)
+ EAP-Response/
+ EAP-Type=EAP-TLS
+(TLS Finished)                -------->
+                              <--------               EAP-Success
+]]></artwork></figure>
+	    </section>
+
+			<section title='No Peer Authentication'>
+				<t>In the case where EAP-TLS is used without peer authentication (e.g., emergency services, as described in <xref target="RFC7406"/>) the conversation will appear as shown in <xref target="figbase3"/>.</t>
 
 <figure anchor="figbase3" title="EAP-TLS without peer authentication" align="center"><artwork><![CDATA[
  EAP Peer                                              EAP Server
@@ -147,10 +188,13 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
 (TLS Finished)                -------->
                               <--------               EAP-Success
 ]]></artwork></figure>
-			
-			<t>When using EAP-TLS with TLS 1.3, the EAP server MUST indicate support of resumption in the initial authentication. To indicate support of resumption, the EAP server sends a NewSessionTicket message (containing a PSK and other parameters) after it has received the Finished message. The NewSessionTicket message MUST NOT include an "early_data" extension.</t>
 
-			<t>In the case where EAP-TLS with mutual authentication and ticket establishment is successful, the conversation will appear as shown in <xref target="figbase2"/>.</t>
+			</section>			
+
+			<section title='Ticket Establishment'>
+				<t>When using EAP-TLS with TLS 1.3, the EAP server MUST indicate support of resumption in the initial authentication. To indicate support of resumption, the EAP server sends a NewSessionTicket message (containing a PSK and other parameters) after it has received the Finished message. The NewSessionTicket message MUST NOT include an "early_data" extension.</t>
+
+				<t>In the case where EAP-TLS with mutual authentication and ticket establishment is successful, the conversation will appear as shown in <xref target="figbase2"/>.</t>
 
 <figure anchor="figbase2" title="EAP-TLS ticket establishment" align="center"><artwork><![CDATA[
  EAP Peer                                              EAP Server
@@ -185,49 +229,10 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
  EAP-Response/
  EAP-Type=EAP-TLS             -------->
                               <--------               EAP-Success
-]]></artwork></figure>
-			
+]]></artwork></figure>	
+			</section>			
+
 		</section>
-
-		<section title="Hello Retry Request" anchor="helloretry">
-			<t>TLS 1.3 <xref target="RFC8446"/> defines that TLS servers can send a HelloRetryRequest message in response to a ClientHello if the server finds an acceptable set of parameters but the initial ClientHello does not contain all the needed information to continue the handshake.</t>
-
-			<t>An EAP-TLS peer and server SHOULD support the use of HelloRetryRequest message. As noted in Section 4.1.4 of <xref target="RFC8446"/>, the server MUST provide the supported_versions extensions and SHOULD contain the minimal set of extensions necessary for the client to generate a correct ClientHello pair. A HelloRetryRequest MUST NOT contain any extensions that were not first offered by the client in its ClientHello, with the exception of optionally the cookie extension.</t>
-
-			<t>The case of a successful EAP-TLS mutual authentication after the server has sent a HelloRetryRequest message is shown in <xref target="fighelloretryrequest"/>. Note the extra round-trip as a result of the HelloRetryRequest.</t>
-
-<figure anchor="fighelloretryrequest" title="EAP-TLS with Hello Retry Request" align="center"><artwork><![CDATA[
- EAP Peer                                              EAP Server
-
-                                                      EAP-Request/
-                              <--------                  Identity
- EAP-Response/
- Identity (Privacy-Friendly)  -------->
-                                                      EAP-Request/
-                                                 EAP-Type=EAP-TLS
-                              <--------                (TLS Start)
- EAP-Response/
- EAP-Type=EAP-TLS
-(TLS ClientHello)             -------->
-                                                      EAP-Request/
-                                                 EAP-Type=EAP-TLS
-                                           (TLS HelloRetryRequest)
-                              <--------
- EAP-Response/
- EAP-Type=EAP-TLS
-(TLS ClientHello)             -------->
-                                                      EAP-Request/
-                                                 EAP-Type=EAP-TLS
-                                                 (TLS ServerHello,
-                                          TLS EncryptedExtensions,
-                                                     TLS Finished,
-                              <--------          TLS empty record)
- EAP-Response/
- EAP-Type=EAP-TLS
-(TLS Finished)                -------->
-                              <--------               EAP-Success
-]]></artwork></figure>
-	    </section>
 
 		<section title="Resumption" anchor="resumption">
 			<t>TLS 1.3 replaces the session resumption mechanisms in earlier versions of TLS with a new PSK exchange. When EAP-TLS is used with TLS version 1.3 or higher, EAP-TLS SHALL use a resumption mechanism compatible with that version of TLS.</t>
