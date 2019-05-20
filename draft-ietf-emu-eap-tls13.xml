@@ -660,7 +660,6 @@ SEND-IV      = IV(32, 63)
 	<?rfc include='reference.RFC.5247'?>
 	<?rfc include='reference.RFC.6733'?>
 	<?rfc include='reference.RFC.6973'?>
-	<?rfc include='reference.RFC.7301'?>
 	<?rfc include='reference.RFC.7406'?>
 	<?rfc include='reference.RFC.7258'?>
 	<?rfc include='reference.RFC.7457'?>
