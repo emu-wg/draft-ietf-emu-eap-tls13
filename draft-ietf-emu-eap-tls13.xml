@@ -81,7 +81,7 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
 	<section title='Overview of the EAP-TLS Conversation'>
 
 		<section title='Initial Handshake'>
-			<t>TLS 1.3 changes both the message flow and the handshake messages compared to earlier versions of TLS. Therefore, much of Section 2.1 of RFC5216 <xref target="RFC5216"/> does not apply for TLS 1.3 (or higher).</t>
+			<t>TLS 1.3 changes both the message flow and the handshake messages compared to earlier versions of TLS. Therefore, much of Section 2.1 of <xref target="RFC5216"/> does not apply for TLS 1.3 (or higher).</t>
 
 			<t>After receiving an EAP-Request packet with EAP-Type=EAP-TLS as described in <xref target="RFC5216"/> the conversation will continue with the TLS handshake protocol encapsulated in the data fields of EAP-Response and EAP-Request packets. When EAP-TLS is used with TLS version 1.3 or higher, the formatting and processing of the TLS handshake SHALL be done as specified in that version of TLS. This document only lists additional and different requirements, restrictions, and processing compared to <xref target="RFC8446"/> and <xref target="RFC5216"/>.</t>
 
@@ -271,7 +271,7 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
 		</section>
 
 		<section title='Termination'>
-			<t>TLS 1.3 changes both the message flow and the handshake messages compared to earlier versions of TLS. Therefore, some normative text in Section 2.1.3 of RFC 5216 <xref target="RFC5216"/> does not apply for TLS 1.3 or higher. The two paragraphs below replaces the corresponding paragraphs in Section 2.1.3 of RFC 5216 <xref target="RFC5216"/> when EAP-TLS is used with TLS 1.3 or higher. The other paragraphs in Section 2.1.3 of RFC 5216 <xref target="RFC5216"/> still apply with the exception that SessionID is deprecated.
+			<t>TLS 1.3 changes both the message flow and the handshake messages compared to earlier versions of TLS. Therefore, some normative text in Section 2.1.3 of <xref target="RFC5216"/> does not apply for TLS 1.3 or higher. The two paragraphs below replaces the corresponding paragraphs in Section 2.1.3 of <xref target="RFC5216"/> when EAP-TLS is used with TLS 1.3 or higher. The other paragraphs in Section 2.1.3 of <xref target="RFC5216"/> still apply with the exception that SessionID is deprecated.
 			<list>
 
 				<t>If the EAP server authenticates successfully, the EAP peer MUST send an EAP-Response message with EAP-Type=EAP-TLS containing TLS records conforming to the version of TLS used.</t>
@@ -546,7 +546,7 @@ SEND-IV      = IV(32, 63)
 		
 		<t>To perform resumption in a secure way, the EAP-TLS peer and EAP-TLS server need to be able to securely retrieve information such as certificate chains, revocation status, and other authorization information from the initial full handshake. We use the term "cached data" to describe such information. Authorization during resumption MUST be based on such cached data.</t>
 
-		<t>There are two ways to retrieve the cached information from the original full handshake. The first method is that the TLS server and client cache the information locally. The cached information is identified by an identifier. For TLS versions before 1.3, the identifier can be the session ID, for TLS 1.3, the identifier is the PSK identity. The second method for retrieving cached information is via <xref target="RFC5077"/>, where the TLS server encapsulates the information into a ticket and sends it to the client.  The client can subsequently do resumption using the obtained ticket. Note that the client still needs to cache the information locally. The following requirements apply to both methods.</t>
+		<t>There are two ways to retrieve the cached information from the original full handshake. The first method is that the TLS server and client cache the information locally. The cached information is identified by an identifier. For TLS versions before 1.3, the identifier can be the session ID, for TLS 1.3, the identifier is the PSK identity. The second method for retrieving cached information is via <xref target="RFC5077"/> or <xref target="RFC8466"/>, where the TLS server encapsulates the information into a ticket and sends it to the client.  The client can subsequently do resumption using the obtained ticket. Note that the client still needs to cache the information locally. The following requirements apply to both methods.</t>
 
 		<t>If the EAP server or EAP client do not apply any authorization policies, they MAY allow resumption where no cached data is available. In all other cases, they MUST cache data during the initial full authentication to enable resumption. The cached data MUST be sufficient to make authorization decisions during resumption. If cached data cannot be retrieved in a secure way, resumption MUST NOT be done.</t>
 
