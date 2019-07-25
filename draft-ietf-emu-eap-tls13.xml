@@ -88,7 +88,7 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
 
 			<t>The EAP server MUST authenticate with a certificate and SHOULD require the EAP peer to authenticate with a certificate. Certificates can be of any type supported by TLS including raw public keys. Pre-Shared Key (PSK) authentication SHALL NOT be used except for resumption. SessionID is deprecated in TLS 1.3 and the EAP server SHALL ignore the legacy_session_id field if TLS 1.3 is negotiated. TLS 1.3 introduced early application data which is not used in EAP-TLS. A server which receives an "early_data" extension MUST ignore the extension or respond with a HelloRetryRequest as described in Section 4.2.10 of <xref target="RFC8446"/>. Resumption is handled as described in <xref target="resumption"/>. After the TLS handshake has completed and all Post-Handshake messages have been sent, the EAP server sends EAP-Success.</t>
 
-			<t>In the case where EAP-TLS with mutual authentication is successful, the conversation will appear as shown in <xref target="figbase1"/>. The EAP server commits to not send any more handshake messages by sending an empty TLS record, see <xref target="state"/>.</t>
+			<t>In the case where EAP-TLS with mutual authentication is successful, the conversation will appear as shown in <xref target="figbase1"/>. The EAP server commits to not send any more handshake messages by sending a TLS record with the application data 0x00, see <xref target="state"/>.</t>
 
 <figure anchor="figbase1" title="EAP-TLS mutual authentication" align="center"><artwork><![CDATA[
  EAP Peer                                              EAP Server
@@ -111,7 +111,7 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
                                                   TLS Certificate,
                                             TLS CertificateVerify,
                                                      TLS Finished,
-                              <--------          TLS empty record)
+                              <--------      TLS Application Data)
  EAP-Response/
  EAP-Type=EAP-TLS
 (TLS Certificate,
@@ -182,7 +182,7 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
                                                   TLS Certificate,
                                             TLS CertificateVerify,
                                                      TLS Finished,
-                              <--------          TLS empty record)
+                              <--------      TLS Application Data)
  EAP-Response/
  EAP-Type=EAP-TLS
 (TLS Fatal Alert)
@@ -214,7 +214,7 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
                                                   TLS Certificate,
                                             TLS CertificateVerify,
                                                      TLS Finished,
-                              <--------          TLS empty record)
+                              <--------      TLS Application Data)
  EAP-Response/
  EAP-Type=EAP-TLS
 (TLS Certificate,
@@ -253,7 +253,7 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
                                                   TLS Certificate,
                                             TLS CertificateVerify,
                                                      TLS Finished,
-                              <--------          TLS empty record)
+                              <--------      TLS Application Data)
  EAP-Response/
  EAP-Type=EAP-TLS
 (TLS Finished)                -------->
@@ -293,7 +293,7 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
                                                  (TLS ServerHello,
                                           TLS EncryptedExtensions,
                                                      TLS Finished,
-                              <--------          TLS empty record)
+                              <--------      TLS Application Data)
  EAP-Response/
  EAP-Type=EAP-TLS
 (TLS Finished)                -------->
@@ -335,7 +335,7 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
                                                       EAP-Request/
                                                  EAP-Type=EAP-TLS
                                             (TLS NewSessionTicket,
-                              <--------          TLS empty record)
+                              <--------      TLS Application Data)
  EAP-Response/
  EAP-Type=EAP-TLS             -------->
                               <--------               EAP-Success
@@ -367,7 +367,7 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
                                                  (TLS ServerHello,
                                           TLS EncryptedExtensions,
                                                      TLS Finished,
-                              <--------          TLS empty record)
+                              <--------      TLS Application Data)
  EAP-Response/
  EAP-Type=EAP-TLS
 (TLS Finished)                -------->
@@ -459,8 +459,43 @@ SEND-IV      = IV(32, 63)
 	<section title='EAP State Machines' anchor="state">
 		<t>TLS 1.3  <xref target="RFC8446"/> introduces Post-Handshake messages. These Post-Handshake messages use the handshake content type and can be sent after the main handshake. One such Post-Handshake message is NewSessionTicket. The NewSessionTicket can be used for resumption. After sending TLS Finished, the EAP server may send any number of Post-Handshake messages in separate EAP-Requests. To decrease the uncertainty for the EAP peer, the following procedure MUST be followed:</t>
 
-		<t>When an EAP server has sent its last handshake message (Finished or a Post-Handshake), it commits to not sending any more handshake messages by appending an empty application data record (i.e. a TLS record with TLSPlaintext.type = application_data and TLSPlaintext.length = 0) to the last handshake record. After sending an empty application data record, the EAP server may only send an EAP-Success, an EAP-Failure, or an EAP-Request with a TLS Alert Message.</t>
+		<t>When an EAP server has sent its last handshake message (Finished or a Post-Handshake), it commits to not sending any more handshake messages by sending a TLS record with application data 0x00 (i.e. a TLS record with TLSPlaintext.type = application_data, TLSPlaintext.length = 1, and TLSPlaintext.fragment = 0x00). EAP server implementations MUST set TLSPlaintext.fragment to 0x00, but EAP peer implementations MUST accept any application data as a commit from the EAP server to not send any more handshake messages. The TLS record with application data may be sent in the same EAP-Request as the last handshake record or in a separate EAP-Request. Sending the commit in a separate EAP-Request adds an additional round-trip, but may be necessary in TLS implementations that only implement a subset of TLS 1.3. In the case where the server sends the commit in a separate commit, the conversation will appear as shown in  <xref target="figsepcommit"/>.
+   		
+		After sending the application data record, the EAP server may only send an EAP-Success, an EAP-Failure, or an EAP-Request with a TLS Alert Message.</t>
 
+<figure anchor="figsepcommit" title="Commit in separate EAP-Request" align="center"><artwork><![CDATA[
+ EAP Peer                                              EAP Server
+
+                                                      EAP-Request/
+                              <--------                  Identity
+ EAP-Response/
+ Identity (Privacy-Friendly)  -------->
+                                                      EAP-Request/
+                                                 EAP-Type=EAP-TLS
+                              <--------                (TLS Start)
+ EAP-Response/
+ EAP-Type=EAP-TLS
+(TLS ClientHello)             -------->
+                                                      EAP-Request/
+                                                 EAP-Type=EAP-TLS
+                                                 (TLS ServerHello,
+                                          TLS EncryptedExtensions,
+                                           TLS CertificateRequest,
+                                                  TLS Certificate,
+                                            TLS CertificateVerify,
+                              <--------              TLS Finished,
+ EAP-Response/
+ EAP-Type=EAP-TLS
+(TLS Certificate,
+ TLS CertificateVerify,
+ TLS Finished)                -------->
+                                                      EAP-Request/
+                                                 EAP-Type=EAP-TLS
+                              <--------      TLS Application Data)
+ EAP-Response/
+ EAP-Type=EAP-TLS             -------->
+                              <--------               EAP-Success
+]]></artwork></figure>
 	</section>
 
 </section>
@@ -637,17 +672,17 @@ SEND-IV      = IV(32, 63)
 	     <author>
 	       <organization>3GPP</organization>
 	       </author>
-	     <date month="March" year="2019" />
+	     <date month="June" year="2019" />
 	   </front>
-	   <seriesInfo name="3GPP TS" value="33.501 15.4.0" />
+	   <seriesInfo name="3GPP TS" value="33.501 15.5.0" />
 	</reference>
 	<reference anchor="MulteFire">
 	   <front>
-	     <title>MulteFire Release 1.0.1 specification</title>
+	     <title>MulteFire Release 1.1 specification</title>
 	     <author>
 	       <organization>MulteFire</organization>
 	       </author>
-	     <date year="2017" />
+	     <date year="2019" />
 	   </front>
 	</reference>
 	<?rfc include='reference.RFC.1661'?>	
