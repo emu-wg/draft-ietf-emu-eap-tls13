@@ -590,6 +590,8 @@ SEND-IV      = IV(32, 63)
 
 		<t>If any authorization, accounting, or policy decisions were made with information that have changed between the initial full handshake and resumption, and if change may lead to a different decision, such decisions MUST be reevaluated. It is RECOMMENDED that authorization, accounting, and policy decisions are reevaluated based on the information given in the resumption. EAP servers MAY reject resumption where the information supplied during resumption does not match the information supplied during the original authentication. Where a good decision is unclear, EAP servers SHOULD reject the resumption.</t>
 
+		<t>Section 4.2.11, 8.1, and 8.2 of <xref target="RFC8446"/> provides security consideration for resumption.</t>
+
 	</section>
 
 	<section title="Privacy Considerations">
