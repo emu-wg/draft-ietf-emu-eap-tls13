@@ -134,7 +134,7 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
 
 			<t>Figures <xref target="figterm1" format="counter"/>,  <xref target="figterm2" format="counter"/>, and <xref target="figterm3" format="counter"/> illustrate message flows in several cases where the EAP peer or EAP server sends a TLS fatal alert message. TLS warning alerts generally mean that the connection can continue normally and does not change the message flow. Note that the party receiving a TLS warning alert may choose to terminate the connection by sending a TLS fatal alert, which may add an extra round-trip, see <xref target="RFC8446"/>. </t>
 			
-			<t>In the case where the server rejects the ClientHello, the conversation will appear as shown in <xref target="figterm1"/>.</t>
+			<t>In the case where the server rejects the ClientHello with a fatal error, the conversation will appear as shown in <xref target="figterm1"/>. The server can also partly reject the ClientHello with a HelloRetryRequest, see <xref target="helloretry"/>.</t>
 
 <figure anchor="figterm1" title="EAP-TLS server rejection of ClientHello" align="center"><artwork><![CDATA[
  EAP Peer                                              EAP Server
