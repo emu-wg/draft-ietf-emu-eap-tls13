@@ -486,7 +486,7 @@ SEND-IV      = IV(32, 63)
                                            TLS CertificateRequest,
                                                   TLS Certificate,
                                             TLS CertificateVerify,
-                              <--------              TLS Finished,
+                              <--------              TLS Finished)
  EAP-Response/
  EAP-Type=EAP-TLS
 (TLS Certificate,
