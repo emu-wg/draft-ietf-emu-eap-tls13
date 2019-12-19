@@ -325,7 +325,7 @@ ul.toc li {
 
   <meta name="dct.creator" content="Mattsson, J. and M. Sethi" />
   <meta name="dct.identifier" content="urn:ietf:id:draft-ietf-emu-eap-tls13-latest" />
-  <meta name="dct.issued" scheme="ISO8601" content="2019-21" />
+  <meta name="dct.issued" scheme="ISO8601" content="2019-19" />
   <meta name="dct.abstract" content="This document specifies the use of EAP-TLS with TLS 1.3 while remaining backwards compatible with existing implementations of EAP-TLS. TLS 1.3 provides significantly improved security, privacy, and reduced latency when compared to earlier versions of TLS. EAP-TLS with TLS 1.3 further improves security and privacy by mandating use of privacy and revocation checking. This document updates RFC 5216.  " />
   <meta name="description" content="This document specifies the use of EAP-TLS with TLS 1.3 while remaining backwards compatible with existing implementations of EAP-TLS. TLS 1.3 provides significantly improved security, privacy, and reduced latency when compared to earlier versions of TLS. EAP-TLS with TLS 1.3 further improves security and privacy by mandating use of privacy and revocation checking. This document updates RFC 5216.  " />
 
@@ -350,10 +350,10 @@ ul.toc li {
 </tr>
 <tr>
 <td class="left">Intended status: Standards Track</td>
-<td class="right">September 21, 2019</td>
+<td class="right">December 19, 2019</td>
 </tr>
 <tr>
-<td class="left">Expires: March 24, 2020</td>
+<td class="left">Expires: June 21, 2020</td>
 <td class="right"></td>
 </tr>
 
@@ -370,7 +370,7 @@ ul.toc li {
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on March 24, 2020.</p>
+<p>This Internet-Draft will expire on June 21, 2020.</p>
 <h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
 <p>Copyright (c) 2019 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
 <p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
@@ -458,8 +458,8 @@ ul.toc li {
 
   <h1 id="rfc.section.1">
 <a href="#rfc.section.1">1.</a> Introduction</h1>
-<p id="rfc.section.1.p.1">The Extensible Authentication Protocol (EAP), defined in <a href="#RFC3748" class="xref">[RFC3748]</a>, provides a standard mechanism for support of multiple authentication methods. EAP-Transport Layer Security (EAP-TLS) <a href="#RFC5216" class="xref">[RFC5216]</a> specifies an EAP authentication method with certificate-based mutual authentication and key derivation utilizing the TLS handshake protocol for cryptographic algorithms and protocol version negotiation, mutual authentication, and establishment of shared secret keying material. EAP-TLS is widely supported for authentication in IEEE 802.11 <a href="#IEEE-802.11" class="xref">[IEEE-802.11]</a> networks (Wi-Fi) using IEEE 802.1X <a href="#IEEE-802.1X" class="xref">[IEEE-802.1X]</a> and it's the default mechanism for certificate based authentication in 3GPP 5G <a href="#TS.33.501" class="xref">[TS.33.501]</a> and MulteFire <a href="#MulteFire" class="xref">[MulteFire]</a> networks. EAP-TLS <a href="#RFC5216" class="xref">[RFC5216]</a> references TLS 1.0 <a href="#RFC2246" class="xref">[RFC2246]</a> and TLS 1.1 <a href="#RFC4346" class="xref">[RFC4346]</a>, but works perfectly also with TLS 1.2 <a href="#RFC5246" class="xref">[RFC5246]</a>. TLS 1.0 and 1.1 are formally deprecated and prohibited to negotiate and use <a href="#I-D.ietf-tls-oldversions-deprecate" class="xref">[I-D.ietf-tls-oldversions-deprecate]</a>.  </p>
-<p id="rfc.section.1.p.2">Weaknesses found in TLS 1.2, as well as new requirements for security, privacy, and reduced latency has led to the specification of TLS 1.3 <a href="#RFC8446" class="xref">[RFC8446]</a>, which obsoletes TLS 1.2 <a href="#RFC5246" class="xref">[RFC5246]</a>. TLS 1.3 is in large parts a complete remodeling of the TLS handshake protocol including a different message flow, different handshake messages, different key schedule, different cipher suites, different resumption, different privacy protection, and record padding. This means that significant parts of the normative text in the previous EAP-TLS specification <a href="#RFC5216" class="xref">[RFC5216]</a> are not applicable to EAP-TLS with TLS 1.3 (or higher). Therefore, aspects such as resumption, privacy handling, and key derivation need to be appropriately addressed for EAP-TLS with TLS 1.3 (or higher).</p>
+<p id="rfc.section.1.p.1">The Extensible Authentication Protocol (EAP), defined in <a href="#RFC3748" class="xref">[RFC3748]</a>, provides a standard mechanism for support of multiple authentication methods. EAP-Transport Layer Security (EAP-TLS) <a href="#RFC5216" class="xref">[RFC5216]</a> specifies an EAP authentication method with certificate-based mutual authentication and key derivation utilizing the TLS handshake protocol for cryptographic algorithms and protocol version negotiation, mutual authentication, and establishment of shared secret keying material. EAP-TLS is widely supported for authentication in IEEE 802.11 <a href="#IEEE-802.11" class="xref">[IEEE-802.11]</a> networks (Wi-Fi) using IEEE 802.1X <a href="#IEEE-802.1X" class="xref">[IEEE-802.1X]</a> and it's the default mechanism for certificate based authentication in 3GPP 5G <a href="#TS.33.501" class="xref">[TS.33.501]</a> and MulteFire <a href="#MulteFire" class="xref">[MulteFire]</a> networks. Many other EAP methods such as EAP-FAST <a href="#RFC4851" class="xref">[RFC4851]</a>, EAP-TTLS <a href="#RFC5281" class="xref">[RFC5281]</a>, TEAP <a href="#RFC7170" class="xref">[RFC7170]</a>, and PEAP <a href="#PEAP" class="xref">[PEAP]</a> depend on TLS and EAP-TLS.</p>
+<p id="rfc.section.1.p.2">EAP-TLS <a href="#RFC5216" class="xref">[RFC5216]</a> references TLS 1.0 <a href="#RFC2246" class="xref">[RFC2246]</a> and TLS 1.1 <a href="#RFC4346" class="xref">[RFC4346]</a>, but works perfectly also with TLS 1.2 <a href="#RFC5246" class="xref">[RFC5246]</a>. TLS 1.0 and 1.1 are formally deprecated and prohibited to negotiate and use <a href="#I-D.ietf-tls-oldversions-deprecate" class="xref">[I-D.ietf-tls-oldversions-deprecate]</a>. Weaknesses found in TLS 1.2, as well as new requirements for security, privacy, and reduced latency has led to the specification of TLS 1.3 <a href="#RFC8446" class="xref">[RFC8446]</a>, which obsoletes TLS 1.2 <a href="#RFC5246" class="xref">[RFC5246]</a>. TLS 1.3 is in large parts a complete remodeling of the TLS handshake protocol including a different message flow, different handshake messages, different key schedule, different cipher suites, different resumption, different privacy protection, and record padding. This means that significant parts of the normative text in the previous EAP-TLS specification <a href="#RFC5216" class="xref">[RFC5216]</a> are not applicable to EAP-TLS with TLS 1.3 (or higher). Therefore, aspects such as resumption, privacy handling, and key derivation need to be appropriately addressed for EAP-TLS with TLS 1.3 (or higher).</p>
 <p id="rfc.section.1.p.3">This document defines how to use EAP-TLS with TLS 1.3 (or higher) and does not change how EAP-TLS is used with older versions of TLS. While this document updates EAP-TLS <a href="#RFC5216" class="xref">[RFC5216]</a>, it remains backwards compatible with it and existing implementations of EAP-TLS. This document only describes differences compared to <a href="#RFC5216" class="xref">[RFC5216]</a>.</p>
 <p id="rfc.section.1.p.4">In addition to the improved security and privacy offered by TLS 1.3, there are other significant benefits of using EAP-TLS with TLS 1.3. Privacy is mandatory and achieved without any additional round-trips, revocation checking is mandatory and easy with OCSP stapling, and TLS 1.3 introduces more possibilities to reduce fragmentation when compared to earlier versions of TLS.</p>
 <h1 id="rfc.section.1.1">
@@ -733,7 +733,8 @@ ul.toc li {
 </h1>
 <p id="rfc.section.2.1.6.p.1">TLS 1.3 replaces the session resumption mechanisms in earlier versions of TLS with a new PSK exchange. When EAP-TLS is used with TLS version 1.3 or higher, EAP-TLS SHALL use a resumption mechanism compatible with that version of TLS.</p>
 <p id="rfc.section.2.1.6.p.2">For TLS 1.3, resumption is described in Section 2.2 of <a href="#RFC8446" class="xref">[RFC8446]</a>. If the client has received a NewSessionTicket message from the server, the client can use the PSK identity received in the ticket to negotiate the use of the associated PSK. If the server accepts it, then the security context of the new connection is tied to the original connection and the key derived from the initial handshake is used to bootstrap the cryptographic state instead of a full handshake. It is left up to the EAP peer whether to use resumption, but it is RECOMMENDED that the EAP server accept resumption as long as the ticket is valid. However, the server MAY choose to require a full authentication. EAP peers and EAP servers SHOULD follow the client tracking preventions in Appendix C.4 of <a href="#RFC8446" class="xref">[RFC8446]</a>.</p>
-<p id="rfc.section.2.1.6.p.3">A subsequent authentication using resumption, where both sides authenticate successfully is shown in <a href="#figresumption" class="xref">Figure 8</a>.</p>
+<p id="rfc.section.2.1.6.p.3">The NAI used in resumption SHOULD be the same NAI that was used during the original full authentication. This requirement allows EAP packets to be routable through an AAA infrastructure to the same destination as the original full authentication.</p>
+<p id="rfc.section.2.1.6.p.4">A subsequent authentication using resumption, where both sides authenticate successfully (without the issuance of more resumption tickets) is shown in <a href="#figresumption" class="xref">Figure 8</a>.</p>
 <div id="rfc.figure.8"></div>
 <div id="figresumption"></div>
 <pre>
@@ -761,25 +762,27 @@ ul.toc li {
                               &lt;--------               EAP-Success
 </pre>
 <p class="figure">Figure 8: EAP-TLS resumption</p>
-<p id="rfc.section.2.1.6.p.4">As specified in Section 2.2 of <a href="#RFC8446" class="xref">[RFC8446]</a>, the EAP peer SHOULD supply a "key_share" extension when offering resumption, which allows the EAP server to decline resumption and continue the handshake as a full handshake. The message flow in case of mutual authentication (without the issuance of any resumption tickets) is given by <a href="#figbase1" class="xref">Figure 1</a>. If the EAP peer did not supply a "key_share" extension when offering resumption, the EAP server needs to reject the ClientHello and the EAP peer needs to restart a full handshake. The message flow in this case is given by <a href="#figterm1" class="xref">Figure 2</a> followed by <a href="#figbase1" class="xref">Figure 1</a>.</p>
-<p id="rfc.section.2.1.6.p.5">Also during resumption, the server can respond with a Hello Retry Request (see <a href="#helloretry" class="xref">Section 2.1.4</a>) and issue a new ticket (see <a href="#ticket" class="xref">Section 2.1.5</a>)</p>
+<p id="rfc.section.2.1.6.p.5">As specified in Section 2.2 of <a href="#RFC8446" class="xref">[RFC8446]</a>, the EAP peer SHOULD supply a "key_share" extension when attempting resumption, which allows the EAP server to potentially decline resumption and fall back to a full handshake. If the EAP peer did not supply a "key_share" extension when attempting resumption, the EAP server needs to reject the ClientHello and the EAP peer needs to restart a full handshake. The message flow in this case is given by <a href="#figterm1" class="xref">Figure 2</a> followed by <a href="#figbase1" class="xref">Figure 1</a>.</p>
+<p id="rfc.section.2.1.6.p.6">Also during resumption, the server can respond with a Hello Retry Request (see <a href="#helloretry" class="xref">Section 2.1.4</a>) or issue a new ticket (see <a href="#ticket" class="xref">Section 2.1.5</a>)</p>
 <h1 id="rfc.section.2.1.7">
 <a href="#rfc.section.2.1.7">2.1.7.</a> <a href="#privacy" id="privacy">Privacy</a>
 </h1>
 <p id="rfc.section.2.1.7.p.1">TLS 1.3 significantly improves privacy when compared to earlier versions of TLS by forbidding cipher suites without confidentiality and encrypting large parts of the TLS handshake including the certificate messages.</p>
 <p id="rfc.section.2.1.7.p.2">EAP-TLS peer and server implementations supporting TLS 1.3 or higher MUST support anonymous NAIs (Network Access Identifiers) (Section 2.4 in <a href="#RFC7542" class="xref">[RFC7542]</a>) and a client supporting TLS 1.3 MUST NOT send its username in cleartext in the Identity Response. It is RECOMMENDED to use anonymous NAIs, but other privacy-friendly identities (e.g. encrypted usernames) MAY be used.</p>
 <p id="rfc.section.2.1.7.p.3">As the certificate messages in TLS 1.3 are encrypted, there is no need to send an empty certificate_list and perform a second handshake for privacy (as needed by EAP-TLS with earlier versions of TLS). When EAP-TLS is used with TLS version 1.3 or higher the EAP-TLS peer and EAP-TLS server SHALL follow the processing specified by the used version of TLS. For TLS 1.3 this means that the EAP-TLS peer only sends an empty certificate_list if it does not have an appropriate certificate to send, and the EAP-TLS server MAY treat an empty certificate_list as a terminal condition.</p>
-<p id="rfc.section.2.1.7.p.4">EAP-TLS with TLS 1.3 is always used with privacy. This does not add any extra round-trips and the message flow with privacy is just the normal message flow as shown in <a href="#figbase1" class="xref">Figure 1</a>.</p>
+<p id="rfc.section.2.1.7.p.4">Privacy friendly NAIs MAY be dervied from the domain name part of the peer identity used inside of TLS. This derivation is common practice when using certificates and works because the common name (CN) field in the certificate typically contains a routable identifier such as an email address.</p>
+<p id="rfc.section.2.1.7.p.5">EAP-TLS with TLS 1.3 is always used with privacy. This does not add any extra round-trips and the message flow with privacy is just the normal message flow as shown in <a href="#figbase1" class="xref">Figure 1</a>.</p>
 <h1 id="rfc.section.2.1.8">
 <a href="#rfc.section.2.1.8">2.1.8.</a> Fragmentation</h1>
 <p id="rfc.section.2.1.8.p.1">Including ContentType and ProtocolVersion a single TLS record may be up to 16387 octets in length. EAP-TLS fragmentation support is provided through addition of a flags octet within the EAP-Response and EAP-Request packets, as well as a TLS Message Length field of four octets. Implementations MUST NOT set the L bit in unfragmented messages, but MUST accept unfragmented messages with and without the L bit set.</p>
 <p id="rfc.section.2.1.8.p.2">Some EAP implementations and access networks may limit the number of EAP packet exchanges that can be handled. To avoid fragmentation, it is RECOMMENDED to keep the sizes of client, server, and trust anchor certificates small and the length of the certificate chains short. In addition, it is RECOMMENDED to use mechanisms that reduce the sizes of Certificate messages.</p>
 <p id="rfc.section.2.1.8.p.3">While Elliptic Curve Cryptography (ECC) was optional for earlier version of TLS, TLS 1.3 mandates support of ECC (see Section 9 of <a href="#RFC8446" class="xref">[RFC8446]</a>). To avoid fragmentation, the use of ECC in certificates, signature algorithms, and groups are RECOMMENDED when using EAP-TLS with TLS 1.3 or higher. At a 128-bit security level, this reduces public key sizes from 384 bytes (RSA and DHE) to 32-64 bytes (ECDHE) and signatures from 384 bytes (RSA) to 64 bytes (ECDSA and EdDSA). An EAP-TLS deployment MAY further reduce the certificate sizes by limiting the number of Subject Alternative Names.</p>
 <p id="rfc.section.2.1.8.p.4">Endpoints SHOULD reduce the sizes of Certificate messages by omitting certificates that the other endpoint is known to possess. When using TLS 1.3, all certificates that specifies a trust anchor may be omitted (see Section 4.4.2 of <a href="#RFC8446" class="xref">[RFC8446]</a>). When using TLS 1.2, only the self-signed certificate that specifies the root certificate authority may be omitted (see Section 7.4.2 of <a href="#RFC5246" class="xref">[RFC5246]</a>). EAP-TLS peers and servers SHOULD support and use the Cached Information Extension as specified in <a href="#RFC7924" class="xref">[RFC7924]</a>. EAP-TLS peers and servers MAY use other extensions for reducing the sizes of Certificate messages, e.g. certificate compression <a href="#I-D.ietf-tls-certificate-compression" class="xref">[I-D.ietf-tls-certificate-compression]</a>.</p>
+<p id="rfc.section.2.1.8.p.5">For a detailed discussion on reducing message sizes to prevent fragmentation, see <a href="#I-D.ietf-emu-eaptlscert" class="xref">[I-D.ietf-emu-eaptlscert]</a>.</p>
 <h1 id="rfc.section.2.2">
 <a href="#rfc.section.2.2">2.2.</a> <a href="#identity" id="identity">Identity Verification</a>
 </h1>
-<p id="rfc.section.2.2.p.1">The identity provided in the EAP-Response/Identity is not authenticated by EAP-TLS. Unauthenticated information SHALL NOT be used for accounting purposes or to give authorization.  The authenticator and the EAP server MAY examine the identity presented in EAP-Response/Identity for purposes such as routing and EAP method selection.  They MAY reject conversations if the identity does not match their policy. Note that this also applies to resumption, see Sections <a href="#resumption" class="xref">2.1.6</a>, <a href="#secauth" class="xref">5.6</a>, and <a href="#secres" class="xref">5.7</a>.</p>
+<p id="rfc.section.2.2.p.1">The identity provided in the EAP-Response/Identity is not authenticated by EAP-TLS. Unauthenticated information SHALL NOT be used for accounting purposes or to give authorization.  The authenticator and the EAP server MAY examine the identity presented in EAP-Response/Identity for purposes such as routing and EAP method selection. Servers MAY reject conversations if the identity does not match their policy. Note that this also applies to resumption, see Sections <a href="#resumption" class="xref">2.1.6</a>, <a href="#secauth" class="xref">5.6</a>, and <a href="#secres" class="xref">5.7</a>.</p>
 <h1 id="rfc.section.2.3">
 <a href="#rfc.section.2.3">2.3.</a> <a href="#keyheirarchy" id="keyheirarchy">Key Hierarchy</a>
 </h1>
@@ -839,7 +842,7 @@ SEND-IV      = IV(32, 63)
                                            TLS CertificateRequest,
                                                   TLS Certificate,
                                             TLS CertificateVerify,
-                              &lt;--------              TLS Finished,
+                              &lt;--------              TLS Finished)
  EAP-Response/
  EAP-Type=EAP-TLS
 (TLS Certificate,
@@ -995,9 +998,14 @@ SEND-IV      = IV(32, 63)
 <a href="#rfc.references.2">6.2.</a> Informative references</h1>
 <table><tbody>
 <tr>
+<td class="reference"><b id="I-D.ietf-emu-eaptlscert">[I-D.ietf-emu-eaptlscert]</b></td>
+<td class="top">
+<a>Sethi, M.</a>, <a>Mattsson, J.</a> and <a>S. Turner</a>, "<a href="https://tools.ietf.org/html/draft-ietf-emu-eaptlscert-00">Handling Large Certificates and Long Certificate Chains in TLS-based EAP Methods</a>", Internet-Draft draft-ietf-emu-eaptlscert-00, August 2019.</td>
+</tr>
+<tr>
 <td class="reference"><b id="I-D.ietf-tls-certificate-compression">[I-D.ietf-tls-certificate-compression]</b></td>
 <td class="top">
-<a>Ghedini, A.</a> and <a>V. Vasiliev</a>, "<a href="https://tools.ietf.org/html/draft-ietf-tls-certificate-compression-05">TLS Certificate Compression</a>", Internet-Draft draft-ietf-tls-certificate-compression-05, April 2019.</td>
+<a>Ghedini, A.</a> and <a>V. Vasiliev</a>, "<a href="https://tools.ietf.org/html/draft-ietf-tls-certificate-compression-08">TLS Certificate Compression</a>", Internet-Draft draft-ietf-tls-certificate-compression-08, December 2019.</td>
 </tr>
 <tr>
 <td class="reference"><b id="I-D.ietf-tls-oldversions-deprecate">[I-D.ietf-tls-oldversions-deprecate]</b></td>
@@ -1018,6 +1026,11 @@ SEND-IV      = IV(32, 63)
 <td class="reference"><b id="MulteFire">[MulteFire]</b></td>
 <td class="top">
 <a>MulteFire</a>, "<a>MulteFire Release 1.1 specification</a>", 2019.</td>
+</tr>
+<tr>
+<td class="reference"><b id="PEAP">[PEAP]</b></td>
+<td class="top">
+<a>Microsoft Corporation</a>, "<a>[MS-PEAP]: Protected Extensible Authentication Protocol (PEAP)</a>", 2019.</td>
 </tr>
 <tr>
 <td class="reference"><b id="RFC1661">[RFC1661]</b></td>
@@ -1060,6 +1073,11 @@ SEND-IV      = IV(32, 63)
 <a>Blake-Wilson, S.</a>, <a>Nystrom, M.</a>, <a>Hopwood, D.</a>, <a>Mikkelsen, J.</a> and <a>T. Wright</a>, "<a href="https://tools.ietf.org/html/rfc4366">Transport Layer Security (TLS) Extensions</a>", RFC 4366, DOI 10.17487/RFC4366, April 2006.</td>
 </tr>
 <tr>
+<td class="reference"><b id="RFC4851">[RFC4851]</b></td>
+<td class="top">
+<a>Cam-Winget, N.</a>, <a>McGrew, D.</a>, <a>Salowey, J.</a> and <a>H. Zhou</a>, "<a href="https://tools.ietf.org/html/rfc4851">The Flexible Authentication via Secure Tunneling Extensible Authentication Protocol Method (EAP-FAST)</a>", RFC 4851, DOI 10.17487/RFC4851, May 2007.</td>
+</tr>
+<tr>
 <td class="reference"><b id="RFC5077">[RFC5077]</b></td>
 <td class="top">
 <a>Salowey, J.</a>, <a>Zhou, H.</a>, <a>Eronen, P.</a> and <a>H. Tschofenig</a>, "<a href="https://tools.ietf.org/html/rfc5077">Transport Layer Security (TLS) Session Resumption without Server-Side State</a>", RFC 5077, DOI 10.17487/RFC5077, January 2008.</td>
@@ -1080,6 +1098,11 @@ SEND-IV      = IV(32, 63)
 <a>Aboba, B.</a>, <a>Simon, D.</a> and <a>P. Eronen</a>, "<a href="https://tools.ietf.org/html/rfc5247">Extensible Authentication Protocol (EAP) Key Management Framework</a>", RFC 5247, DOI 10.17487/RFC5247, August 2008.</td>
 </tr>
 <tr>
+<td class="reference"><b id="RFC5281">[RFC5281]</b></td>
+<td class="top">
+<a>Funk, P.</a> and <a>S. Blake-Wilson</a>, "<a href="https://tools.ietf.org/html/rfc5281">Extensible Authentication Protocol Tunneled Transport Layer Security Authenticated Protocol Version 0 (EAP-TTLSv0)</a>", RFC 5281, DOI 10.17487/RFC5281, August 2008.</td>
+</tr>
+<tr>
 <td class="reference"><b id="RFC6733">[RFC6733]</b></td>
 <td class="top">
 <a>Fajardo, V.</a>, <a>Arkko, J.</a>, <a>Loughney, J.</a> and <a>G. Zorn</a>, "<a href="https://tools.ietf.org/html/rfc6733">Diameter Base Protocol</a>", RFC 6733, DOI 10.17487/RFC6733, October 2012.</td>
@@ -1088,6 +1111,11 @@ SEND-IV      = IV(32, 63)
 <td class="reference"><b id="RFC6973">[RFC6973]</b></td>
 <td class="top">
 <a>Cooper, A.</a>, <a>Tschofenig, H.</a>, <a>Aboba, B.</a>, <a>Peterson, J.</a>, <a>Morris, J.</a>, <a>Hansen, M.</a> and <a>R. Smith</a>, "<a href="https://tools.ietf.org/html/rfc6973">Privacy Considerations for Internet Protocols</a>", RFC 6973, DOI 10.17487/RFC6973, July 2013.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC7170">[RFC7170]</b></td>
+<td class="top">
+<a>Zhou, H.</a>, <a>Cam-Winget, N.</a>, <a>Salowey, J.</a> and <a>S. Hanna</a>, "<a href="https://tools.ietf.org/html/rfc7170">Tunnel Extensible Authentication Protocol (TEAP) Version 1</a>", RFC 7170, DOI 10.17487/RFC7170, May 2014.</td>
 </tr>
 <tr>
 <td class="reference"><b id="RFC7258">[RFC7258]</b></td>
