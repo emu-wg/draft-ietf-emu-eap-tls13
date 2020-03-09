@@ -687,9 +687,9 @@ SEND-IV      = IV(32, 63)
 	     <author>
 	       <organization>3GPP</organization>
 	       </author>
-	     <date month="September" year="2019" />
+	     <date month="December" year="2019" />
 	   </front>
-	   <seriesInfo name="3GPP TS" value="33.501 16.0.0" />
+	   <seriesInfo name="3GPP TS" value="33.501 16.1.0" />
 	</reference>
 	<reference anchor="MulteFire">
 	   <front>
