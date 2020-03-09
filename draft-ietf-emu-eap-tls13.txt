@@ -186,10 +186,11 @@ Internet-Draft            EAP-TLS with TLS 1.3                March 2020
    [RFC3748] such identities are NOT RECOMMENDED as they are not
    routable and should only be considered in local deployments where the
    EAP Peer, EAP authenticator, and EAP Server all belong to the same
-   network.  An anonymous NAIs MAY be derived from the subject name in
-   the TLS client certificate by removing the username from a NAI.  The
-   subject name in client certificates typically contains an identity
-   with a routable domain such as an email address.
+   network.  An anonymous NAI MAY be derived from the subject name in
+   the TLS client certificate by only using the domain name suffix.
+   This is because the subject name in client certificates typically
+   contains an identity (such as an email address) with a routable
+   domain at the end.
 
    After receiving an EAP-Request packet with EAP-Type=EAP-TLS as
    described in [RFC5216] the conversation will continue with the TLS
@@ -216,8 +217,7 @@ Internet-Draft            EAP-TLS with TLS 1.3                March 2020
    and all Post-Handshake messages have been sent, the EAP server sends
    EAP-Success.
 
-   In the case where EAP-TLS with mutual authentication is successful
-   (and neither HelloRetryRequest nor Post-Handshake messages are sent)
+
 
 
 
@@ -226,6 +226,8 @@ Mattsson & Sethi       Expires September 10, 2020               [Page 4]
 Internet-Draft            EAP-TLS with TLS 1.3                March 2020
 
 
+   In the case where EAP-TLS with mutual authentication is successful
+   (and neither HelloRetryRequest nor Post-Handshake messages are sent)
    the conversation will appear as shown in Figure 1.  The EAP server
    commits to not send any more handshake messages by sending a
    Commitment Message (a TLS record with the application data 0x00), see
@@ -271,9 +273,7 @@ Internet-Draft            EAP-TLS with TLS 1.3                March 2020
    higher.  The other paragraphs in Section 2.1.3 of [RFC5216] still
    apply with the exception that SessionID is deprecated.
 
-      If the EAP server authenticates successfully, the EAP peer MUST
-      send an EAP-Response message with EAP-Type=EAP-TLS containing TLS
-      records conforming to the version of TLS used.
+
 
 
 
@@ -281,6 +281,10 @@ Mattsson & Sethi       Expires September 10, 2020               [Page 5]
 
 Internet-Draft            EAP-TLS with TLS 1.3                March 2020
 
+
+      If the EAP server authenticates successfully, the EAP peer MUST
+      send an EAP-Response message with EAP-Type=EAP-TLS containing TLS
+      records conforming to the version of TLS used.
 
       If the EAP peer authenticates successfully, the EAP server MUST
       send an EAP-Request packet with EAP-Type=EAP-TLS containing TLS
@@ -323,10 +327,6 @@ Internet-Draft            EAP-TLS with TLS 1.3                March 2020
 
    In the case where server authentication is unsuccessful, the
    conversation will appear as shown in Figure 3.
-
-
-
-
 
 
 
