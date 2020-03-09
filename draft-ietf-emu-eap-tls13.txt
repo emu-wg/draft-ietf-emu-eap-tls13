@@ -5,8 +5,8 @@
 Network Working Group                                        J. Mattsson
 Internet-Draft                                                  M. Sethi
 Updates: 5216 (if approved)                                     Ericsson
-Intended status: Standards Track                       December 19, 2019
-Expires: June 21, 2020
+Intended status: Standards Track                           March 9, 2020
+Expires: September 10, 2020
 
 
                        Using EAP-TLS with TLS 1.3
@@ -36,11 +36,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on June 21, 2020.
+   This Internet-Draft will expire on September 10, 2020.
 
 Copyright Notice
 
-   Copyright (c) 2019 IETF Trust and the persons identified as the
+   Copyright (c) 2020 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Mattsson & Sethi          Expires June 21, 2020                 [Page 1]
+Mattsson & Sethi       Expires September 10, 2020               [Page 1]
 
-Internet-Draft            EAP-TLS with TLS 1.3             December 2019
+Internet-Draft            EAP-TLS with TLS 1.3                March 2020
 
 
    the Trust Legal Provisions and are provided without warranty as
@@ -109,21 +109,21 @@ Table of Contents
 
 
 
-Mattsson & Sethi          Expires June 21, 2020                 [Page 2]
+Mattsson & Sethi       Expires September 10, 2020               [Page 2]
 
-Internet-Draft            EAP-TLS with TLS 1.3             December 2019
+Internet-Draft            EAP-TLS with TLS 1.3                March 2020
 
 
-   authentication and key derivation utilizing the TLS handshake
-   protocol for cryptographic algorithms and protocol version
-   negotiation, mutual authentication, and establishment of shared
-   secret keying material.  EAP-TLS is widely supported for
-   authentication in IEEE 802.11 [IEEE-802.11] networks (Wi-Fi) using
-   IEEE 802.1X [IEEE-802.1X] and it's the default mechanism for
-   certificate based authentication in 3GPP 5G [TS.33.501] and MulteFire
-   [MulteFire] networks.  Many other EAP methods such as EAP-FAST
-   [RFC4851], EAP-TTLS [RFC5281], TEAP [RFC7170], and PEAP [PEAP] depend
-   on TLS and EAP-TLS.
+   authentication utilizing the TLS handshake protocol for cryptographic
+   algorithms and protocol version negotiation, mutual authentication,
+   and establishment of shared secret keying material.  EAP-TLS is
+   widely supported for authentication and and key establishment in IEEE
+   802.11 [IEEE-802.11] (Wi-Fi) and IEEE 802.1AE [IEEE-802.1AE] (MACsec)
+   networks using IEEE 802.1X [IEEE-802.1X] and it's the default
+   mechanism for certificate based authentication in 3GPP 5G [TS.33.501]
+   and MulteFire [MulteFire] networks.  Many other EAP methods such as
+   EAP-FAST [RFC4851], EAP-TTLS [RFC5281], TEAP [RFC7170], and PEAP
+   [PEAP] depend on TLS and EAP-TLS.
 
    EAP-TLS [RFC5216] references TLS 1.0 [RFC2246] and TLS 1.1 [RFC4346],
    but works perfectly also with TLS 1.2 [RFC5246].  TLS 1.0 and 1.1 are
@@ -165,9 +165,9 @@ Internet-Draft            EAP-TLS with TLS 1.3             December 2019
 
 
 
-Mattsson & Sethi          Expires June 21, 2020                 [Page 3]
+Mattsson & Sethi       Expires September 10, 2020               [Page 3]
 
-Internet-Draft            EAP-TLS with TLS 1.3             December 2019
+Internet-Draft            EAP-TLS with TLS 1.3                March 2020
 
 
    Readers are expected to be familiar with the terms and concepts used
@@ -180,6 +180,16 @@ Internet-Draft            EAP-TLS with TLS 1.3             December 2019
    TLS 1.3 changes both the message flow and the handshake messages
    compared to earlier versions of TLS.  Therefore, much of Section 2.1
    of [RFC5216] does not apply for TLS 1.3 (or higher).
+
+   It is RECOMMENDED to use a NAIs in the Identity Response [RFC7542] as
+   such identities are routable.  While opaque blobs are allowed by
+   [RFC3748] such identities are NOT RECOMMENDED as they are not
+   routable and should only be considered in local deployments where the
+   EAP Peer, EAP authenticator, and EAP Server all belong to the same
+   network.  An anonymous NAIs MAY be derived from the subject name in
+   the TLS client certificate by removing the username from a NAI.  The
+   subject name in client certificates typically contains an identity
+   with a routable domain such as an email address.
 
    After receiving an EAP-Request packet with EAP-Type=EAP-TLS as
    described in [RFC5216] the conversation will continue with the TLS
@@ -208,23 +218,18 @@ Internet-Draft            EAP-TLS with TLS 1.3             December 2019
 
    In the case where EAP-TLS with mutual authentication is successful
    (and neither HelloRetryRequest nor Post-Handshake messages are sent)
+
+
+
+Mattsson & Sethi       Expires September 10, 2020               [Page 4]
+
+Internet-Draft            EAP-TLS with TLS 1.3                March 2020
+
+
    the conversation will appear as shown in Figure 1.  The EAP server
    commits to not send any more handshake messages by sending a
    Commitment Message (a TLS record with the application data 0x00), see
    Section 2.5.
-
-
-
-
-
-
-
-
-
-Mattsson & Sethi          Expires June 21, 2020                 [Page 4]
-
-Internet-Draft            EAP-TLS with TLS 1.3             December 2019
-
 
     EAP Peer                                              EAP Server
 
@@ -270,17 +275,17 @@ Internet-Draft            EAP-TLS with TLS 1.3             December 2019
       send an EAP-Response message with EAP-Type=EAP-TLS containing TLS
       records conforming to the version of TLS used.
 
+
+
+Mattsson & Sethi       Expires September 10, 2020               [Page 5]
+
+Internet-Draft            EAP-TLS with TLS 1.3                March 2020
+
+
       If the EAP peer authenticates successfully, the EAP server MUST
       send an EAP-Request packet with EAP-Type=EAP-TLS containing TLS
       records conforming to the version of TLS used.  The message flow
       ends with the EAP server sending an EAP-Success message.
-
-
-
-Mattsson & Sethi          Expires June 21, 2020                 [Page 5]
-
-Internet-Draft            EAP-TLS with TLS 1.3             December 2019
-
 
    Figures 2, 3, and 4 illustrate message flows in several cases where
    the EAP peer or EAP server sends a TLS fatal alert message.  TLS
@@ -328,14 +333,9 @@ Internet-Draft            EAP-TLS with TLS 1.3             December 2019
 
 
 
-
-
-
-
-
-Mattsson & Sethi          Expires June 21, 2020                 [Page 6]
+Mattsson & Sethi       Expires September 10, 2020               [Page 6]
 
-Internet-Draft            EAP-TLS with TLS 1.3             December 2019
+Internet-Draft            EAP-TLS with TLS 1.3                March 2020
 
 
     EAP Peer                                              EAP Server
@@ -389,9 +389,9 @@ Internet-Draft            EAP-TLS with TLS 1.3             December 2019
 
 
 
-Mattsson & Sethi          Expires June 21, 2020                 [Page 7]
+Mattsson & Sethi       Expires September 10, 2020               [Page 7]
 
-Internet-Draft            EAP-TLS with TLS 1.3             December 2019
+Internet-Draft            EAP-TLS with TLS 1.3                March 2020
 
 
     EAP Peer                                              EAP Server
@@ -445,9 +445,9 @@ Internet-Draft            EAP-TLS with TLS 1.3             December 2019
 
 
 
-Mattsson & Sethi          Expires June 21, 2020                 [Page 8]
+Mattsson & Sethi       Expires September 10, 2020               [Page 8]
 
-Internet-Draft            EAP-TLS with TLS 1.3             December 2019
+Internet-Draft            EAP-TLS with TLS 1.3                March 2020
 
 
     EAP Peer                                              EAP Server
@@ -501,9 +501,9 @@ Internet-Draft            EAP-TLS with TLS 1.3             December 2019
 
 
 
-Mattsson & Sethi          Expires June 21, 2020                 [Page 9]
+Mattsson & Sethi       Expires September 10, 2020               [Page 9]
 
-Internet-Draft            EAP-TLS with TLS 1.3             December 2019
+Internet-Draft            EAP-TLS with TLS 1.3                March 2020
 
 
    The case of a successful EAP-TLS mutual authentication after the
@@ -557,9 +557,9 @@ Internet-Draft            EAP-TLS with TLS 1.3             December 2019
 
 
 
-Mattsson & Sethi          Expires June 21, 2020                [Page 10]
+Mattsson & Sethi       Expires September 10, 2020              [Page 10]
 
-Internet-Draft            EAP-TLS with TLS 1.3             December 2019
+Internet-Draft            EAP-TLS with TLS 1.3                March 2020
 
 
     EAP Peer                                              EAP Server
@@ -613,9 +613,9 @@ Internet-Draft            EAP-TLS with TLS 1.3             December 2019
 
 
 
-Mattsson & Sethi          Expires June 21, 2020                [Page 11]
+Mattsson & Sethi       Expires September 10, 2020              [Page 11]
 
-Internet-Draft            EAP-TLS with TLS 1.3             December 2019
+Internet-Draft            EAP-TLS with TLS 1.3                March 2020
 
 
    used to bootstrap the cryptographic state instead of a full
@@ -625,10 +625,13 @@ Internet-Draft            EAP-TLS with TLS 1.3             December 2019
    full authentication.  EAP peers and EAP servers SHOULD follow the
    client tracking preventions in Appendix C.4 of [RFC8446].
 
-   The NAI used in resumption SHOULD be the same NAI that was used
-   during the original full authentication.  This requirement allows EAP
-   packets to be routable through an AAA infrastructure to the same
-   destination as the original full authentication.
+   It is RECOMMENDED to use a NAIs with the same realm in the resumption
+   and the original full authentication.  This requirement allows EAP
+   packets to be routable to the same destination as the original full
+   authentication.  The TLS PSK identity is typically derived by the TLS
+   implementation and may be an opaque blob without a routable realm.
+   The TLS PSK identity is therefore in general unsuitable for deriving
+   a NAI to use in the Identity Response.
 
    A subsequent authentication using resumption, where both sides
    authenticate successfully (without the issuance of more resumption
@@ -663,16 +666,17 @@ Internet-Draft            EAP-TLS with TLS 1.3             December 2019
    a "key_share" extension when attempting resumption, which allows the
    EAP server to potentially decline resumption and fall back to a full
    handshake.  If the EAP peer did not supply a "key_share" extension
+
+
+
+Mattsson & Sethi       Expires September 10, 2020              [Page 12]
+
+Internet-Draft            EAP-TLS with TLS 1.3                March 2020
+
+
    when attempting resumption, the EAP server needs to reject the
    ClientHello and the EAP peer needs to restart a full handshake.  The
    message flow in this case is given by Figure 2 followed by Figure 1.
-
-
-
-Mattsson & Sethi          Expires June 21, 2020                [Page 12]
-
-Internet-Draft            EAP-TLS with TLS 1.3             December 2019
-
 
    Also during resumption, the server can respond with a Hello Retry
    Request (see Section 2.1.4) or issue a new ticket (see Section 2.1.5)
@@ -687,9 +691,12 @@ Internet-Draft            EAP-TLS with TLS 1.3             December 2019
    EAP-TLS peer and server implementations supporting TLS 1.3 or higher
    MUST support anonymous NAIs (Network Access Identifiers) (Section 2.4
    in [RFC7542]) and a client supporting TLS 1.3 MUST NOT send its
-   username in cleartext in the Identity Response.  It is RECOMMENDED to
-   use anonymous NAIs, but other privacy-friendly identities (e.g.
-   encrypted usernames) MAY be used.
+   username in cleartext in the Identity Response.  Following [RFC7542],
+   it is RECOMMENDED to omit the username (i.e. the NAI is @realm), but
+   other constructions such as a fixed username (e.g. anonymous@realm)
+   or an encrypted username (e.g.  YmVuZGVy@realm) are allowed.  Note
+   that the NAI MUST be a UTF-8 string as defined by the grammar in
+   Section 2.2 of [RFC7542].
 
    As the certificate messages in TLS 1.3 are encrypted, there is no
    need to send an empty certificate_list and perform a second handshake
@@ -700,12 +707,6 @@ Internet-Draft            EAP-TLS with TLS 1.3             December 2019
    sends an empty certificate_list if it does not have an appropriate
    certificate to send, and the EAP-TLS server MAY treat an empty
    certificate_list as a terminal condition.
-
-   Privacy friendly NAIs MAY be dervied from the domain name part of the
-   peer identity used inside of TLS.  This derivation is common practice
-   when using certificates and works because the common name (CN) field
-   in the certificate typically contains a routable identifier such as
-   an email address.
 
    EAP-TLS with TLS 1.3 is always used with privacy.  This does not add
    any extra round-trips and the message flow with privacy is just the
@@ -724,10 +725,9 @@ Internet-Draft            EAP-TLS with TLS 1.3             December 2019
 
 
 
-
-Mattsson & Sethi          Expires June 21, 2020                [Page 13]
+Mattsson & Sethi       Expires September 10, 2020              [Page 13]
 
-Internet-Draft            EAP-TLS with TLS 1.3             December 2019
+Internet-Draft            EAP-TLS with TLS 1.3                March 2020
 
 
    Some EAP implementations and access networks may limit the number of
@@ -781,9 +781,9 @@ Internet-Draft            EAP-TLS with TLS 1.3             December 2019
 
 
 
-Mattsson & Sethi          Expires June 21, 2020                [Page 14]
+Mattsson & Sethi       Expires September 10, 2020              [Page 14]
 
-Internet-Draft            EAP-TLS with TLS 1.3             December 2019
+Internet-Draft            EAP-TLS with TLS 1.3                March 2020
 
 
    not correct when EAP-TLS is used with TLS version 1.3 or higher.  For
@@ -837,9 +837,9 @@ Internet-Draft            EAP-TLS with TLS 1.3             December 2019
 
 
 
-Mattsson & Sethi          Expires June 21, 2020                [Page 15]
+Mattsson & Sethi       Expires September 10, 2020              [Page 15]
 
-Internet-Draft            EAP-TLS with TLS 1.3             December 2019
+Internet-Draft            EAP-TLS with TLS 1.3                March 2020
 
 
 2.4.  Parameter Negotiation and Compliance Requirements
@@ -893,9 +893,9 @@ Internet-Draft            EAP-TLS with TLS 1.3             December 2019
 
 
 
-Mattsson & Sethi          Expires June 21, 2020                [Page 16]
+Mattsson & Sethi       Expires September 10, 2020              [Page 16]
 
-Internet-Draft            EAP-TLS with TLS 1.3             December 2019
+Internet-Draft            EAP-TLS with TLS 1.3                March 2020
 
 
    sending the Commitment Message, the EAP server may only send an EAP-
@@ -949,9 +949,9 @@ Internet-Draft            EAP-TLS with TLS 1.3             December 2019
 
 
 
-Mattsson & Sethi          Expires June 21, 2020                [Page 17]
+Mattsson & Sethi       Expires September 10, 2020              [Page 17]
 
-Internet-Draft            EAP-TLS with TLS 1.3             December 2019
+Internet-Draft            EAP-TLS with TLS 1.3                March 2020
 
 
    This memo requires IANA to add the following labels to the TLS
@@ -1005,9 +1005,9 @@ Internet-Draft            EAP-TLS with TLS 1.3             December 2019
 
 
 
-Mattsson & Sethi          Expires June 21, 2020                [Page 18]
+Mattsson & Sethi       Expires September 10, 2020              [Page 18]
 
-Internet-Draft            EAP-TLS with TLS 1.3             December 2019
+Internet-Draft            EAP-TLS with TLS 1.3                March 2020
 
 
 5.3.  Certificate Validation
@@ -1061,9 +1061,9 @@ Internet-Draft            EAP-TLS with TLS 1.3             December 2019
 
 
 
-Mattsson & Sethi          Expires June 21, 2020                [Page 19]
+Mattsson & Sethi       Expires September 10, 2020              [Page 19]
 
-Internet-Draft            EAP-TLS with TLS 1.3             December 2019
+Internet-Draft            EAP-TLS with TLS 1.3                March 2020
 
 
    As noted in Section 2.2, the identity presented in EAP-Response/
@@ -1117,9 +1117,9 @@ Internet-Draft            EAP-TLS with TLS 1.3             December 2019
 
 
 
-Mattsson & Sethi          Expires June 21, 2020                [Page 20]
+Mattsson & Sethi       Expires September 10, 2020              [Page 20]
 
-Internet-Draft            EAP-TLS with TLS 1.3             December 2019
+Internet-Draft            EAP-TLS with TLS 1.3                March 2020
 
 
    initial full authentication to enable resumption.  The cached data
@@ -1173,9 +1173,9 @@ Internet-Draft            EAP-TLS with TLS 1.3             December 2019
 
 
 
-Mattsson & Sethi          Expires June 21, 2020                [Page 21]
+Mattsson & Sethi       Expires September 10, 2020              [Page 21]
 
-Internet-Draft            EAP-TLS with TLS 1.3             December 2019
+Internet-Draft            EAP-TLS with TLS 1.3                March 2020
 
 
    EAP-TLS Response packets do not contain any cleartext privacy
@@ -1229,9 +1229,9 @@ Internet-Draft            EAP-TLS with TLS 1.3             December 2019
 
 
 
-Mattsson & Sethi          Expires June 21, 2020                [Page 22]
+Mattsson & Sethi       Expires September 10, 2020              [Page 22]
 
-Internet-Draft            EAP-TLS with TLS 1.3             December 2019
+Internet-Draft            EAP-TLS with TLS 1.3                March 2020
 
 
    message when a static RSA key exchange is used, an EAP peer may
@@ -1285,9 +1285,9 @@ Internet-Draft            EAP-TLS with TLS 1.3             December 2019
 
 
 
-Mattsson & Sethi          Expires June 21, 2020                [Page 23]
+Mattsson & Sethi       Expires September 10, 2020              [Page 23]
 
-Internet-Draft            EAP-TLS with TLS 1.3             December 2019
+Internet-Draft            EAP-TLS with TLS 1.3                March 2020
 
 
    [RFC5216]  Simon, D., Aboba, B., and R. Hurst, "The EAP-TLS
@@ -1341,9 +1341,9 @@ Internet-Draft            EAP-TLS with TLS 1.3             December 2019
 
 
 
-Mattsson & Sethi          Expires June 21, 2020                [Page 24]
+Mattsson & Sethi       Expires September 10, 2020              [Page 24]
 
-Internet-Draft            EAP-TLS with TLS 1.3             December 2019
+Internet-Draft            EAP-TLS with TLS 1.3                March 2020
 
 
 6.2.  Informative references
@@ -1351,18 +1351,18 @@ Internet-Draft            EAP-TLS with TLS 1.3             December 2019
    [I-D.ietf-emu-eaptlscert]
               Sethi, M., Mattsson, J., and S. Turner, "Handling Large
               Certificates and Long Certificate Chains in TLS-based EAP
-              Methods", draft-ietf-emu-eaptlscert-00 (work in progress),
-              August 2019.
+              Methods", draft-ietf-emu-eaptlscert-01 (work in progress),
+              March 2020.
 
    [I-D.ietf-tls-certificate-compression]
               Ghedini, A. and V. Vasiliev, "TLS Certificate
-              Compression", draft-ietf-tls-certificate-compression-08
-              (work in progress), December 2019.
+              Compression", draft-ietf-tls-certificate-compression-10
+              (work in progress), January 2020.
 
    [I-D.ietf-tls-oldversions-deprecate]
               Moriarty, K. and S. Farrell, "Deprecating TLSv1.0 and
-              TLSv1.1", draft-ietf-tls-oldversions-deprecate-05 (work in
-              progress), June 2019.
+              TLSv1.1", draft-ietf-tls-oldversions-deprecate-06 (work in
+              progress), January 2020.
 
    [IEEE-802.11]
               Institute of Electrical and Electronics Engineers, "IEEE
@@ -1372,6 +1372,12 @@ Internet-Draft            EAP-TLS with TLS 1.3             December 2019
               11: Wireless LAN Medium Access Control (MAC) and Physical
               Layer (PHY) Specifications", IEEE Std 802.11-2016
               (Revision of IEEE Std 802.11-2012) , December 2016.
+
+   [IEEE-802.1AE]
+              Institute of Electrical and Electronics Engineers, "IEEE
+              Standard for Local and metropolitan area networks -- Media
+              Access Control (MAC) Security", IEEE Standard
+              802.1AE-2018 , December 2018.
 
    [IEEE-802.1X]
               Institute of Electrical and Electronics Engineers, "IEEE
@@ -1389,18 +1395,16 @@ Internet-Draft            EAP-TLS with TLS 1.3             December 2019
               STD 51, RFC 1661, DOI 10.17487/RFC1661, July 1994,
               <https://www.rfc-editor.org/info/rfc1661>.
 
+
+
+Mattsson & Sethi       Expires September 10, 2020              [Page 25]
+
+Internet-Draft            EAP-TLS with TLS 1.3                March 2020
+
+
    [RFC2246]  Dierks, T. and C. Allen, "The TLS Protocol Version 1.0",
               RFC 2246, DOI 10.17487/RFC2246, January 1999,
               <https://www.rfc-editor.org/info/rfc2246>.
-
-
-
-
-
-Mattsson & Sethi          Expires June 21, 2020                [Page 25]
-
-Internet-Draft            EAP-TLS with TLS 1.3             December 2019
-
 
    [RFC2560]  Myers, M., Ankney, R., Malpani, A., Galperin, S., and C.
               Adams, "X.509 Internet Public Key Infrastructure Online
@@ -1445,18 +1449,19 @@ Internet-Draft            EAP-TLS with TLS 1.3             December 2019
               Server-Side State", RFC 5077, DOI 10.17487/RFC5077,
               January 2008, <https://www.rfc-editor.org/info/rfc5077>.
 
+
+
+
+
+Mattsson & Sethi       Expires September 10, 2020              [Page 26]
+
+Internet-Draft            EAP-TLS with TLS 1.3                March 2020
+
+
    [RFC5191]  Forsberg, D., Ohba, Y., Ed., Patil, B., Tschofenig, H.,
               and A. Yegin, "Protocol for Carrying Authentication for
               Network Access (PANA)", RFC 5191, DOI 10.17487/RFC5191,
               May 2008, <https://www.rfc-editor.org/info/rfc5191>.
-
-
-
-
-Mattsson & Sethi          Expires June 21, 2020                [Page 26]
-
-Internet-Draft            EAP-TLS with TLS 1.3             December 2019
-
 
    [RFC5246]  Dierks, T. and E. Rescorla, "The Transport Layer Security
               (TLS) Protocol Version 1.2", RFC 5246,
@@ -1500,19 +1505,19 @@ Internet-Draft            EAP-TLS with TLS 1.3             December 2019
               Unauthorized Devices", RFC 7406, DOI 10.17487/RFC7406,
               December 2014, <https://www.rfc-editor.org/info/rfc7406>.
 
+
+
+
+
+Mattsson & Sethi       Expires September 10, 2020              [Page 27]
+
+Internet-Draft            EAP-TLS with TLS 1.3                March 2020
+
+
    [RFC7457]  Sheffer, Y., Holz, R., and P. Saint-Andre, "Summarizing
               Known Attacks on Transport Layer Security (TLS) and
               Datagram TLS (DTLS)", RFC 7457, DOI 10.17487/RFC7457,
               February 2015, <https://www.rfc-editor.org/info/rfc7457>.
-
-
-
-
-
-Mattsson & Sethi          Expires June 21, 2020                [Page 27]
-
-Internet-Draft            EAP-TLS with TLS 1.3             December 2019
-
 
    [RFC7525]  Sheffer, Y., Holz, R., and P. Saint-Andre,
               "Recommendations for Secure Use of Transport Layer
@@ -1522,7 +1527,7 @@ Internet-Draft            EAP-TLS with TLS 1.3             December 2019
 
    [TS.33.501]
               3GPP, "Security architecture and procedures for 5G
-              System", 3GPP TS 33.501 15.5.0, June 2019.
+              System", 3GPP TS 33.501 16.1.0, December 2019.
 
 Appendix A.  Updated references
 
@@ -1555,6 +1560,16 @@ Authors' Addresses
    Email: john.mattsson@ericsson.com
 
 
+
+
+
+
+
+Mattsson & Sethi       Expires September 10, 2020              [Page 28]
+
+Internet-Draft            EAP-TLS with TLS 1.3                March 2020
+
+
    Mohit Sethi
    Ericsson
    Jorvas  02420
@@ -1565,4 +1580,45 @@ Authors' Addresses
 
 
 
-Mattsson & Sethi          Expires June 21, 2020                [Page 28]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Mattsson & Sethi       Expires September 10, 2020              [Page 29]
