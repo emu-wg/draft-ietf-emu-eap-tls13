@@ -5,8 +5,8 @@
 Network Working Group                                        J. Mattsson
 Internet-Draft                                                  M. Sethi
 Updates: 5216 (if approved)                                     Ericsson
-Intended status: Standards Track                            June 7, 2020
-Expires: December 9, 2020
+Intended status: Standards Track                          August 5, 2020
+Expires: February 6, 2021
 
 
                        Using EAP-TLS with TLS 1.3
@@ -39,7 +39,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on December 9, 2020.
+   This Internet-Draft will expire on February 6, 2021.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Mattsson & Sethi        Expires December 9, 2020                [Page 1]
+Mattsson & Sethi        Expires February 6, 2021                [Page 1]
 
-Internet-Draft            EAP-TLS with TLS 1.3                 June 2020
+Internet-Draft            EAP-TLS with TLS 1.3               August 2020
 
 
    carefully, as they describe your rights and restrictions with respect
@@ -83,35 +83,35 @@ Table of Contents
      2.3.  Key Hierarchy . . . . . . . . . . . . . . . . . . . . . .  16
      2.4.  Parameter Negotiation and Compliance Requirements . . . .  17
      2.5.  EAP State Machines  . . . . . . . . . . . . . . . . . . .  17
-   3.  Detailed Description of the EAP-TLS Protocol  . . . . . . . .  19
-   4.  IANA considerations . . . . . . . . . . . . . . . . . . . . .  19
-   5.  Security Considerations . . . . . . . . . . . . . . . . . . .  19
-     5.1.  Security Claims . . . . . . . . . . . . . . . . . . . . .  19
-     5.2.  Peer and Server Identities  . . . . . . . . . . . . . . .  20
-     5.3.  Certificate Validation  . . . . . . . . . . . . . . . . .  20
-     5.4.  Certificate Revocation  . . . . . . . . . . . . . . . . .  20
-     5.5.  Packet Modification Attacks . . . . . . . . . . . . . . .  20
-     5.6.  Authorization . . . . . . . . . . . . . . . . . . . . . .  21
-     5.7.  Resumption  . . . . . . . . . . . . . . . . . . . . . . .  21
-     5.8.  Privacy Considerations  . . . . . . . . . . . . . . . . .  23
-     5.9.  Pervasive Monitoring  . . . . . . . . . . . . . . . . . .  24
-     5.10. Discovered Vulnerabilities  . . . . . . . . . . . . . . .  24
-   6.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  25
-     6.1.  Normative References  . . . . . . . . . . . . . . . . . .  25
-     6.2.  Informative references  . . . . . . . . . . . . . . . . .  26
-   Appendix A.  Updated references . . . . . . . . . . . . . . . . .  29
-   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  29
-   Contributors  . . . . . . . . . . . . . . . . . . . . . . . . . .  29
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  30
+   3.  Detailed Description of the EAP-TLS Protocol  . . . . . . . .  18
+   4.  IANA considerations . . . . . . . . . . . . . . . . . . . . .  18
+   5.  Security Considerations . . . . . . . . . . . . . . . . . . .  18
+     5.1.  Security Claims . . . . . . . . . . . . . . . . . . . . .  18
+     5.2.  Peer and Server Identities  . . . . . . . . . . . . . . .  19
+     5.3.  Certificate Validation  . . . . . . . . . . . . . . . . .  19
+     5.4.  Certificate Revocation  . . . . . . . . . . . . . . . . .  19
+     5.5.  Packet Modification Attacks . . . . . . . . . . . . . . .  19
+     5.6.  Authorization . . . . . . . . . . . . . . . . . . . . . .  20
+     5.7.  Resumption  . . . . . . . . . . . . . . . . . . . . . . .  20
+     5.8.  Privacy Considerations  . . . . . . . . . . . . . . . . .  22
+     5.9.  Pervasive Monitoring  . . . . . . . . . . . . . . . . . .  23
+     5.10. Discovered Vulnerabilities  . . . . . . . . . . . . . . .  23
+   6.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  24
+     6.1.  Normative References  . . . . . . . . . . . . . . . . . .  24
+     6.2.  Informative references  . . . . . . . . . . . . . . . . .  25
+   Appendix A.  Updated references . . . . . . . . . . . . . . . . .  28
+   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  28
+   Contributors  . . . . . . . . . . . . . . . . . . . . . . . . . .  28
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  29
 
 
 
 
 
 
-Mattsson & Sethi        Expires December 9, 2020                [Page 2]
+Mattsson & Sethi        Expires February 6, 2021                [Page 2]
 
-Internet-Draft            EAP-TLS with TLS 1.3                 June 2020
+Internet-Draft            EAP-TLS with TLS 1.3               August 2020
 
 
 1.  Introduction
@@ -165,9 +165,9 @@ Internet-Draft            EAP-TLS with TLS 1.3                 June 2020
 
 
 
-Mattsson & Sethi        Expires December 9, 2020                [Page 3]
+Mattsson & Sethi        Expires February 6, 2021                [Page 3]
 
-Internet-Draft            EAP-TLS with TLS 1.3                 June 2020
+Internet-Draft            EAP-TLS with TLS 1.3               August 2020
 
 
 1.1.  Requirements and Terminology
@@ -221,17 +221,16 @@ Internet-Draft            EAP-TLS with TLS 1.3                 June 2020
 
 
 
-Mattsson & Sethi        Expires December 9, 2020                [Page 4]
+Mattsson & Sethi        Expires February 6, 2021                [Page 4]
 
-Internet-Draft            EAP-TLS with TLS 1.3                 June 2020
+Internet-Draft            EAP-TLS with TLS 1.3               August 2020
 
 
    In the case where EAP-TLS with mutual authentication is successful
    (and neither HelloRetryRequest nor Post-Handshake messages are sent)
    the conversation will appear as shown in Figure 1.  The EAP server
    commits to not send any more handshake messages by sending a
-   Commitment Message (a TLS record with the application data 0x00), see
-   Section 2.5.
+   close_notify alert, see Section 2.5.
 
     EAP Peer                                              EAP Server
 
@@ -253,7 +252,7 @@ Internet-Draft            EAP-TLS with TLS 1.3                 June 2020
                                                      TLS Certificate,
                                                TLS CertificateVerify,
                                                         TLS Finished,
-                                 <--------        Commitment Message)
+                                 <--------              close_notify)
     EAP-Response/
     EAP-Type=EAP-TLS
    (TLS Certificate,
@@ -277,9 +276,10 @@ Internet-Draft            EAP-TLS with TLS 1.3                 June 2020
 
 
 
-Mattsson & Sethi        Expires December 9, 2020                [Page 5]
+
+Mattsson & Sethi        Expires February 6, 2021                [Page 5]
 
-Internet-Draft            EAP-TLS with TLS 1.3                 June 2020
+Internet-Draft            EAP-TLS with TLS 1.3               August 2020
 
 
    In the case where EAP-TLS with mutual authentication and ticket
@@ -314,7 +314,7 @@ Internet-Draft            EAP-TLS with TLS 1.3                 June 2020
                                                          EAP-Request/
                                                     EAP-Type=EAP-TLS
                                                (TLS NewSessionTicket,
-                                 <--------        Commitment Message)
+                                 <--------              close_notify)
     EAP-Response/
     EAP-Type=EAP-TLS             -------->
                                  <--------               EAP-Success
@@ -333,9 +333,9 @@ Internet-Draft            EAP-TLS with TLS 1.3                 June 2020
 
 
 
-Mattsson & Sethi        Expires December 9, 2020                [Page 6]
+Mattsson & Sethi        Expires February 6, 2021                [Page 6]
 
-Internet-Draft            EAP-TLS with TLS 1.3                 June 2020
+Internet-Draft            EAP-TLS with TLS 1.3               August 2020
 
 
    For TLS 1.3, resumption is described in Section 2.2 of [RFC8446].  If
@@ -389,9 +389,9 @@ Internet-Draft            EAP-TLS with TLS 1.3                 June 2020
 
 
 
-Mattsson & Sethi        Expires December 9, 2020                [Page 7]
+Mattsson & Sethi        Expires February 6, 2021                [Page 7]
 
-Internet-Draft            EAP-TLS with TLS 1.3                 June 2020
+Internet-Draft            EAP-TLS with TLS 1.3               August 2020
 
 
     EAP Peer                                              EAP Server
@@ -411,7 +411,7 @@ Internet-Draft            EAP-TLS with TLS 1.3                 June 2020
                                                     (TLS ServerHello,
                                              TLS EncryptedExtensions,
                                                         TLS Finished,
-                                 <--------        Commitment Message)
+                                 <--------              close_notify)
     EAP-Response/
     EAP-Type=EAP-TLS
    (TLS Finished)                -------->
@@ -445,9 +445,9 @@ Internet-Draft            EAP-TLS with TLS 1.3                 June 2020
 
 
 
-Mattsson & Sethi        Expires December 9, 2020                [Page 8]
+Mattsson & Sethi        Expires February 6, 2021                [Page 8]
 
-Internet-Draft            EAP-TLS with TLS 1.3                 June 2020
+Internet-Draft            EAP-TLS with TLS 1.3               August 2020
 
 
       If the EAP peer authenticates successfully, the EAP server MUST
@@ -501,9 +501,9 @@ Internet-Draft            EAP-TLS with TLS 1.3                 June 2020
 
 
 
-Mattsson & Sethi        Expires December 9, 2020                [Page 9]
+Mattsson & Sethi        Expires February 6, 2021                [Page 9]
 
-Internet-Draft            EAP-TLS with TLS 1.3                 June 2020
+Internet-Draft            EAP-TLS with TLS 1.3               August 2020
 
 
     EAP Peer                                              EAP Server
@@ -526,7 +526,7 @@ Internet-Draft            EAP-TLS with TLS 1.3                 June 2020
                                                      TLS Certificate,
                                                TLS CertificateVerify,
                                                         TLS Finished,
-                                 <--------        Commitment Message)
+                                 <--------              close_notify)
     EAP-Response/
     EAP-Type=EAP-TLS
    (TLS Fatal Alert)
@@ -557,9 +557,9 @@ Internet-Draft            EAP-TLS with TLS 1.3                 June 2020
 
 
 
-Mattsson & Sethi        Expires December 9, 2020               [Page 10]
+Mattsson & Sethi        Expires February 6, 2021               [Page 10]
 
-Internet-Draft            EAP-TLS with TLS 1.3                 June 2020
+Internet-Draft            EAP-TLS with TLS 1.3               August 2020
 
 
     EAP Peer                                              EAP Server
@@ -583,7 +583,7 @@ Internet-Draft            EAP-TLS with TLS 1.3                 June 2020
                                                      TLS Certificate,
                                                TLS CertificateVerify,
                                                         TLS Finished,
-                                 <--------        Commitment Message)
+                                 <--------              close_notify)
     EAP-Response/
     EAP-Type=EAP-TLS
    (TLS Certificate,
@@ -613,9 +613,9 @@ Internet-Draft            EAP-TLS with TLS 1.3                 June 2020
 
 
 
-Mattsson & Sethi        Expires December 9, 2020               [Page 11]
+Mattsson & Sethi        Expires February 6, 2021               [Page 11]
 
-Internet-Draft            EAP-TLS with TLS 1.3                 June 2020
+Internet-Draft            EAP-TLS with TLS 1.3               August 2020
 
 
     EAP Peer                                              EAP Server
@@ -637,7 +637,7 @@ Internet-Draft            EAP-TLS with TLS 1.3                 June 2020
                                                      TLS Certificate,
                                                TLS CertificateVerify,
                                                         TLS Finished,
-                                 <--------        Commitment Message)
+                                 <--------              close_notify)
     EAP-Response/
     EAP-Type=EAP-TLS
    (TLS Finished)                -------->
@@ -669,9 +669,9 @@ Internet-Draft            EAP-TLS with TLS 1.3                 June 2020
 
 
 
-Mattsson & Sethi        Expires December 9, 2020               [Page 12]
+Mattsson & Sethi        Expires February 6, 2021               [Page 12]
 
-Internet-Draft            EAP-TLS with TLS 1.3                 June 2020
+Internet-Draft            EAP-TLS with TLS 1.3               August 2020
 
 
    The case of a successful EAP-TLS mutual authentication after the
@@ -704,7 +704,7 @@ Internet-Draft            EAP-TLS with TLS 1.3                 June 2020
                                                      TLS Certificate,
                                                TLS CertificateVerify,
                                                         TLS Finished,
-                                 <--------        Commitment Message)
+                                 <--------              close_notify)
     EAP-Response/
     EAP-Type=EAP-TLS
    (TLS Certificate,
@@ -725,9 +725,9 @@ Internet-Draft            EAP-TLS with TLS 1.3                 June 2020
 
 
 
-Mattsson & Sethi        Expires December 9, 2020               [Page 13]
+Mattsson & Sethi        Expires February 6, 2021               [Page 13]
 
-Internet-Draft            EAP-TLS with TLS 1.3                 June 2020
+Internet-Draft            EAP-TLS with TLS 1.3               August 2020
 
 
    local deployments where the EAP peer, EAP authenticator, and EAP
@@ -781,9 +781,9 @@ Internet-Draft            EAP-TLS with TLS 1.3                 June 2020
 
 
 
-Mattsson & Sethi        Expires December 9, 2020               [Page 14]
+Mattsson & Sethi        Expires February 6, 2021               [Page 14]
 
-Internet-Draft            EAP-TLS with TLS 1.3                 June 2020
+Internet-Draft            EAP-TLS with TLS 1.3               August 2020
 
 
    and EAP-Request packets, as well as a TLS Message Length field of
@@ -837,9 +837,9 @@ Internet-Draft            EAP-TLS with TLS 1.3                 June 2020
 
 
 
-Mattsson & Sethi        Expires December 9, 2020               [Page 15]
+Mattsson & Sethi        Expires February 6, 2021               [Page 15]
 
-Internet-Draft            EAP-TLS with TLS 1.3                 June 2020
+Internet-Draft            EAP-TLS with TLS 1.3               August 2020
 
 
 2.3.  Key Hierarchy
@@ -893,9 +893,9 @@ Internet-Draft            EAP-TLS with TLS 1.3                 June 2020
 
 
 
-Mattsson & Sethi        Expires December 9, 2020               [Page 16]
+Mattsson & Sethi        Expires February 6, 2021               [Page 16]
 
-Internet-Draft            EAP-TLS with TLS 1.3                 June 2020
+Internet-Draft            EAP-TLS with TLS 1.3               August 2020
 
 
    By using the TLS exporter, EAP-TLS can use any TLS 1.3 implementation
@@ -937,77 +937,21 @@ Internet-Draft            EAP-TLS with TLS 1.3                 June 2020
 
    When an EAP server has sent its last handshake message (Finished or a
    Post-Handshake), it commits to not sending any more handshake
-   messages by sending a Commitment Message.  The Commitment Message is
-   a TLS record with application data 0x00 (i.e. a TLS record with
-   TLSPlaintext.type = application_data, TLSPlaintext.length = 1, and
-   TLSPlaintext.fragment = 0x00).  Note that the length of the plaintext
-   is greater than the corresponding TLSPlaintext.length due to the
-   inclusion of TLSInnerPlaintext.type and any padding supplied by the
-   sender.  EAP server implementations MUST set TLSPlaintext.fragment to
-   0x00, but EAP peer implementations MUST accept any application data
-   as a Commitment Message from the EAP server to not send any more
+   messages by sending a TLS close_notify alert.  The close_notify alert
+   may be sent in the same EAP-Request as the last handshake record or
+   in a separate EAP-Request.  After sending the close_notify alert, the
+   EAP server may only send an EAP-Success, an EAP-Failure, or an EAP-
+   Request with a TLS Alert Message.
 
 
 
-Mattsson & Sethi        Expires December 9, 2020               [Page 17]
+
+
+
+
+Mattsson & Sethi        Expires February 6, 2021               [Page 17]
 
-Internet-Draft            EAP-TLS with TLS 1.3                 June 2020
-
-
-   handshake messages.  The Commitment Message may be sent in the same
-   EAP-Request as the last handshake record or in a separate EAP-
-   Request.  Sending the Commitment Message in a separate EAP-Request
-   adds an additional round-trip, but may be necessary in TLS
-   implementations that only implement a subset of TLS 1.3.  In the case
-   where the server sends the Commitment Message in a separate EAP-
-   Request, the conversation will appear as shown in Figure 9.  After
-   sending the Commitment Message, the EAP server may only send an EAP-
-   Success, an EAP-Failure, or an EAP-Request with a TLS Alert Message.
-
-    EAP Peer                                              EAP Server
-
-                                                         EAP-Request/
-                                 <--------                  Identity
-    EAP-Response/
-    Identity (Privacy-Friendly)  -------->
-                                                         EAP-Request/
-                                                    EAP-Type=EAP-TLS
-                                 <--------                (TLS Start)
-    EAP-Response/
-    EAP-Type=EAP-TLS
-   (TLS ClientHello)             -------->
-                                                         EAP-Request/
-                                                    EAP-Type=EAP-TLS
-                                                    (TLS ServerHello,
-                                             TLS EncryptedExtensions,
-                                              TLS CertificateRequest,
-                                                     TLS Certificate,
-                                               TLS CertificateVerify,
-                                 <--------              TLS Finished)
-    EAP-Response/
-    EAP-Type=EAP-TLS
-   (TLS Certificate,
-    TLS CertificateVerify,
-    TLS Finished)                -------->
-                                                         EAP-Request/
-                                                    EAP-Type=EAP-TLS
-                                 <--------        Commitment Message)
-    EAP-Response/
-    EAP-Type=EAP-TLS             -------->
-                                 <--------               EAP-Success
-
-                 Figure 9: Commit in separate EAP-Request
-
-
-
-
-
-
-
-
-Mattsson & Sethi        Expires December 9, 2020               [Page 18]
-
-Internet-Draft            EAP-TLS with TLS 1.3                 June 2020
+Internet-Draft            EAP-TLS with TLS 1.3               August 2020
 
 
 3.  Detailed Description of the EAP-TLS Protocol
@@ -1061,9 +1005,9 @@ Internet-Draft            EAP-TLS with TLS 1.3                 June 2020
 
 
 
-Mattsson & Sethi        Expires December 9, 2020               [Page 19]
+Mattsson & Sethi        Expires February 6, 2021               [Page 18]
 
-Internet-Draft            EAP-TLS with TLS 1.3                 June 2020
+Internet-Draft            EAP-TLS with TLS 1.3               August 2020
 
 
    EAP-TLS is used with TLS 1.3, EAP-TLS inherits the cryptographic
@@ -1117,9 +1061,9 @@ Internet-Draft            EAP-TLS with TLS 1.3                 June 2020
 
 
 
-Mattsson & Sethi        Expires December 9, 2020               [Page 20]
+Mattsson & Sethi        Expires February 6, 2021               [Page 19]
 
-Internet-Draft            EAP-TLS with TLS 1.3                 June 2020
+Internet-Draft            EAP-TLS with TLS 1.3               August 2020
 
 
 5.6.  Authorization
@@ -1173,9 +1117,9 @@ Internet-Draft            EAP-TLS with TLS 1.3                 June 2020
 
 
 
-Mattsson & Sethi        Expires December 9, 2020               [Page 21]
+Mattsson & Sethi        Expires February 6, 2021               [Page 20]
 
-Internet-Draft            EAP-TLS with TLS 1.3                 June 2020
+Internet-Draft            EAP-TLS with TLS 1.3               August 2020
 
 
    authorization MUST be followed also for resumption.  The certificates
@@ -1229,9 +1173,9 @@ Internet-Draft            EAP-TLS with TLS 1.3                 June 2020
 
 
 
-Mattsson & Sethi        Expires December 9, 2020               [Page 22]
+Mattsson & Sethi        Expires February 6, 2021               [Page 21]
 
-Internet-Draft            EAP-TLS with TLS 1.3                 June 2020
+Internet-Draft            EAP-TLS with TLS 1.3               August 2020
 
 
    match the information supplied during the original authentication.
@@ -1285,9 +1229,9 @@ Internet-Draft            EAP-TLS with TLS 1.3                 June 2020
 
 
 
-Mattsson & Sethi        Expires December 9, 2020               [Page 23]
+Mattsson & Sethi        Expires February 6, 2021               [Page 22]
 
-Internet-Draft            EAP-TLS with TLS 1.3                 June 2020
+Internet-Draft            EAP-TLS with TLS 1.3               August 2020
 
 
    to the same user from two identities belonging to different users in
@@ -1341,9 +1285,9 @@ Internet-Draft            EAP-TLS with TLS 1.3                 June 2020
 
 
 
-Mattsson & Sethi        Expires December 9, 2020               [Page 24]
+Mattsson & Sethi        Expires February 6, 2021               [Page 23]
 
-Internet-Draft            EAP-TLS with TLS 1.3                 June 2020
+Internet-Draft            EAP-TLS with TLS 1.3               August 2020
 
 
    most commonly used ciphers and modes of operation.  [RFC7457]
@@ -1397,9 +1341,9 @@ Internet-Draft            EAP-TLS with TLS 1.3                 June 2020
 
 
 
-Mattsson & Sethi        Expires December 9, 2020               [Page 25]
+Mattsson & Sethi        Expires February 6, 2021               [Page 24]
 
-Internet-Draft            EAP-TLS with TLS 1.3                 June 2020
+Internet-Draft            EAP-TLS with TLS 1.3               August 2020
 
 
    [RFC7542]  DeKok, A., "The Network Access Identifier", RFC 7542,
@@ -1429,8 +1373,8 @@ Internet-Draft            EAP-TLS with TLS 1.3                 June 2020
    [I-D.ietf-emu-eaptlscert]
               Sethi, M., Mattsson, J., and S. Turner, "Handling Large
               Certificates and Long Certificate Chains in TLS-based EAP
-              Methods", draft-ietf-emu-eaptlscert-03 (work in progress),
-              May 2020.
+              Methods", draft-ietf-emu-eaptlscert-05 (work in progress),
+              June 2020.
 
    [I-D.ietf-tls-certificate-compression]
               Ghedini, A. and V. Vasiliev, "TLS Certificate
@@ -1453,9 +1397,9 @@ Internet-Draft            EAP-TLS with TLS 1.3                 June 2020
 
 
 
-Mattsson & Sethi        Expires December 9, 2020               [Page 26]
+Mattsson & Sethi        Expires February 6, 2021               [Page 25]
 
-Internet-Draft            EAP-TLS with TLS 1.3                 June 2020
+Internet-Draft            EAP-TLS with TLS 1.3               August 2020
 
 
    [IEEE-802.1AE]
@@ -1509,9 +1453,9 @@ Internet-Draft            EAP-TLS with TLS 1.3                 June 2020
 
 
 
-Mattsson & Sethi        Expires December 9, 2020               [Page 27]
+Mattsson & Sethi        Expires February 6, 2021               [Page 26]
 
-Internet-Draft            EAP-TLS with TLS 1.3                 June 2020
+Internet-Draft            EAP-TLS with TLS 1.3               August 2020
 
 
    [RFC4346]  Dierks, T. and E. Rescorla, "The Transport Layer Security
@@ -1565,9 +1509,9 @@ Internet-Draft            EAP-TLS with TLS 1.3                 June 2020
 
 
 
-Mattsson & Sethi        Expires December 9, 2020               [Page 28]
+Mattsson & Sethi        Expires February 6, 2021               [Page 27]
 
-Internet-Draft            EAP-TLS with TLS 1.3                 June 2020
+Internet-Draft            EAP-TLS with TLS 1.3               August 2020
 
 
    [RFC7170]  Zhou, H., Cam-Winget, N., Salowey, J., and S. Hanna,
@@ -1621,9 +1565,9 @@ Contributors
 
 
 
-Mattsson & Sethi        Expires December 9, 2020               [Page 29]
+Mattsson & Sethi        Expires February 6, 2021               [Page 28]
 
-Internet-Draft            EAP-TLS with TLS 1.3                 June 2020
+Internet-Draft            EAP-TLS with TLS 1.3               August 2020
 
 
 Authors' Addresses
@@ -1677,4 +1621,4 @@ Authors' Addresses
 
 
 
-Mattsson & Sethi        Expires December 9, 2020               [Page 30]
+Mattsson & Sethi        Expires February 6, 2021               [Page 29]
