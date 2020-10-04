@@ -1273,7 +1273,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2020
    certificates is a well-known problem in many EAP methods.  When EAP-
    TLS is used with TLS 1.3, all certificates are encrypted, and the
    username part of the identity response is always confidentiality
-   protected (e.g. using Anonymous NAIs).  However, as with other EAP
+   protected (e.g. using anonymous NAIs).  However, as with other EAP
    methods, even when privacy-friendly identifiers or EAP tunneling is
    used, the domain name (i.e. the realm) in the NAI is still typically
    visible.  How much privacy sensitive information the domain name
@@ -1298,7 +1298,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2020
    Section 5.4 of [RFC8446] to reduce information leakage of certificate
    sizes.
 
-   If Anonymous NAIs are not used, the privacy-friendly identifiers need
+   If anonymous NAIs are not used, the privacy-friendly identifiers need
    to be generated with care.  The identities MUST be generated in a
    cryptographically secure way so that that it is computationally
    infeasible for an attacker to differentiate two identities belonging
@@ -1615,7 +1615,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2020
 
    [TS.33.501]
               3GPP, "Security architecture and procedures for 5G
-              System", 3GPP TS 33.501 16.1.0, December 2019.
+              System", 3GPP TS 33.501 16.3.0, July 2020.
 
 
 
