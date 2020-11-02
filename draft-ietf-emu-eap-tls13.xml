@@ -775,7 +775,7 @@ SEND-IV      = IV(32, 63)
 
 <section title="Acknowledgments" numbered="false">
 	<t>
-	The authors want to thank Bernard Aboba, Jari Arkko, Alan DeKok, Ari Keraenen, Jouni Malinen, Oleg Pekar, Eric Rescorla, Jim Schaad, Terry Burton, and Vesa Torvinen for comments and suggestions on the draft.
+	The authors want to thank Bernard Aboba, Jari Arkko, Alan DeKok, Ari Keraenen, Jouni Malinen, Oleg Pekar, Eric Rescorla, Jim Schaad, Terry Burton, Vesa Torvinen, and Hannes Tschofenig for comments and suggestions on the draft.
 	</t>
 </section>
 
