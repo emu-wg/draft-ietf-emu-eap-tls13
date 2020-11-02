@@ -353,8 +353,6 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
 
 			<t>TLS 1.3 <xref target="RFC8446"/> defines that TLS servers can send a HelloRetryRequest message in response to a ClientHello if the server finds an acceptable set of parameters but the initial ClientHello does not contain all the needed information to continue the handshake. One use case is if the server does not support the groups in the "key_share" extension, but supports one of the groups in the "supported_groups" extension. In this case the client should send a new ClientHello with a "key_share" that the server supports.</t>
 
-			<t>As noted in Section 4.1.4 of <xref target="RFC8446"/>, the server MUST provide the supported_versions extensions and SHOULD contain the minimal set of extensions necessary for the client to generate a correct ClientHello pair. A HelloRetryRequest MUST NOT contain any extensions that were not first offered by the client in its ClientHello, with the exception of optionally including the cookie extension.</t>
-
 			<t>The case of a successful EAP-TLS mutual authentication after the server has sent a HelloRetryRequest message is shown in <xref target="fighelloretryrequest"/>. Note the extra round-trip as a result of the HelloRetryRequest.</t>
 
 <figure anchor="fighelloretryrequest" title="EAP-TLS with Hello Retry Request" align="center"><artwork><![CDATA[
