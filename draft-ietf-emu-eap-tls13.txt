@@ -5,8 +5,8 @@
 Network Working Group                                        J. Mattsson
 Internet-Draft                                                  M. Sethi
 Updates: 5216 (if approved)                                     Ericsson
-Intended status: Standards Track                         October 4, 2020
-Expires: April 7, 2021
+Intended status: Standards Track                        November 2, 2020
+Expires: May 6, 2021
 
 
                        Using EAP-TLS with TLS 1.3
@@ -39,7 +39,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on April 7, 2021.
+   This Internet-Draft will expire on May 6, 2021.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Mattsson & Sethi          Expires April 7, 2021                 [Page 1]
+Mattsson & Sethi           Expires May 6, 2021                  [Page 1]
 
-Internet-Draft            EAP-TLS with TLS 1.3              October 2020
+Internet-Draft            EAP-TLS with TLS 1.3             November 2020
 
 
    carefully, as they describe your rights and restrictions with respect
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Mattsson & Sethi          Expires April 7, 2021                 [Page 2]
+Mattsson & Sethi           Expires May 6, 2021                  [Page 2]
 
-Internet-Draft            EAP-TLS with TLS 1.3              October 2020
+Internet-Draft            EAP-TLS with TLS 1.3             November 2020
 
 
 1.  Introduction
@@ -165,9 +165,9 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2020
 
 
 
-Mattsson & Sethi          Expires April 7, 2021                 [Page 3]
+Mattsson & Sethi           Expires May 6, 2021                  [Page 3]
 
-Internet-Draft            EAP-TLS with TLS 1.3              October 2020
+Internet-Draft            EAP-TLS with TLS 1.3             November 2020
 
 
 1.1.  Requirements and Terminology
@@ -221,9 +221,9 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2020
 
 
 
-Mattsson & Sethi          Expires April 7, 2021                 [Page 4]
+Mattsson & Sethi           Expires May 6, 2021                  [Page 4]
 
-Internet-Draft            EAP-TLS with TLS 1.3              October 2020
+Internet-Draft            EAP-TLS with TLS 1.3             November 2020
 
 
    In the case where EAP-TLS with mutual authentication is successful
@@ -277,9 +277,9 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2020
 
 
 
-Mattsson & Sethi          Expires April 7, 2021                 [Page 5]
+Mattsson & Sethi           Expires May 6, 2021                  [Page 5]
 
-Internet-Draft            EAP-TLS with TLS 1.3              October 2020
+Internet-Draft            EAP-TLS with TLS 1.3             November 2020
 
 
    In the case where EAP-TLS with mutual authentication and ticket
@@ -333,9 +333,9 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2020
 
 
 
-Mattsson & Sethi          Expires April 7, 2021                 [Page 6]
+Mattsson & Sethi           Expires May 6, 2021                  [Page 6]
 
-Internet-Draft            EAP-TLS with TLS 1.3              October 2020
+Internet-Draft            EAP-TLS with TLS 1.3             November 2020
 
 
    For TLS 1.3, resumption is described in Section 2.2 of [RFC8446].  If
@@ -389,9 +389,9 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2020
 
 
 
-Mattsson & Sethi          Expires April 7, 2021                 [Page 7]
+Mattsson & Sethi           Expires May 6, 2021                  [Page 7]
 
-Internet-Draft            EAP-TLS with TLS 1.3              October 2020
+Internet-Draft            EAP-TLS with TLS 1.3             November 2020
 
 
     EAP Peer                                              EAP Server
@@ -445,9 +445,9 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2020
 
 
 
-Mattsson & Sethi          Expires April 7, 2021                 [Page 8]
+Mattsson & Sethi           Expires May 6, 2021                  [Page 8]
 
-Internet-Draft            EAP-TLS with TLS 1.3              October 2020
+Internet-Draft            EAP-TLS with TLS 1.3             November 2020
 
 
       If the EAP peer authenticates successfully, the EAP server MUST
@@ -501,9 +501,9 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2020
 
 
 
-Mattsson & Sethi          Expires April 7, 2021                 [Page 9]
+Mattsson & Sethi           Expires May 6, 2021                  [Page 9]
 
-Internet-Draft            EAP-TLS with TLS 1.3              October 2020
+Internet-Draft            EAP-TLS with TLS 1.3             November 2020
 
 
     EAP Peer                                              EAP Server
@@ -557,9 +557,9 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2020
 
 
 
-Mattsson & Sethi          Expires April 7, 2021                [Page 10]
+Mattsson & Sethi           Expires May 6, 2021                 [Page 10]
 
-Internet-Draft            EAP-TLS with TLS 1.3              October 2020
+Internet-Draft            EAP-TLS with TLS 1.3             November 2020
 
 
     EAP Peer                                              EAP Server
@@ -613,9 +613,9 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2020
 
 
 
-Mattsson & Sethi          Expires April 7, 2021                [Page 11]
+Mattsson & Sethi           Expires May 6, 2021                 [Page 11]
 
-Internet-Draft            EAP-TLS with TLS 1.3              October 2020
+Internet-Draft            EAP-TLS with TLS 1.3             November 2020
 
 
     EAP Peer                                              EAP Server
@@ -658,20 +658,20 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2020
    "supported_groups" extension.  In this case the client should send a
    new ClientHello with a "key_share" that the server supports.
 
-   An EAP-TLS peer and server SHOULD support the use of
-   HelloRetryRequest message.  As noted in Section 4.1.4 of [RFC8446],
-   the server MUST provide the supported_versions extensions and SHOULD
-   contain the minimal set of extensions necessary for the client to
-   generate a correct ClientHello pair.  A HelloRetryRequest MUST NOT
-   contain any extensions that were not first offered by the client in
-   its ClientHello, with the exception of optionally including the
-   cookie extension.
+   As noted in Section 4.1.4 of [RFC8446], the server MUST provide the
+   supported_versions extensions and SHOULD contain the minimal set of
+   extensions necessary for the client to generate a correct ClientHello
+   pair.  A HelloRetryRequest MUST NOT contain any extensions that were
+   not first offered by the client in its ClientHello, with the
+   exception of optionally including the cookie extension.
 
 
 
-Mattsson & Sethi          Expires April 7, 2021                [Page 12]
+
+
+Mattsson & Sethi           Expires May 6, 2021                 [Page 12]
 
-Internet-Draft            EAP-TLS with TLS 1.3              October 2020
+Internet-Draft            EAP-TLS with TLS 1.3             November 2020
 
 
    The case of a successful EAP-TLS mutual authentication after the
@@ -725,9 +725,9 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2020
 
 
 
-Mattsson & Sethi          Expires April 7, 2021                [Page 13]
+Mattsson & Sethi           Expires May 6, 2021                 [Page 13]
 
-Internet-Draft            EAP-TLS with TLS 1.3              October 2020
+Internet-Draft            EAP-TLS with TLS 1.3             November 2020
 
 
    local deployments where the EAP peer, EAP authenticator, and EAP
@@ -781,9 +781,9 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2020
 
 
 
-Mattsson & Sethi          Expires April 7, 2021                [Page 14]
+Mattsson & Sethi           Expires May 6, 2021                 [Page 14]
 
-Internet-Draft            EAP-TLS with TLS 1.3              October 2020
+Internet-Draft            EAP-TLS with TLS 1.3             November 2020
 
 
    and EAP-Request packets, as well as a TLS Message Length field of
@@ -837,9 +837,9 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2020
 
 
 
-Mattsson & Sethi          Expires April 7, 2021                [Page 15]
+Mattsson & Sethi           Expires May 6, 2021                 [Page 15]
 
-Internet-Draft            EAP-TLS with TLS 1.3              October 2020
+Internet-Draft            EAP-TLS with TLS 1.3             November 2020
 
 
 2.3.  Key Hierarchy
@@ -893,9 +893,9 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2020
 
 
 
-Mattsson & Sethi          Expires April 7, 2021                [Page 16]
+Mattsson & Sethi           Expires May 6, 2021                 [Page 16]
 
-Internet-Draft            EAP-TLS with TLS 1.3              October 2020
+Internet-Draft            EAP-TLS with TLS 1.3             November 2020
 
 
    By using the TLS exporter, EAP-TLS can use any TLS 1.3 implementation
@@ -949,9 +949,9 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2020
 
 
 
-Mattsson & Sethi          Expires April 7, 2021                [Page 17]
+Mattsson & Sethi           Expires May 6, 2021                 [Page 17]
 
-Internet-Draft            EAP-TLS with TLS 1.3              October 2020
+Internet-Draft            EAP-TLS with TLS 1.3             November 2020
 
 
    server to not send any more handshake messages.  The Commitment
@@ -1005,9 +1005,9 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2020
 
 
 
-Mattsson & Sethi          Expires April 7, 2021                [Page 18]
+Mattsson & Sethi           Expires May 6, 2021                 [Page 18]
 
-Internet-Draft            EAP-TLS with TLS 1.3              October 2020
+Internet-Draft            EAP-TLS with TLS 1.3             November 2020
 
 
 3.  Detailed Description of the EAP-TLS Protocol
@@ -1061,9 +1061,9 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2020
 
 
 
-Mattsson & Sethi          Expires April 7, 2021                [Page 19]
+Mattsson & Sethi           Expires May 6, 2021                 [Page 19]
 
-Internet-Draft            EAP-TLS with TLS 1.3              October 2020
+Internet-Draft            EAP-TLS with TLS 1.3             November 2020
 
 
    EAP-TLS is used with TLS 1.3, EAP-TLS inherits the cryptographic
@@ -1117,9 +1117,9 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2020
 
 
 
-Mattsson & Sethi          Expires April 7, 2021                [Page 20]
+Mattsson & Sethi           Expires May 6, 2021                 [Page 20]
 
-Internet-Draft            EAP-TLS with TLS 1.3              October 2020
+Internet-Draft            EAP-TLS with TLS 1.3             November 2020
 
 
 5.6.  Authorization
@@ -1173,9 +1173,9 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2020
 
 
 
-Mattsson & Sethi          Expires April 7, 2021                [Page 21]
+Mattsson & Sethi           Expires May 6, 2021                 [Page 21]
 
-Internet-Draft            EAP-TLS with TLS 1.3              October 2020
+Internet-Draft            EAP-TLS with TLS 1.3             November 2020
 
 
    authorization MUST be followed also for resumption.  The certificates
@@ -1229,9 +1229,9 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2020
 
 
 
-Mattsson & Sethi          Expires April 7, 2021                [Page 22]
+Mattsson & Sethi           Expires May 6, 2021                 [Page 22]
 
-Internet-Draft            EAP-TLS with TLS 1.3              October 2020
+Internet-Draft            EAP-TLS with TLS 1.3             November 2020
 
 
    resumption.  This change creates a "time-of-check time-of-use"
@@ -1285,9 +1285,9 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2020
 
 
 
-Mattsson & Sethi          Expires April 7, 2021                [Page 23]
+Mattsson & Sethi           Expires May 6, 2021                 [Page 23]
 
-Internet-Draft            EAP-TLS with TLS 1.3              October 2020
+Internet-Draft            EAP-TLS with TLS 1.3             November 2020
 
 
    Without padding, information about the size of the client certificate
@@ -1341,9 +1341,9 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2020
 
 
 
-Mattsson & Sethi          Expires April 7, 2021                [Page 24]
+Mattsson & Sethi           Expires May 6, 2021                 [Page 24]
 
-Internet-Draft            EAP-TLS with TLS 1.3              October 2020
+Internet-Draft            EAP-TLS with TLS 1.3             November 2020
 
 
    monitoring.  In addition to the privacy attacks discussed above,
@@ -1397,9 +1397,9 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2020
 
 
 
-Mattsson & Sethi          Expires April 7, 2021                [Page 25]
+Mattsson & Sethi           Expires May 6, 2021                 [Page 25]
 
-Internet-Draft            EAP-TLS with TLS 1.3              October 2020
+Internet-Draft            EAP-TLS with TLS 1.3             November 2020
 
 
    [RFC5705]  Rescorla, E., "Keying Material Exporters for Transport
@@ -1444,8 +1444,8 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2020
    [I-D.ietf-emu-eaptlscert]
               Sethi, M., Mattsson, J., and S. Turner, "Handling Large
               Certificates and Long Certificate Chains in TLS-based EAP
-              Methods", draft-ietf-emu-eaptlscert-05 (work in progress),
-              June 2020.
+              Methods", draft-ietf-emu-eaptlscert-06 (work in progress),
+              October 2020.
 
 
 
@@ -1453,9 +1453,9 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2020
 
 
 
-Mattsson & Sethi          Expires April 7, 2021                [Page 26]
+Mattsson & Sethi           Expires May 6, 2021                 [Page 26]
 
-Internet-Draft            EAP-TLS with TLS 1.3              October 2020
+Internet-Draft            EAP-TLS with TLS 1.3             November 2020
 
 
    [I-D.ietf-tls-certificate-compression]
@@ -1465,8 +1465,8 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2020
 
    [I-D.ietf-tls-oldversions-deprecate]
               Moriarty, K. and S. Farrell, "Deprecating TLSv1.0 and
-              TLSv1.1", draft-ietf-tls-oldversions-deprecate-06 (work in
-              progress), January 2020.
+              TLSv1.1", draft-ietf-tls-oldversions-deprecate-08 (work in
+              progress), October 2020.
 
    [IEEE-802.11]
               Institute of Electrical and Electronics Engineers, "IEEE
@@ -1509,9 +1509,9 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2020
 
 
 
-Mattsson & Sethi          Expires April 7, 2021                [Page 27]
+Mattsson & Sethi           Expires May 6, 2021                 [Page 27]
 
-Internet-Draft            EAP-TLS with TLS 1.3              October 2020
+Internet-Draft            EAP-TLS with TLS 1.3             November 2020
 
 
    [RFC2560]  Myers, M., Ankney, R., Malpani, A., Galperin, S., and C.
@@ -1565,9 +1565,9 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2020
 
 
 
-Mattsson & Sethi          Expires April 7, 2021                [Page 28]
+Mattsson & Sethi           Expires May 6, 2021                 [Page 28]
 
-Internet-Draft            EAP-TLS with TLS 1.3              October 2020
+Internet-Draft            EAP-TLS with TLS 1.3             November 2020
 
 
    [RFC5246]  Dierks, T. and E. Rescorla, "The Transport Layer Security
@@ -1621,9 +1621,9 @@ Internet-Draft            EAP-TLS with TLS 1.3              October 2020
 
 
 
-Mattsson & Sethi          Expires April 7, 2021                [Page 29]
+Mattsson & Sethi           Expires May 6, 2021                 [Page 29]
 
-Internet-Draft            EAP-TLS with TLS 1.3              October 2020
+Internet-Draft            EAP-TLS with TLS 1.3             November 2020
 
 
 Appendix A.  Updated references
@@ -1677,4 +1677,4 @@ Authors' Addresses
 
 
 
-Mattsson & Sethi          Expires April 7, 2021                [Page 30]
+Mattsson & Sethi           Expires May 6, 2021                 [Page 30]
