@@ -1042,10 +1042,10 @@ Internet-Draft            EAP-TLS with TLS 1.3             November 2020
    use of privacy is mandatory and does not cause any additional round-
    trips.
 
-   [3] Key strength: With TLS 1.3, weak algorithms such as 3DES, CBC
-   mode, RC4, SHA-1, MD5, P-192, and RSA-1024 cannot be negotiated.  TLS
-   1.3 only supports cryptographic algorithms offering at least 112-bit
-   security, see [RFC8446].
+   [3] Key strength: Weak algorithms such as RC4, CBC mode, SHA-1, MD5,
+   P-192, and RSA-1024 have not been specified for TLS 1.3 and thus
+   cannot be negotiated.  TLS 1.3 only supports cryptographic algorithms
+   offering at least 112-bit security, see [RFC8446].
 
    [4] Cryptographic Negotiation: TLS 1.3 increases the number of
    cryptographic parameters that are negotiated in the handshake.  When
