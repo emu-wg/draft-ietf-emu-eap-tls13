@@ -326,7 +326,7 @@ ul.toc li {
 
   <meta name="dct.creator" content="Mattsson, J. and M. Sethi" />
   <meta name="dct.identifier" content="urn:ietf:id:draft-ietf-emu-eap-tls13-latest" />
-  <meta name="dct.issued" scheme="ISO8601" content="2020-20" />
+  <meta name="dct.issued" scheme="ISO8601" content="2020-23" />
   <meta name="dct.abstract" content="This document specifies the use of EAP-TLS with TLS 1.3 while remaining backwards compatible with existing implementations of EAP-TLS. TLS 1.3 provides significantly improved security, privacy, and reduced latency when compared to earlier versions of TLS. EAP-TLS with TLS 1.3 further improves security and privacy by mandating use of privacy and revocation checking. This document also provides guidance on authorization and resumption for EAP-TLS in general (regardless of the underlying TLS version used). This document updates RFC 5216.  " />
   <meta name="description" content="This document specifies the use of EAP-TLS with TLS 1.3 while remaining backwards compatible with existing implementations of EAP-TLS. TLS 1.3 provides significantly improved security, privacy, and reduced latency when compared to earlier versions of TLS. EAP-TLS with TLS 1.3 further improves security and privacy by mandating use of privacy and revocation checking. This document also provides guidance on authorization and resumption for EAP-TLS in general (regardless of the underlying TLS version used). This document updates RFC 5216.  " />
 
@@ -351,10 +351,10 @@ ul.toc li {
 </tr>
 <tr>
 <td class="left">Intended status: Standards Track</td>
-<td class="right">November 20, 2020</td>
+<td class="right">November 23, 2020</td>
 </tr>
 <tr>
-<td class="left">Expires: May 24, 2021</td>
+<td class="left">Expires: May 27, 2021</td>
 <td class="right"></td>
 </tr>
 
@@ -371,7 +371,7 @@ ul.toc li {
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on May 24, 2021.</p>
+<p>This Internet-Draft will expire on May 27, 2021.</p>
 <h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
 <p>Copyright (c) 2020 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
 <p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
@@ -932,7 +932,7 @@ SEND-IV      = IV(32, 63)
 <p id="rfc.section.5.1.p.1">Using EAP-TLS with TLS 1.3 does not change the security claims for EAP-TLS as given in Section 5.1 of <a href="#RFC5216" class="xref">[RFC5216]</a>. However, it strengthens several of the claims as described in the following updates to the notes given in Section 5.1 of <a href="#RFC5216" class="xref">[RFC5216]</a>.</p>
 <p id="rfc.section.5.1.p.2">[1] Mutual authentication: By mandating revocation checking of certificates, the authentication in EAP-TLS with TLS 1.3 is stronger as authentication with revoked certificates will always fail.</p>
 <p id="rfc.section.5.1.p.3">[2] Confidentiality: The TLS 1.3 handshake offers much better confidentiality than earlier versions of TLS by mandating cipher suites with confidentiality and encrypting certificates and some of the extensions, see <a href="#RFC8446" class="xref">[RFC8446]</a>. When using EAP-TLS with TLS 1.3, the use of privacy is mandatory and does not cause any additional round-trips.</p>
-<p id="rfc.section.5.1.p.4">[3] Key strength: TLS 1.3 forbids all algorithms with known weaknesses including 3DES, CBC mode, RC4, SHA-1, and MD5. TLS 1.3 only supports cryptographic algorithms offering at least 112-bit security, see <a href="#RFC8446" class="xref">[RFC8446]</a>.</p>
+<p id="rfc.section.5.1.p.4">[3] Key strength: With TLS 1.3, weak algorithms such as 3DES, CBC mode, RC4, SHA-1, MD5, P-192, and RSA-1024 cannot be negotiated. TLS 1.3 only supports cryptographic algorithms offering at least 112-bit security, see <a href="#RFC8446" class="xref">[RFC8446]</a>.</p>
 <p id="rfc.section.5.1.p.5">[4] Cryptographic Negotiation: TLS 1.3 increases the number of cryptographic parameters that are negotiated in the handshake. When EAP-TLS is used with TLS 1.3, EAP-TLS inherits the cryptographic negotiation of AEAD algorithm, HKDF hash algorithm, key exchange groups, and signature algorithm, see Section 4.1.1 of <a href="#RFC8446" class="xref">[RFC8446]</a>.</p>
 <h1 id="rfc.section.5.2">
 <a href="#rfc.section.5.2">5.2.</a> Peer and Server Identities</h1>
