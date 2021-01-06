@@ -438,8 +438,10 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
 
 <figure><artwork><![CDATA[
 Type-Code    = 0x0D
-Key_Material = TLS-Exporter("EXPORTER_EAP_TLS_Key_Material",
-                            Type-Code, 128)
+MSK          = TLS-Exporter("EXPORTER_EAP_TLS_MSK",
+                            Type-Code, 64)
+EMSK         = TLS-Exporter("EXPORTER_EAP_TLS_EMSK",
+                            Type-Code, 64)
 IV           = TLS-Exporter("EXPORTER_EAP_TLS_IV",
                             Type-Code, 64)
 Method-Id    = TLS-Exporter("EXPORTER_EAP_TLS_Method-Id",
@@ -447,11 +449,9 @@ Method-Id    = TLS-Exporter("EXPORTER_EAP_TLS_Method-Id",
 Session-Id   = Type-Code || Method-Id
 ]]></artwork></figure>
 
-		<t>All other parameters such as MSK and EMSK are derived in the same manner as with EAP-TLS <xref target="RFC5216"/>, Section 2.3. The definitions are repeated below for simplicity:</t>
+		<t>All other parameters are derived in the same manner as with EAP-TLS <xref target="RFC5216"/>, Section 2.3. The definitions are repeated below for simplicity:</t>
 
 <figure><artwork><![CDATA[
-MSK          = Key_Material(0, 63)
-EMSK         = Key_Material(64, 127)
 Enc-RECV-Key = MSK(0, 31)
 Enc-SEND-Key = MSK(32, 63)
 RECV-IV      = IV(0, 31)
@@ -536,7 +536,12 @@ SEND-IV      = IV(32, 63)
             <ttcol align="left">DTLS-OK</ttcol>
             <ttcol align="left">Recommended</ttcol>
             <ttcol align="left">Note</ttcol>
-            <c>EXPORTER_EAP_TLS_Key_Material</c>
+            <c>EXPORTER_EAP_TLS_MSK</c>
+            <c>N</c>
+            <c>Y</c>
+            <c></c>
+            <c></c><c></c><c></c><c></c>
+	    <c>EXPORTER_EAP_TLS_EMSK</c>
             <c>N</c>
             <c>Y</c>
             <c></c>
