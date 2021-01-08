@@ -5,8 +5,8 @@
 Network Working Group                                        J. Mattsson
 Internet-Draft                                                  M. Sethi
 Updates: 5216 (if approved)                                     Ericsson
-Intended status: Standards Track                         January 1, 2021
-Expires: July 5, 2021
+Intended status: Standards Track                         January 8, 2021
+Expires: July 12, 2021
 
 
                        Using EAP-TLS with TLS 1.3
@@ -41,7 +41,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on July 5, 2021.
+   This Internet-Draft will expire on July 12, 2021.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Mattsson & Sethi          Expires July 5, 2021                  [Page 1]
+Mattsson & Sethi          Expires July 12, 2021                 [Page 1]
 
 Internet-Draft            EAP-TLS with TLS 1.3              January 2021
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Mattsson & Sethi          Expires July 5, 2021                  [Page 2]
+Mattsson & Sethi          Expires July 12, 2021                 [Page 2]
 
 Internet-Draft            EAP-TLS with TLS 1.3              January 2021
 
@@ -165,7 +165,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              January 2021
 
 
 
-Mattsson & Sethi          Expires July 5, 2021                  [Page 3]
+Mattsson & Sethi          Expires July 12, 2021                 [Page 3]
 
 Internet-Draft            EAP-TLS with TLS 1.3              January 2021
 
@@ -221,7 +221,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              January 2021
 
 
 
-Mattsson & Sethi          Expires July 5, 2021                  [Page 4]
+Mattsson & Sethi          Expires July 12, 2021                 [Page 4]
 
 Internet-Draft            EAP-TLS with TLS 1.3              January 2021
 
@@ -277,7 +277,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              January 2021
 
 
 
-Mattsson & Sethi          Expires July 5, 2021                  [Page 5]
+Mattsson & Sethi          Expires July 12, 2021                 [Page 5]
 
 Internet-Draft            EAP-TLS with TLS 1.3              January 2021
 
@@ -333,7 +333,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              January 2021
 
 
 
-Mattsson & Sethi          Expires July 5, 2021                  [Page 6]
+Mattsson & Sethi          Expires July 12, 2021                 [Page 6]
 
 Internet-Draft            EAP-TLS with TLS 1.3              January 2021
 
@@ -362,12 +362,16 @@ Internet-Draft            EAP-TLS with TLS 1.3              January 2021
    recommendation is not followed, resumption is likely to be
    impossible.  When NAI reuse can be done without privacy implications,
    it is RECOMMENDED to use the same anonymous NAI in the resumption, as
-   was used in the original full authentication.  For example, the NAI
-   @realm can safely be reused, while the NAI ZmxleG8=@realm cannot.
-   The TLS PSK identity is typically derived by the TLS implementation
-   and may be an opaque blob without a routable realm.  The TLS PSK
-   identity is therefore in general unsuitable for deriving a NAI to use
-   in the Identity Response.
+   was used in the original full authentication [RFC7542].  For example,
+   the NAI @realm can safely be reused since it does not provide any
+   specific information to associate a user's resumption attempt with
+   the original full authentication.  However, reusing the NAI
+   P2ZIM2F+OEVAO21nNWg2bVpgNnU=@realm can allow a potential attacker to
+   associate the resumption attempt with the original full
+   authentication.  The TLS PSK identity is typically derived by the TLS
+   implementation and may be an opaque blob without a routable realm.
+   The TLS PSK identity is therefore in general unsuitable for deriving
+   a NAI to use in the Identity Response.
 
    A subsequent authentication using resumption, where both sides
    authenticate successfully (without the issuance of more resumption
@@ -385,11 +389,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              January 2021
 
 
 
-
-
-
-
-Mattsson & Sethi          Expires July 5, 2021                  [Page 7]
+Mattsson & Sethi          Expires July 12, 2021                 [Page 7]
 
 Internet-Draft            EAP-TLS with TLS 1.3              January 2021
 
@@ -445,7 +445,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              January 2021
 
 
 
-Mattsson & Sethi          Expires July 5, 2021                  [Page 8]
+Mattsson & Sethi          Expires July 12, 2021                 [Page 8]
 
 Internet-Draft            EAP-TLS with TLS 1.3              January 2021
 
@@ -501,7 +501,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              January 2021
 
 
 
-Mattsson & Sethi          Expires July 5, 2021                  [Page 9]
+Mattsson & Sethi          Expires July 12, 2021                 [Page 9]
 
 Internet-Draft            EAP-TLS with TLS 1.3              January 2021
 
@@ -557,7 +557,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              January 2021
 
 
 
-Mattsson & Sethi          Expires July 5, 2021                 [Page 10]
+Mattsson & Sethi          Expires July 12, 2021                [Page 10]
 
 Internet-Draft            EAP-TLS with TLS 1.3              January 2021
 
@@ -613,7 +613,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              January 2021
 
 
 
-Mattsson & Sethi          Expires July 5, 2021                 [Page 11]
+Mattsson & Sethi          Expires July 12, 2021                [Page 11]
 
 Internet-Draft            EAP-TLS with TLS 1.3              January 2021
 
@@ -669,7 +669,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              January 2021
 
 
 
-Mattsson & Sethi          Expires July 5, 2021                 [Page 12]
+Mattsson & Sethi          Expires July 12, 2021                [Page 12]
 
 Internet-Draft            EAP-TLS with TLS 1.3              January 2021
 
@@ -725,7 +725,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              January 2021
 
 
 
-Mattsson & Sethi          Expires July 5, 2021                 [Page 13]
+Mattsson & Sethi          Expires July 12, 2021                [Page 13]
 
 Internet-Draft            EAP-TLS with TLS 1.3              January 2021
 
@@ -781,7 +781,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              January 2021
 
 
 
-Mattsson & Sethi          Expires July 5, 2021                 [Page 14]
+Mattsson & Sethi          Expires July 12, 2021                [Page 14]
 
 Internet-Draft            EAP-TLS with TLS 1.3              January 2021
 
@@ -837,7 +837,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              January 2021
 
 
 
-Mattsson & Sethi          Expires July 5, 2021                 [Page 15]
+Mattsson & Sethi          Expires July 12, 2021                [Page 15]
 
 Internet-Draft            EAP-TLS with TLS 1.3              January 2021
 
@@ -893,7 +893,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              January 2021
 
 
 
-Mattsson & Sethi          Expires July 5, 2021                 [Page 16]
+Mattsson & Sethi          Expires July 12, 2021                [Page 16]
 
 Internet-Draft            EAP-TLS with TLS 1.3              January 2021
 
@@ -949,7 +949,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              January 2021
 
 
 
-Mattsson & Sethi          Expires July 5, 2021                 [Page 17]
+Mattsson & Sethi          Expires July 12, 2021                [Page 17]
 
 Internet-Draft            EAP-TLS with TLS 1.3              January 2021
 
@@ -1005,7 +1005,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              January 2021
 
 
 
-Mattsson & Sethi          Expires July 5, 2021                 [Page 18]
+Mattsson & Sethi          Expires July 12, 2021                [Page 18]
 
 Internet-Draft            EAP-TLS with TLS 1.3              January 2021
 
@@ -1061,7 +1061,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              January 2021
 
 
 
-Mattsson & Sethi          Expires July 5, 2021                 [Page 19]
+Mattsson & Sethi          Expires July 12, 2021                [Page 19]
 
 Internet-Draft            EAP-TLS with TLS 1.3              January 2021
 
@@ -1117,7 +1117,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              January 2021
 
 
 
-Mattsson & Sethi          Expires July 5, 2021                 [Page 20]
+Mattsson & Sethi          Expires July 12, 2021                [Page 20]
 
 Internet-Draft            EAP-TLS with TLS 1.3              January 2021
 
@@ -1173,7 +1173,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              January 2021
 
 
 
-Mattsson & Sethi          Expires July 5, 2021                 [Page 21]
+Mattsson & Sethi          Expires July 12, 2021                [Page 21]
 
 Internet-Draft            EAP-TLS with TLS 1.3              January 2021
 
@@ -1229,7 +1229,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              January 2021
 
 
 
-Mattsson & Sethi          Expires July 5, 2021                 [Page 22]
+Mattsson & Sethi          Expires July 12, 2021                [Page 22]
 
 Internet-Draft            EAP-TLS with TLS 1.3              January 2021
 
@@ -1251,7 +1251,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              January 2021
    information given in the resumption.  EAP-TLS servers MAY reject
    resumption where the information supplied during resumption does not
    match the information supplied during the original authentication.
-   Where a good decision is unclear, EAP-TLS servers SHOULD reject the
+   If a safe decision is not possible, EAP-TLS servers SHOULD reject the
    resumption and continue with a full handshake.
 
    Section 2.2 and 4.2.11,[RFC8446] provides security considerations for
@@ -1285,7 +1285,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              January 2021
 
 
 
-Mattsson & Sethi          Expires July 5, 2021                 [Page 23]
+Mattsson & Sethi          Expires July 12, 2021                [Page 23]
 
 Internet-Draft            EAP-TLS with TLS 1.3              January 2021
 
@@ -1341,7 +1341,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              January 2021
 
 
 
-Mattsson & Sethi          Expires July 5, 2021                 [Page 24]
+Mattsson & Sethi          Expires July 12, 2021                [Page 24]
 
 Internet-Draft            EAP-TLS with TLS 1.3              January 2021
 
@@ -1397,7 +1397,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              January 2021
 
 
 
-Mattsson & Sethi          Expires July 5, 2021                 [Page 25]
+Mattsson & Sethi          Expires July 12, 2021                [Page 25]
 
 Internet-Draft            EAP-TLS with TLS 1.3              January 2021
 
@@ -1453,7 +1453,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              January 2021
 
 
 
-Mattsson & Sethi          Expires July 5, 2021                 [Page 26]
+Mattsson & Sethi          Expires July 12, 2021                [Page 26]
 
 Internet-Draft            EAP-TLS with TLS 1.3              January 2021
 
@@ -1509,7 +1509,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              January 2021
 
 
 
-Mattsson & Sethi          Expires July 5, 2021                 [Page 27]
+Mattsson & Sethi          Expires July 12, 2021                [Page 27]
 
 Internet-Draft            EAP-TLS with TLS 1.3              January 2021
 
@@ -1565,7 +1565,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              January 2021
 
 
 
-Mattsson & Sethi          Expires July 5, 2021                 [Page 28]
+Mattsson & Sethi          Expires July 12, 2021                [Page 28]
 
 Internet-Draft            EAP-TLS with TLS 1.3              January 2021
 
@@ -1621,7 +1621,7 @@ Internet-Draft            EAP-TLS with TLS 1.3              January 2021
 
 
 
-Mattsson & Sethi          Expires July 5, 2021                 [Page 29]
+Mattsson & Sethi          Expires July 12, 2021                [Page 29]
 
 Internet-Draft            EAP-TLS with TLS 1.3              January 2021
 
@@ -1677,4 +1677,4 @@ Authors' Addresses
 
 
 
-Mattsson & Sethi          Expires July 5, 2021                 [Page 30]
+Mattsson & Sethi          Expires July 12, 2021                [Page 30]
