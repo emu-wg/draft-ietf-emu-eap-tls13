@@ -48,7 +48,7 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
 
 <abstract>
 	<t>
-	The Extensible Authentication Protocol (EAP), defined in RFC3748, provides a standard mechanism for support of multiple authentication methods. This document specifies the use of EAP-Transport Layer Security (EAP-TLS) with TLS 1.3 while remaining backwards compatible with existing implementations of EAP-TLS. TLS 1.3 provides significantly improved security, privacy, and reduced latency when compared to earlier versions of TLS. EAP-TLS with TLS 1.3 further improves security and privacy by mandating use of privacy and revocation checking. This document also provides guidance on authorization and resumption for EAP-TLS in general (regardless of the underlying TLS version used). This document updates RFC 5216.
+	The Extensible Authentication Protocol (EAP), defined in RFC 3748, provides a standard mechanism for support of multiple authentication methods. This document specifies the use of EAP-Transport Layer Security (EAP-TLS) with TLS 1.3 while remaining backwards compatible with existing implementations of EAP-TLS. TLS 1.3 provides significantly improved security, privacy, and reduced latency when compared to earlier versions of TLS. EAP-TLS with TLS 1.3 further improves security and privacy by mandating use of privacy and revocation checking. This document also provides guidance on authorization and resumption for EAP-TLS in general (regardless of the underlying TLS version used). This document updates RFC 5216.
 	</t>
 </abstract>
 
@@ -119,7 +119,7 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
  TLS Finished)                -------->
                                                       EAP-Request/
                                                  EAP-Type=EAP-TLS
-                              <--------             (close_notify)
+                              <--------         (TLS close_notify)
 EAP-Response/
  EAP-Type=EAP-TLS             -------->
                               <--------               EAP-Success
@@ -162,7 +162,7 @@ EAP-Response/
                                                       EAP-Request/
                                                  EAP-Type=EAP-TLS
                                             (TLS NewSessionTicket,
-                              <--------              close_notify)
+                              <--------         (TLS close_notify)
  EAP-Response/
  EAP-Type=EAP-TLS             -------->
                               <--------               EAP-Success
@@ -203,7 +203,7 @@ EAP-Response/
 (TLS Finished)                -------->
                                                       EAP-Request/
                                                  EAP-Type=EAP-TLS
-                              <--------             (close_notify)
+                              <--------         (TLS close_notify)
  EAP-Response/
  EAP-Type=EAP-TLS             -------->
                               <--------               EAP-Success
@@ -351,7 +351,7 @@ EAP-Response/
 (TLS Finished)                -------->
                                                       EAP-Request/
                                                  EAP-Type=EAP-TLS
-                              <--------             (close_notify)
+                              <--------         (TLS close_notify)
  EAP-Response/
  EAP-Type=EAP-TLS             -------->
                               <--------               EAP-Success
@@ -399,7 +399,7 @@ EAP-Response/
  TLS Finished)                -------->
                                                       EAP-Request/
                                                  EAP-Type=EAP-TLS
-                              <--------             (close_notify)
+                              <--------         (TLS close_notify)
  EAP-Response/
  EAP-Type=EAP-TLS             -------->
                               <--------               EAP-Success
