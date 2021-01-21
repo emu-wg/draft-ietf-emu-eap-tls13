@@ -120,7 +120,7 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
                                                       EAP-Request/
                                                  EAP-Type=EAP-TLS
                               <--------         (TLS close_notify)
-EAP-Response/
+ EAP-Response/
  EAP-Type=EAP-TLS             -------->
                               <--------               EAP-Success
 ]]></artwork></figure>
