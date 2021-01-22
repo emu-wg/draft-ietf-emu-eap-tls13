@@ -452,12 +452,12 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
 
 <figure><artwork><![CDATA[
 Type-Code  = 0x0D
-MSK        = TLS-Exporter("EXPORTER_EAP_TLS_MSK"+_Type-Code,64)
-EMSK       = TLS-Exporter("EXPORTER_EAP_TLS_EMSK"+_Type-Code,64)
-Method-Id  = TLS-Exporter("EXPORTER_EAP_TLS_Method-Id"+_Type-Code,64)
+MSK        = TLS-Exporter("EXPORTER_EAP_TLS_MSK_"+Type-Code,64)
+EMSK       = TLS-Exporter("EXPORTER_EAP_TLS_EMSK_"+Type-Code,64)
+Method-Id  = TLS-Exporter("EXPORTER_EAP_TLS_Method-Id_"+Type-Code,64)
 Session-Id = Type-Code || Method-Id
 ]]></artwork></figure>
-		<t>No context data is used in the TLS exporter interface. The EAP-TLS Type-Code of '0D' (in hexadecimal) is appended to the label strings along with an underscore character '_'. Other TLS based EAP methods can use exporters in a similar fashion by replacing the EAP-TLS Type-Code with their own Type-Code (encoded as a hexadecimal string).</t>
+		<t>No context data is used in the TLS exporter interface. The EAP-TLS Type-Code of '0D' (in hexadecimal) is appended to the label strings. Other TLS based EAP methods can use exporters in a similar fashion by replacing the EAP-TLS Type-Code with their own Type-Code (encoded as a hexadecimal string).</t>
 
 		<t><xref target="RFC5247"/> deprecates the use of IV. Thus, RECV-IV and SEND-IV are not exported in EAP-TLS with TLS 1.3. As noted in <xref target="RFC5247"/>, lower layers use the MSK in a lower-layer dependent manner. EAP-TLS with TLS 1.3 exports the MSK and does not specify how it used by lower layers.</t>
 
@@ -505,17 +505,17 @@ Session-Id = Type-Code || Method-Id
             <ttcol align="left">DTLS-OK</ttcol>
             <ttcol align="left">Recommended</ttcol>
             <ttcol align="left">Note</ttcol>
-            <c>EXPORTER_EAP_TLS_MSK</c>
+            <c>EXPORTER_EAP_TLS_MSK_</c>
             <c>N</c>
             <c>Y</c>
             <c></c>
             <c></c><c></c><c></c><c></c>
-	    	<c>EXPORTER_EAP_TLS_EMSK</c>
+	    	<c>EXPORTER_EAP_TLS_EMSK_</c>
             <c>N</c>
             <c>Y</c>
             <c></c>
             <c></c><c></c><c></c><c></c>
-            <c>EXPORTER_EAP_TLS_Method-Id</c>
+            <c>EXPORTER_EAP_TLS_Method-Id_</c>
             <c>N</c>
             <c>Y</c>
             <c></c>
