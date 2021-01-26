@@ -430,7 +430,7 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
 		<section title='Fragmentation'>
 			<t>This section updates Section 2.1.5 of <xref target="RFC5216"/>.</t>			
 
-			<t>Including ContentType and ProtocolVersion a single TLS record may be up to 16387 octets in length. EAP-TLS fragmentation support is provided through addition of a flags octet within the EAP-Response and EAP-Request packets, as well as a TLS Message Length field of four octets. Implementations MUST NOT set the L bit in unfragmented messages, but MUST accept unfragmented messages with and without the L bit set.</t>
+			<t>Including ContentType (1 byte), ProtocolVersion (2 bytes), and length (2 bytes) headers a single TLS record may be up to 16645 octets in length. EAP-TLS fragmentation support is provided through addition of a flags octet within the EAP-Response and EAP-Request packets, as well as a TLS Message Length field of four octets. Implementations MUST NOT set the L bit in unfragmented messages, but MUST accept unfragmented messages with and without the L bit set.</t>
 
 			 <t>Some EAP implementations and access networks may limit the number of EAP packet exchanges that can be handled. To avoid fragmentation, it is RECOMMENDED to keep the sizes of EAP-TLS peer, EAP-TLS server, and trust anchor certificates small and the length of the certificate chains short. In addition, it is RECOMMENDED to use mechanisms that reduce the sizes of Certificate messages. For a detailed discussion on reducing message sizes to prevent fragmentation, see <xref target="I-D.ietf-emu-eaptlscert"/>.</t>
 		</section>
