@@ -697,7 +697,7 @@ Session-Id = Type-Code || Method-Id
 	       </author>
 	     <date month="December" year="2020" />
 	   </front>
-	   <seriesInfo name="3GPP TS" value="33.501 16.5.0" />
+	   <seriesInfo name="3GPP TS" value="33.501 17.0.0" />
 	</reference>
 	<reference anchor="MulteFire">
 	   <front>
