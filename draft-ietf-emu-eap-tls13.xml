@@ -180,8 +180,6 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
 			
 			<t>A subsequent successfull resumption handshake where both sides authenticate via a PSK provisioned via an earlier NewSessionTicket is shown in <xref target="figresumption"/>.</t>
 			
-			As the server is authenticating via a PSK,
-
 <figure anchor="figresumption" title="EAP-TLS resumption" align="center"><artwork><![CDATA[
  EAP-TLS Peer                                      EAP-TLS Server
 
