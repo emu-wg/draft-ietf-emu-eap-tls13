@@ -665,9 +665,9 @@ Session-Id = Type-Code || Method-Id
 	     <author>
 	       <organization>Institute of Electrical and Electronics Engineers</organization>
 	       </author>
-	     <date month="February" year="2010" />
+	     <date month="January" year="2020" />
 	   </front>
-	   <seriesInfo name="IEEE Standard 802.1X-2010" value="" />
+	   <seriesInfo name="IEEE Standard 802.1X-2020" value="" />
 	</reference>
 	<reference anchor="IEEE-802.11">
 	   <front>
