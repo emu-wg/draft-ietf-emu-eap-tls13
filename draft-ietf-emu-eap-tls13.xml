@@ -203,6 +203,7 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
 (TLS Finished)                -------->
                                                       EAP-Request/
                                                  EAP-Type=EAP-TLS
+                                            (TLS NewSessionTicket,
                               <--------         (TLS close_notify)
  EAP-Response/
  EAP-Type=EAP-TLS             -------->
