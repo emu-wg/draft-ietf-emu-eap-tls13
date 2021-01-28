@@ -758,7 +758,7 @@ Session-Id = Type-Code || Method-Id
 
 <section title="Acknowledgments" numbered="false">
 	<t>
-	The authors want to thank Bernard Aboba, Jari Arkko, Alan DeKok, Ari Keraenen, Jouni Malinen, Oleg Pekar, Eric Rescorla, Jim Schaad, Terry Burton, Vesa Torvinen, and Hannes Tschofenig for comments and suggestions on the draft.
+	The authors want to thank Bernard Aboba, Jari Arkko, Terry Burton, Alan DeKok, Ari Keraenen, Benjamin Kaduk, Jouni Malinen, Oleg Pekar, Eric Rescorla, Jim Schaad, Joseph Salowey, Martin Thomson, Vesa Torvinen, and Hannes Tschofenig for comments and suggestions on the draft.
 	</t>
 </section>
 
