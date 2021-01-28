@@ -209,7 +209,7 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
                               <--------               EAP-Success
 ]]></artwork></figure>
 
-			<t>As specified in Section 2.2 of <xref target="RFC8446"/>, the EAP-TLS peer SHOULD supply a "key_share" extension when attempting resumption, which allows the EAP-TLS server to potentially decline resumption and fall back to a full handshake. If the EAP-TLS peer did not supply a "key_share" extension when attempting resumption, the EAP-TLS server needs to send HelloRetryRequest to signal that additional information is needed to complete the handshake, and the EAP-TLS peer needs to send a second ClientHello containing that information.</t>
+			<t>As specified in Section 2.2 of <xref target="RFC8446"/>, the EAP-TLS peer SHOULD supply a "key_share" extension when attempting resumption, which allows the EAP-TLS server to potentially decline resumption and fall back to a full handshake. If the EAP-TLS peer did not supply a "key_share" extension when attempting resumption, the EAP-TLS server needs to send HelloRetryRequest to signal that additional information is needed to complete the handshake, and the EAP-TLS peer needs to send a second ClientHello containing that information. Providing a "key_share" and using the "psk_dhe_ke" pre-shared key exchange mode is also important in order to limit the impact of a key compromise, see <xref target="seccon"/>.</t>
 
 		</section>
 
