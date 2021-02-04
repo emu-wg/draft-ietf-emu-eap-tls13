@@ -515,7 +515,7 @@ Session-Id = Type-Code || Method-Id
 	</section>
 
 	<section title='EAP State Machines' anchor="state">
-<t>This is a new section when compared to <xref target="RFC5216"/> and only applies to TLS 1.3 (or higher). <xref target="RFC4137"/> offers a proposed state machine for EAP</t>
+<t>This is a new section when compared to <xref target="RFC5216"/> and only applies to TLS 1.3 (or higher). <xref target="RFC4137"/> offers a proposed state machine for EAP.</t>
 
 <t>TLS 1.3 <xref target="RFC8446"/> introduces Post-Handshake messages. These Post-Handshake messages use the handshake content type and can be sent after the main handshake. Examples of Post-Handshake messages are NewSessionTicket, which is used for resumption and KeyUpdate, which is not useful and not expected in EAP-TLS. After sending TLS Finished, the EAP-TLS server may send any number of Post-Handshake messages in separate EAP-Requests.</t>
 
