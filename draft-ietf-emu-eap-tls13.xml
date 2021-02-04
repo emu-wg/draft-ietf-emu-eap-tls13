@@ -525,6 +525,8 @@ Session-Id = Type-Code || Method-Id
 
 <t>Receipt of any TLS Error alert SHOULD be considered a failure result indication, as defined in <xref target="RFC3748"/>.</t>
 
+	<t>The keying material becomes available in the EAP-TLS server after the server Finished has been sent. The keying material becomes available in the EAP-TLS peer after the server Finished has been received.</t>
+	
 		</section>
 
 </section>
