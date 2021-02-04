@@ -521,9 +521,9 @@ Session-Id = Type-Code || Method-Id
 
 <t>To provide an authenticated success result indication and to decrease the uncertainty for the EAP-TLS peer, the following procedure MUST be followed:</t>
 
-<t>When an EAP-TLS server has successfully processed the TLS client Finished and sent its last handshake message (Finished or a Post-Handshake), it commits to not sending any more handshake messages by sending a TLS close_notify alert. After sending the TLS close_notify alert, the EAP-TLS server may only send an EAP-Success or an EAP-Failure. The TLS close_notify alert is an authenticated success result indication, as defined in <xref target="RFC3748"/>. The EAP-TLS server MUST NOT send an TLS close_notify alert before it has successfully processed the client finished and sent its last handshake message.</t>
+<t>When an EAP-TLS server has successfully processed the TLS client Finished and sent its last handshake message (Finished or a Post-Handshake), it commits to not sending any more handshake messages by sending a TLS close_notify alert. The TLS close_notify alert is an authenticated success result indication, as defined in <xref target="RFC3748"/>. After sending the TLS close_notify alert, the EAP-TLS server may only send an EAP-Success. The EAP-TLS server MUST NOT send an TLS close_notify alert before it has successfully processed the client finished and sent its last handshake message.</t>
 
-<t>Receipt of any TLS Error alert SHOULD be considered a failure result indication, as defined in <xref target="RFC3748"/>.</t>
+<t>Receipt of any TLS Error alert SHOULD be considered a failure result indication, as defined in <xref target="RFC3748"/>. After sending an TLS Error alert, the EAP-TLS server may only send an EAP-Failure.</t>
 
 	<t>The keying material becomes available in the EAP-TLS server after the server Finished has been sent. The keying material becomes available in the EAP-TLS peer after the server Finished has been received.</t>
 	
