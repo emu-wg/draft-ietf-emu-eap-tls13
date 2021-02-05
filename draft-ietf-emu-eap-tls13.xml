@@ -528,8 +528,8 @@ Session-Id = Type-Code || Method-Id
 
 <t>The keying material can be derived after the TLS server Finished has been sent or received. Implementations follwing <xref target="RFC4137"/> can then set the eapKeyData and aaaEapKeyData variables.</t>
 
-<t>The keying material made available to lower layers and the authenticator after the authenticated success result indication has been sent or received.
-Implementations follwing <xref target="RFC4137"/> can then set the eapKeyAvailable and aaaEapKeyAvailable variables.</t>
+<t>The keying material can be made available to lower layers and the authenticator after the authenticated success result indication has been sent or received.
+Implementations follwing <xref target="RFC4137"/> can set the eapKeyAvailable and aaaEapKeyAvailable variables.</t>
 
 </section>
 
