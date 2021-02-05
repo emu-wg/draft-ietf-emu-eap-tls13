@@ -61,7 +61,7 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
 
 	<t>EAP-TLS <xref target="RFC5216"/> references TLS 1.0 <xref target="RFC2246"/> and TLS 1.1 <xref target="RFC4346"/>, but can also work with TLS 1.2 <xref target="RFC5246"/>. TLS 1.0 and 1.1 are formally deprecated and prohibited to negotiate and use <xref target="I-D.ietf-tls-oldversions-deprecate"/>. Weaknesses found in TLS 1.2, as well as new requirements for security, privacy, and reduced latency has led to the specification of TLS 1.3 <xref target="RFC8446"/>, which obsoletes TLS 1.2 <xref target="RFC5246"/>. TLS 1.3 is in large parts a complete remodeling of the TLS handshake protocol including a different message flow, different handshake messages, different key schedule, different cipher suites, different resumption, different privacy protection, and record padding. This means that significant parts of the normative text in the previous EAP-TLS specification <xref target="RFC5216"/> are not applicable to EAP-TLS with TLS 1.3 (or higher). Therefore, aspects such as resumption, privacy handling, and key derivation need to be appropriately addressed for EAP-TLS with TLS 1.3 (or higher).</t>
 
-	<t>This document defines how to use EAP-TLS with TLS 1.3 (or higher) and does not change how EAP-TLS is used with older versions of TLS. It does however provide additional guidance on authorization and resumption for EAP-TLS in general (regardless of the underlying TLS version used). While this document updates EAP-TLS <xref target="RFC5216"/>, it remains backwards compatible with it and existing implementations of EAP-TLS. This document only describes differences compared to <xref target="RFC5216"/>. All message flow are specific to TLS 1.3 and do not apply to TLS 1.2.</t>
+	<t>This document defines how to use EAP-TLS with TLS 1.3 (or higher) and does not change how EAP-TLS is used with older versions of TLS. It does however provide additional guidance on authorization and resumption for EAP-TLS in general (regardless of the underlying TLS version used). While this document updates EAP-TLS <xref target="RFC5216"/>, it remains backwards compatible with it and existing implementations of EAP-TLS. This document only describes differences compared to <xref target="RFC5216"/>. All message flow are example message flows specific to TLS 1.3 and do not apply to TLS 1.2.</t>
 
 	<t>This document specifies EAP-TLS 1.3 and does not specify how other TLS-based EAP methods use TLS 1.3. Based on this document, <xref target="I-D.ietf-emu-tls-eap-types"/> specifies how other TLS-based EAP methods use TLS 1.3.</t>
 	
@@ -131,8 +131,8 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
 			<t>This is a new section when compared to <xref target="RFC5216"/>.</t>
 
 			<t>To enable resumption when using EAP-TLS with TLS 1.3, the EAP-TLS server MUST send one or more NewSessionTicket messages (each containing a PSK, a PSK identity, a ticket lifetime, and other parameters) in the initial authentication. Note that TLS 1.3 <xref target="RFC8446"/> limits the ticket lifetime to a maximum of 604800 seconds (7 days) and EAP-TLS servers MUST respect this upper limit when issuing tickets. The NewSessionTicket is sent after the EAP-TLS server has received the client Finished message in the initial authentication. The PSK associated with the ticket depends on the client Finished and cannot be pre-computed in handshakes with client authentication. The NewSessionTicket message MUST NOT include an "early_data" extension. A mechanism by which clients can specify the desired number of tickets needed for future connections is defined in <xref target="I-D.ietf-tls-ticketrequests"/>.</t>
-
-			<t>In the case where EAP-TLS with mutual authentication and ticket establishment with two tickets is successful, the conversation will appear as shown in <xref target="figbase2"/>.</t>
+			
+			<t>In the case where EAP-TLS with mutual authentication and ticket establishment of a single ticket is successful, the conversation will appear as shown in <xref target="figbase2"/>.</t>
 
 <figure anchor="figbase2" title="EAP-TLS ticket establishment" align="center"><artwork><![CDATA[
  EAP-TLS Peer                                      EAP-TLS Server
@@ -163,7 +163,6 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
                                                       EAP-Request/
                                                  EAP-Type=EAP-TLS
                                             (TLS NewSessionTicket,
-                                             TLS NewSessionTicket,
                               <--------          TLS close_notify)
  EAP-Response/
  EAP-Type=EAP-TLS             -------->
@@ -211,38 +210,6 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
  EAP-Type=EAP-TLS             -------->
                               <--------               EAP-Success
 ]]></artwork></figure>
-
-						<t>A subsequent successful resumption handshake where both sides authenticate via a PSK provisioned via an earlier NewSessionTicket and where the server does not provision any new tickets is shown in <xref target="figresumption2"/>.</t>
-							
-<figure anchor="figresumption2" title="EAP-TLS resumption" align="center"><artwork><![CDATA[
- EAP-TLS Peer                                      EAP-TLS Server
-
-                                                      EAP-Request/
-                              <--------                  Identity
- EAP-Response/
- Identity (Privacy-Friendly)  -------->
-                                                      EAP-Request/
-                                                 EAP-Type=EAP-TLS
-                              <--------                (TLS Start)
- EAP-Response/
- EAP-Type=EAP-TLS
-(TLS ClientHello)             -------->
-                                                      EAP-Request/
-                                                 EAP-Type=EAP-TLS
-                                                 (TLS ServerHello,
-                                          TLS EncryptedExtensions,
-                              <--------              TLS Finished)
- EAP-Response/
- EAP-Type=EAP-TLS
-(TLS Finished)                -------->
-                                                      EAP-Request/
-                                                 EAP-Type=EAP-TLS
-                              <--------         (TLS close_notify)
- EAP-Response/
- EAP-Type=EAP-TLS             -------->
-                              <--------               EAP-Success
-]]></artwork></figure>
-
 
 			<t>As specified in Section 2.2 of <xref target="RFC8446"/>, the EAP-TLS peer SHOULD supply a "key_share" extension when attempting resumption, which allows the EAP-TLS server to potentially decline resumption and fall back to a full handshake. If the EAP-TLS peer did not supply a "key_share" extension when attempting resumption, the EAP-TLS server needs to send HelloRetryRequest to signal that additional information is needed to complete the handshake, and the EAP-TLS peer needs to send a second ClientHello containing that information. Providing a "key_share" and using the "psk_dhe_ke" pre-shared key exchange mode is also important in order to limit the impact of a key compromise. When using "psk_dhe_ke", TLS 1.3 provides forward secrecy meaning that key leakage does not compromise any earlier connections. It is RECOMMMENDED to use "psk_dhe_ke" for resumption.</t>
 
