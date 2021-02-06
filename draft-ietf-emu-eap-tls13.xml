@@ -90,7 +90,7 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
 
 			<t>The EAP-TLS server MUST authenticate with a certificate and SHOULD require the EAP-TLS peer to authenticate with a certificate. Certificates can be of any type supported by TLS including raw public keys. Pre-Shared Key (PSK) authentication SHALL NOT be used except for resumption. The full handshake in EAP-TLS with TLS 1.3 always provide forward secrecy by exchange of ephemeral "key_share" extentions in the ClientHello and ServerHello (e.g. containing ephemeral ECDHE public keys). SessionID is deprecated in TLS 1.3, see Sections 4.1.2 and 4.1.3 of <xref target="RFC8446"/>. TLS 1.3 introduced early application data which like all other application data is not used in EAP-TLS, see Section 4.2.10 of <xref target="RFC8446"/> for additional information of the "early_data" extension. Resumption is handled as described in <xref target="resumption"/>. TLS 1.3 introduced the Post-Handshake KeyUpdate message which is not useful and not expected in EAP-TLS. The EAP-TLS server always commits to not send any more handshake messages by sending a TLS close_notify alert. After the EAP-TLS server has received an empty EAP-Response to the EAP-Request containing the TLS close_notify alert, the EAP-TLS server sends EAP-Success.</t>
 			
-			<t>In the case where EAP-TLS with mutual authentication is successful (and neither HelloRetryRequest nor Post-Handshake messages are sent) the conversation will appear as shown in <xref target="figbase1"/>. </t>
+			<t><xref target="figbase1"/> shows a message flow for a succesfull EAP-TLS full handshake with mutual authentication (and neither HelloRetryRequest nor Post-Handshake messages are sent).</t>
 
 <figure anchor="figbase1" title="EAP-TLS mutual authentication" align="center"><artwork><![CDATA[
  EAP-TLS Peer                                      EAP-TLS Server
@@ -131,8 +131,8 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
 			<t>This is a new section when compared to <xref target="RFC5216"/>.</t>
 
 			<t>To enable resumption when using EAP-TLS with TLS 1.3, the EAP-TLS server MUST send one or more NewSessionTicket messages (each containing a PSK, a PSK identity, a ticket lifetime, and other parameters) in the initial authentication. Note that TLS 1.3 <xref target="RFC8446"/> limits the ticket lifetime to a maximum of 604800 seconds (7 days) and EAP-TLS servers MUST respect this upper limit when issuing tickets. The NewSessionTicket is sent after the EAP-TLS server has received the client Finished message in the initial authentication. The PSK associated with the ticket depends on the client Finished and cannot be pre-computed in handshakes with client authentication. The NewSessionTicket message MUST NOT include an "early_data" extension. A mechanism by which clients can specify the desired number of tickets needed for future connections is defined in <xref target="I-D.ietf-tls-ticketrequests"/>.</t>
-			
-			<t>In the case where EAP-TLS with mutual authentication and ticket establishment of a single ticket is successful, the conversation will appear as shown in <xref target="figbase2"/>.</t>
+
+						<t><xref target="figbase2"/> shows a message flow for a succesfull EAP-TLS full handshake with mutual authentication and ticket establishment of a single ticket.</t>
 
 <figure anchor="figbase2" title="EAP-TLS ticket establishment" align="center"><artwork><![CDATA[
  EAP-TLS Peer                                      EAP-TLS Server
@@ -178,8 +178,8 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
 			<t>For TLS 1.3, resumption is described in Section 2.2 of <xref target="RFC8446"/>. If the client has received a NewSessionTicket message from the EAP-TLS server, the client can use the PSK identity received in the ticket to negotiate the use of the associated PSK. If the EAP-TLS server accepts it, then the security context of the new connection is tied to the original connection and the key derived from the initial handshake is used to bootstrap the cryptographic state instead of a full handshake. It is up to the EAP-TLS peer whether to offer resumption, ut it is RECOMMENDED that the EAP-TLS peer offer resumption if it has a valid ticket that has not been used before. It is left to the EAP-TLS server whether to accept resumption, but it is RECOMMENDED that the EAP-TLS server accept resumption if the ticket that it issued is still valid. However, the EAP-TLS server MAY choose to require a full handshake. As in a full handshake, sending a NewSessionTicket is optional. As described in Appendix C.4 of <xref target="RFC8446"/>, reuse of a ticket allows passive observers to correlate different connections. EAP-TLS peers and EAP-TLS servers SHOULD follow the client tracking preventions in Appendix C.4 of <xref target="RFC8446"/>.</t>
 
 			<t>It is RECOMMENDED to use a Network Access Identifiers (NAIs) with the same realm in the resumption and the original full handshake. This requirement allows EAP packets to be routable to the same destination as the original full handshake. If this recommendation is not followed, resumption is likely to be impossible. When NAI reuse can be done without privacy implications, it is RECOMMENDED to use the same anonymous NAI in the resumption, as was used in the original full handshake <xref target="RFC7542"/>. For example, the NAI @realm can safely be reused since it does not provide any specific information to associate a user's resumption attempt with the original full handshake. However, reusing the NAI P2ZIM2F+OEVAO21nNWg2bVpgNnU=@realm enables an on-path attacker to associate a resumption attempt with the original full handshake. The TLS PSK identity is typically derived by the TLS implementation and may be an opaque blob without a routable realm. The TLS PSK identity is therefore in general unsuitable for deriving a NAI to use in the Identity Response.</t>
-			
-			<t>A subsequent successful resumption handshake where both sides authenticate via a PSK provisioned via an earlier NewSessionTicket and where the server provisions a single new ticket is shown in <xref target="figresumption"/>.</t>
+
+<t><xref target="figresumption"/> shows a message flow for a succesfull EAP-TLS resumption handshake where both sides authenticate via a PSK provisioned via an earlier NewSessionTicket and where the server provisions a single new ticket.</t>
 							
 <figure anchor="figresumption" title="EAP-TLS resumption" align="center"><artwork><![CDATA[
  EAP-TLS Peer                                      EAP-TLS Server
@@ -198,14 +198,14 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
                                                  EAP-Type=EAP-TLS
                                                  (TLS ServerHello,
                                           TLS EncryptedExtensions,
-                              <--------              TLS Finished)
+                              <--------              TLS Finished,
+                                             TLS NewSessionTicket)
  EAP-Response/
  EAP-Type=EAP-TLS
 (TLS Finished)                -------->
                                                       EAP-Request/
                                                  EAP-Type=EAP-TLS
-                                            (TLS NewSessionTicket,
-                              <--------          TLS close_notify)
+                              <--------         (TLS close_notify)
  EAP-Response/
  EAP-Type=EAP-TLS             -------->
                               <--------               EAP-Success
