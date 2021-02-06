@@ -90,7 +90,7 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
 
 			<t>The EAP-TLS server MUST authenticate with a certificate and SHOULD require the EAP-TLS peer to authenticate with a certificate. Certificates can be of any type supported by TLS including raw public keys. Pre-Shared Key (PSK) authentication SHALL NOT be used except for resumption. The full handshake in EAP-TLS with TLS 1.3 always provide forward secrecy by exchange of ephemeral "key_share" extentions in the ClientHello and ServerHello (e.g. containing ephemeral ECDHE public keys). SessionID is deprecated in TLS 1.3, see Sections 4.1.2 and 4.1.3 of <xref target="RFC8446"/>. TLS 1.3 introduced early application data which like all other application data is not used in EAP-TLS, see Section 4.2.10 of <xref target="RFC8446"/> for additional information of the "early_data" extension. Resumption is handled as described in <xref target="resumption"/>. TLS 1.3 introduced the Post-Handshake KeyUpdate message which is not useful and not expected in EAP-TLS. The EAP-TLS server always commits to not send any more handshake messages by sending a TLS close_notify alert. After the EAP-TLS server has received an empty EAP-Response to the EAP-Request containing the TLS close_notify alert, the EAP-TLS server sends EAP-Success.</t>
 			
-			<t><xref target="figbase1"/> shows a message flow for a succesfull EAP-TLS full handshake with mutual authentication (and neither HelloRetryRequest nor Post-Handshake messages are sent).</t>
+			<t><xref target="figbase1"/> shows an example message flow for a succesfull EAP-TLS full handshake with mutual authentication (and neither HelloRetryRequest nor Post-Handshake messages are sent).</t>
 
 <figure anchor="figbase1" title="EAP-TLS mutual authentication" align="center"><artwork><![CDATA[
  EAP-TLS Peer                                      EAP-TLS Server
@@ -132,7 +132,7 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
 
 			<t>To enable resumption when using EAP-TLS with TLS 1.3, the EAP-TLS server MUST send one or more NewSessionTicket messages (each containing a PSK, a PSK identity, a ticket lifetime, and other parameters) in the initial authentication. Note that TLS 1.3 <xref target="RFC8446"/> limits the ticket lifetime to a maximum of 604800 seconds (7 days) and EAP-TLS servers MUST respect this upper limit when issuing tickets. The NewSessionTicket message MUST NOT include an "early_data" extension. A mechanism by which clients can specify the desired number of tickets needed for future connections is defined in <xref target="I-D.ietf-tls-ticketrequests"/>.</t>
 
-						<t><xref target="figbase2"/> shows a message flow for a succesfull EAP-TLS full handshake with mutual authentication and ticket establishment of a single ticket.</t>
+						<t><xref target="figbase2"/> shows an example message flow for a succesfull EAP-TLS full handshake with mutual authentication and ticket establishment of a single ticket.</t>
 
 <figure anchor="figbase2" title="EAP-TLS ticket establishment" align="center"><artwork><![CDATA[
  EAP-TLS Peer                                      EAP-TLS Server
@@ -179,7 +179,7 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
 
 			<t>It is RECOMMENDED to use a Network Access Identifiers (NAIs) with the same realm in the resumption and the original full handshake. This requirement allows EAP packets to be routable to the same destination as the original full handshake. If this recommendation is not followed, resumption is likely to be impossible. When NAI reuse can be done without privacy implications, it is RECOMMENDED to use the same anonymous NAI in the resumption, as was used in the original full handshake <xref target="RFC7542"/>. For example, the NAI @realm can safely be reused since it does not provide any specific information to associate a user's resumption attempt with the original full handshake. However, reusing the NAI P2ZIM2F+OEVAO21nNWg2bVpgNnU=@realm enables an on-path attacker to associate a resumption attempt with the original full handshake. The TLS PSK identity is typically derived by the TLS implementation and may be an opaque blob without a routable realm. The TLS PSK identity is therefore in general unsuitable for deriving a NAI to use in the Identity Response.</t>
 
-<t><xref target="figresumption"/> shows a message flow for a succesfull EAP-TLS resumption handshake where both sides authenticate via a PSK provisioned via an earlier NewSessionTicket and where the server provisions a single new ticket.</t>
+<t><xref target="figresumption"/> shows an example message flow for a succesfull EAP-TLS resumption handshake where both sides authenticate via a PSK provisioned via an earlier NewSessionTicket and where the server provisions a single new ticket.</t>
 							
 <figure anchor="figresumption" title="EAP-TLS resumption" align="center"><artwork><![CDATA[
  EAP-TLS Peer                                      EAP-TLS Server
@@ -228,7 +228,7 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
 			
 			<t>Figures <xref target="figterm1" format="counter"/>, <xref target="figterm2" format="counter"/>, and <xref target="figterm3" format="counter"/> illustrate message flows in several cases where the EAP-TLS peer or EAP-TLS server sends a TLS Error alert message. In earlier versions of TLS, Error alerts could be warnings or fatal. In TLS 1.3, Error alerts are always fatal and the only alerts sent at warning level are "close_notify" and "user_cancelled", both of which indicate that the connection is not going to continue normally, see <xref target="RFC8446"/>.</t>
 			
-			<t>In the case where the EAP-TLS server rejects the ClientHello with a Error alert, the conversation will appear as shown in <xref target="figterm1"/>. The EAP-TLS server can also partly reject the ClientHello with a HelloRetryRequest, see <xref target="helloretry"/>.</t>
+					<t><xref target="figterm1"/> shows an example message flow where the EAP-TLS server rejects the ClientHello with a Error alert. The EAP-TLS server can also partly reject the ClientHello with a HelloRetryRequest, see <xref target="helloretry"/>.</t>	
 
 <figure anchor="figterm1" title="EAP-TLS server rejection of ClientHello" align="center"><artwork><![CDATA[
  EAP-TLS Peer                                      EAP-TLS Server
@@ -251,10 +251,8 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
                               <--------               EAP-Failure
 ]]></artwork></figure>
 
-			<t>
-			In the case where EAP-TLS server authentication is unsuccessful and the EAP-TLS peer sends a TLS Error alert, the conversation will appear as shown in <xref target="figterm2"/>.
-			</t>
-
+		<t><xref target="figterm2"/> shows an example message flow where EAP-TLS server authentication is unsuccessful and the EAP-TLS peer sends a TLS Error alert.</t>	
+			
 <figure anchor="figterm2" title="EAP-TLS unsuccessful EAP-TLS server authentication" align="center"><artwork><![CDATA[
  EAP-TLS Peer                                      EAP-TLS Server
 
@@ -282,9 +280,10 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
                               -------->
                               <--------               EAP-Failure
 ]]></artwork></figure>
+			
+			<t><xref target="figterm3"/> shows an example message flow where the EAP-TLS server authenticates to the EAP-TLS peer successfully, but the EAP-TLS peer fails to authenticate to the EAP-TLS server and sends a TLS Error alert.</t>			
 
-			<t>In the case where the EAP-TLS server authenticates to the EAP-TLS peer successfully, but the EAP-TLS peer fails to authenticate to the EAP-TLS server and sends a TLS Error alert, the conversation will appear as shown in <xref target="figterm3"/>.</t>
-
+			
 <figure anchor="figterm3" title="EAP-TLS unsuccessful client authentication" align="center"><artwork><![CDATA[
  EAP-TLS Peer                                      EAP-TLS Server
 
@@ -324,8 +323,8 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
 
 		<section title='No Peer Authentication'>
 			<t>This is a new section when compared to <xref target="RFC5216"/>.</t>
-
-			<t>In the case where EAP-TLS is used without peer authentication (e.g., emergency services, as described in <xref target="RFC7406"/>) the conversation will appear as shown in <xref target="figbase3"/>.</t>
+			
+						<t><xref target="figbase3"/> shows an example message flow for a succesfull EAP-TLS full handshake without peer authentication (e.g., emergency services, as described in <xref target="RFC7406"/>).</t>			
 
 <figure anchor="figbase3" title="EAP-TLS without peer authentication" align="center"><artwork><![CDATA[
  EAP-TLS Peer                                      EAP-TLS Server
@@ -366,6 +365,8 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
 
 			<t>The case of a successful EAP-TLS mutual authentication after the EAP-TLS server has sent a HelloRetryRequest message is shown in <xref target="fighelloretryrequest"/>. Note the extra round-trip as a result of the HelloRetryRequest.</t>
 
+						<t><xref target="fighelloretryrequest"/> shows an example message flow for a succesfull EAP-TLS full handshake with mutual authentication and HelloRetryRequest. Note the extra round-trip as a result of the HelloRetryRequest.</t>
+			
 <figure anchor="fighelloretryrequest" title="EAP-TLS with Hello Retry Request" align="center"><artwork><![CDATA[
  EAP-TLS Peer                                      EAP-TLS Server
 
