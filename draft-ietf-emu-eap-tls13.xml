@@ -583,8 +583,8 @@ Protected TLS Error alerts are protected failure result indications, unprotected
 
 		<t>As decscribed in <xref target="RFC3748"/> and Section 5.5 of <xref target="RFC5216"/>, the only information that is integrity and replay protected in EAP-TLS are the parts of the TLS Data that TLS protects. All other information in the EAP-TLS message exchange including EAP-Request and EAP-Response headers, the identity in the identity response, EAP-TLS packet header fields, Type, and Flags, EAP-Success, and EAP-Failure can be modified, spoofed, or replayed. This section updates Section 5.5 of <xref target="RFC5216"/>.</t>
 
-		<t>Describe attacks on availability...</t>
-
+		<t>Protected TLS Error alerts are protected failure result indications and enables the EAP-TLS peer and EAP-TLS server to determine that the failure result was not spoofed by an attacker. Protected failure result indications provide integrity protection and replay but MAY be unauthenticated. Protected failure result does not significantly improve availability as TLS 1.3 treats most malformed data as a fatal error.</t>
+		
 	</section>
 	
 	<section title="Authorization" anchor="secauth">
