@@ -484,7 +484,7 @@ In earlier versions of TLS, error alerts could be warnings or fatal. In TLS 1.3,
 
 		<t>TLS 1.3 replaces the TLS pseudorandom function (PRF) used in earlier versions of TLS with HKDF and completely changes the Key Schedule. The key hierarchies shown in Section 2.3 of <xref target="RFC5216"/> are therefore not correct when EAP-TLS is used with TLS version 1.3 or higher. For TLS 1.3 the key schedule is described in Section 7.1 of <xref target="RFC8446"/>.</t>
 
-		<t>When EAP-TLS is used with TLS version 1.3 or higher the Key_Material, IV, and Method-Id SHALL be derived from the exporter_master_secret using the TLS exporter interface <xref target="RFC5705"/> (for TLS 1.3 this is defined in Section 7.5 of <xref target="RFC8446"/>).</t>
+		<t>When EAP-TLS is used with TLS version 1.3 or higher the Key_Material, IV, and Method-Id SHALL be derived from the exporter_secret using the TLS exporter interface <xref target="RFC5705"/> (for TLS 1.3 this is defined in Section 7.5 of <xref target="RFC8446"/>).</t>
 
 <figure><artwork><![CDATA[
 Type-Code  = 0x0D
@@ -499,7 +499,7 @@ Session-Id = Type-Code || Method-Id
 
 		<t>Note that the key derivation MUST use the length values given above. While in TLS 1.2 and earlier it was possible to truncate the output by requesting less data from the TLS-Exporter function, this practice is not possible with TLS 1.3. If an implementation intends to use only a part of the output of the TLS-Exporter function, then it MUST ask for the full output and then only use the desired part. Failure to do so will result in incorrect values being calculated for the above keying material.</t>
 
-		<t>By using the TLS exporter, EAP-TLS can use any TLS 1.3 implementation without having to extract the Master Secret, ClientHello.random, and ServerHello.random in a non-standard way.</t>
+		<t>By using the TLS exporter, EAP-TLS can use any TLS 1.3 implementation without having to extract the Main Secret, ClientHello.random, and ServerHello.random in a non-standard way.</t>
 
 	</section>
 
