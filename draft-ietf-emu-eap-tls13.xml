@@ -572,7 +572,9 @@ Session-Id = Type-Code || Method-Id
 	
 	<section title="Authorization" anchor="secauth">
 		<t>This is a new section when compared to <xref target="RFC5216"/>. The guidance in this section is relevant for EAP-TLS in general (regardless of the underlying TLS version used).</t>
-
+		
+		<t>EAP servers will usually require the EAP peer to provide a valid certificate and will fail the connection if one is not provided. Some deployments may permit no peer authentication for some or all connections. When peer authentication is not used, implementations MUST take care to limit network access appropriately for unauthenticated peers and implementations MUST use resumption with caution to ensure that a resumed session is not granted more privilege than was intended for the original session.</t>
+		
 		<t>EAP-TLS is typically encapsulated in other protocols, such as PPP <xref target="RFC1661"/>, RADIUS <xref target="RFC2865"/>, Diameter <xref target="RFC6733"/>, or PANA <xref target="RFC5191"/>. The encapsulating protocols can also provide additional, non-EAP information to an EAP-TLS server. This information can include, but is not limited to, information about the authenticator, information about the EAP-TLS peer, or information about the protocol layers above or below EAP (MAC addresses, IP addresses, port numbers, WiFi SSID, etc.). EAP-TLS Servers implementing EAP-TLS inside those protocols can make policy decisions and enforce authorization based on a combination of information from the EAP-TLS exchange and non-EAP information.</t>
 
 		<t>As noted in <xref target="identity"/>, the identity presented in EAP-Response/Identity is not authenticated by EAP-TLS and is therefore trivial for an attacker to forge, modify, or replay. Authorization and accounting MUST be based on authenticated information such as information in the certificate or the PSK identity and cached data provisioned for resumption as described in <xref target="secres"/>. Note that the requirements for Network Access Identifiers (NAIs) specified in Section 4 of <xref target="RFC7542"/> still apply and MUST be followed. </t>
