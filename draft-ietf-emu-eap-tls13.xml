@@ -61,8 +61,10 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
 
 	<t>EAP-TLS <xref target="RFC5216"/> references TLS 1.0 <xref target="RFC2246"/> and TLS 1.1 <xref target="RFC4346"/>, but can also work with TLS 1.2 <xref target="RFC5246"/>. TLS 1.0 and 1.1 are formally deprecated and prohibited to negotiate and use <xref target="I-D.ietf-tls-oldversions-deprecate"/>. Weaknesses found in TLS 1.2, as well as new requirements for security, privacy, and reduced latency has led to the specification of TLS 1.3 <xref target="RFC8446"/>, which obsoletes TLS 1.2 <xref target="RFC5246"/>. TLS 1.3 is in large parts a complete remodeling of the TLS handshake protocol including a different message flow, different handshake messages, different key schedule, different cipher suites, different resumption, different privacy protection, and record padding. This means that significant parts of the normative text in the previous EAP-TLS specification <xref target="RFC5216"/> are not applicable to EAP-TLS with TLS 1.3 (or higher). Therefore, aspects such as resumption, privacy handling, and key derivation need to be appropriately addressed for EAP-TLS with TLS 1.3 (or higher).</t>
 
-	<t>This document defines how to use EAP-TLS with TLS 1.3 (or higher) and does not change how EAP-TLS is used with older versions of TLS. It does however provide additional guidance on authorization and resumption for EAP-TLS in general (regardless of the underlying TLS version used). While this document updates EAP-TLS <xref target="RFC5216"/>, it remains backwards compatible with it and existing implementations of EAP-TLS. This document only describes differences compared to <xref target="RFC5216"/>. All message flow are example message flows specific to TLS 1.3 and do not apply to TLS 1.2.</t>
+	<t>This document defines how to use EAP-TLS with TLS 1.3 and does not change how EAP-TLS is used with older versions of TLS. It does however provide additional guidance on authorization and resumption for EAP-TLS in general (regardless of the underlying TLS version used). While this document updates EAP-TLS <xref target="RFC5216"/>, it remains backwards compatible with it and existing implementations of EAP-TLS. This document only describes differences compared to <xref target="RFC5216"/>. All message flow are example message flows specific to TLS 1.3 and do not apply to TLS 1.2. Since EAP-TLS couples the TLS handshake state machine with the EAP state machine it is possible that new versions of TLS will cause incompatibilities that introduce failures or security issues if they are not carefully imtegrated into the EAP-TLS protocol. Therefore, implementations MUST limit the maximum TLS version they use to 1.3, unless later versions are explicitly enabled by the administrator.</t>
 
+	<t>This document specifies EAP-TLS 1.3 and does not specify how other TLS-based EAP methods use TLS 1.3. The specification for how other TLS-based EAP methods use TLS 1.3 is left to other documents such as <xref target="I-D.ietf-emu-tls-eap-types"/>.</t>
+	
 	<t>In addition to the improved security and privacy offered by TLS 1.3, there are other significant benefits of using EAP-TLS with TLS 1.3. Privacy, which in EAP-TLS means that the peer username is not disclosed, is mandatory and achieved without any additional round-trips. Revocation checking is mandatory and simplified with OCSP stapling, and TLS 1.3 introduces more possibilities to reduce fragmentation when compared to earlier versions of TLS.</t>
 
 	<section title='Requirements and Terminology'>
@@ -81,12 +83,14 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
 
 			<t>TLS 1.3 changes both the message flow and the handshake messages compared to earlier versions of TLS. Therefore, much of Section 2.1 of <xref target="RFC5216"/> does not apply for TLS 1.3 (or higher).</t>
 
-			<t>After receiving an EAP-Request packet with EAP-Type=EAP-TLS as described in <xref target="RFC5216"/> the conversation will continue with the TLS handshake protocol encapsulated in the data fields of EAP-Response and EAP-Request packets. When EAP-TLS is used with TLS version 1.3 or higher, the formatting and processing of the TLS handshake SHALL be done as specified in that version of TLS. This document only lists additional and different requirements, restrictions, and processing compared to <xref target="RFC8446"/> and <xref target="RFC5216"/>.</t>
+			<t>After receiving an EAP-Request packet with EAP-Type=EAP-TLS as described in <xref target="RFC5216"/> the conversation will continue with the TLS handshake protocol encapsulated in the data fields of EAP-Response and EAP-Request packets. When EAP-TLS is used with TLS version 1.3, the formatting and processing of the TLS handshake SHALL be done as specified in that version of TLS. This document only lists additional and different requirements, restrictions, and processing compared to <xref target="RFC8446"/> and <xref target="RFC5216"/>.</t>
 
 		<section title='Authentication'>
 			<t>This section updates Section 2.1.1 of <xref target="RFC5216"/>.</t>
 
-			<t>The EAP-TLS server MUST authenticate with a certificate and SHOULD require the EAP-TLS peer to authenticate with a certificate. Certificates can be of any type supported by TLS including raw public keys. Pre-Shared Key (PSK) authentication SHALL NOT be used except for resumption. The full handshake in EAP-TLS with TLS 1.3 always provide forward secrecy by exchange of ephemeral "key_share" extentions in the ClientHello and ServerHello (e.g. containing ephemeral ECDHE public keys). SessionID is deprecated in TLS 1.3, see Sections 4.1.2 and 4.1.3 of <xref target="RFC8446"/>. TLS 1.3 introduced early application data which like all other application data is not used in EAP-TLS, see Section 4.2.10 of <xref target="RFC8446"/> for additional information of the "early_data" extension. Resumption is handled as described in <xref target="resumption"/>. TLS 1.3 introduced the Post-Handshake KeyUpdate message which is not useful and not expected in EAP-TLS. EAP-TLS implementations MUST NOT explicitly request key updates.  It is possible that a TLS library may automatically send a keyUpdate message. An implementation detecting the reception of a keyUpdate message MAY process or ignore the message since only a minimum amount of application data is exchanged in the channel. The EAP-TLS server always commits to not send any more handshake messages by sending a TLS close_notify alert. After the EAP-TLS server has received an empty EAP-Response to the EAP-Request containing the TLS close_notify alert, the EAP-TLS server sends EAP-Success.</t>
+
+
+			<t>The EAP-TLS server MUST authenticate with a certificate and SHOULD require the EAP-TLS peer to authenticate with a certificate. Certificates can be of any type supported by TLS including raw public keys. Pre-Shared Key (PSK) authentication SHALL NOT be used except for resumption. The full handshake in EAP-TLS with TLS 1.3 always provide forward secrecy by exchange of ephemeral "key_share" extentions in the ClientHello and ServerHello (e.g. containing ephemeral ECDHE public keys). SessionID is deprecated in TLS 1.3, see Sections 4.1.2 and 4.1.3 of <xref target="RFC8446"/>. TLS 1.3 introduced early application data which like all other application data is not used in EAP-TLS, see Section 4.2.10 of <xref target="RFC8446"/> for additional information of the "early_data" extension. Resumption is handled as described in <xref target="resumption"/>. TLS 1.3 introduced the Post-Handshake KeyUpdate message which is not useful and not expected in EAP-TLS. As a protected success indication <xref target="RFC3748"/> the EAP-TLS server always sends TLS application data 0x00, see Section 2.5. Note that a TLS implementation MAY not allow the EAP-TLS layer to control in which order things are sent and the application data MAY therefore be sent before a NewSessionTicket. TLS application data 0x00 is therefore to be interpretated as success after the EAP-Request that contains TLS application data 0x00. After the EAP-TLS server has received an empty EAP-Response to the EAP-Request containing the TLS application data 0x00, the EAP-TLS server sends EAP-Success.</t>
 			
 			<t><xref target="figbase1"/> shows an example message flow for a succesfull EAP-TLS full handshake with mutual authentication (and neither HelloRetryRequest nor Post-Handshake messages are sent).</t>
 
@@ -118,7 +122,7 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
  TLS Finished)                -------->
                                                       EAP-Request/
                                                  EAP-Type=EAP-TLS
-                              <--------         (TLS close_notify)
+                              <-------- TLS Application Data 0x00)
  EAP-Response/
  EAP-Type=EAP-TLS             -------->
                               <--------               EAP-Success
@@ -128,7 +132,8 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
 		<section title='Ticket Establishment' anchor="ticket">
 			<t>This is a new section when compared to <xref target="RFC5216"/>.</t>
 
-			<t>To enable resumption when using EAP-TLS with TLS 1.3, the EAP-TLS server MUST send one or more NewSessionTicket messages (each containing a PSK, a PSK identity, a ticket lifetime, and other parameters) in the initial authentication. Note that TLS 1.3 <xref target="RFC8446"/> limits the ticket lifetime to a maximum of 604800 seconds (7 days) and EAP-TLS servers MUST respect this upper limit when issuing tickets. The NewSessionTicket is sent after the EAP-TLS server has received the client Finished message in the initial authentication. The PSK associated with the ticket depends on the client Finished and cannot be pre-computed in handshakes with client authentication. The NesSessionTicket MUST NOT be sent before the client's certificate has been validated. The NewSessionTicket message MUST NOT include an "early_data" extension. If the "early_data" extension is received then it MUST be ignored. Servers should take into account that fewer newSessionTickets will likely be needed in EAP-TLS than in the usual HTTPS connection scenario. In most cases a single newSessionTicket will be sufficient. A mechanism by which clients can specify the desired number of tickets needed for future connections is defined in <xref target="I-D.ietf-tls-ticketrequests"/>.</t>
+
+			<t>To enable resumption when using EAP-TLS with TLS 1.3, the EAP-TLS server MUST send one or more Post-Handshake NewSessionTicket messages (each associated with a PSK, a PSK identity, a ticket lifetime, and other parameters) in the initial authentication. Note that TLS 1.3 <xref target="RFC8446"/> limits the ticket lifetime to a maximum of 604800 seconds (7 days) and EAP-TLS servers MUST respect this upper limit when issuing tickets. The NewSessionTicket is sent after the EAP-TLS server has received the client Finished message in the initial authentication. The NewSessionTicket can be sent in the same flight as the TLS server Finished or later. The PSK associated with the ticket depends on the client Finished and cannot be pre-computed in handshakes with client authentication. The NewSessionTicket message MUST NOT include an "early_data" extension. If the "early_data" extension is received then it MUST be ignored. Servers should take into account that fewer newSessionTickets will likely be needed in EAP-TLS than in the usual HTTPS connection scenario. In most cases a single newSessionTicket will be sufficient. A mechanism by which clients can specify the desired number of tickets needed for future connections is defined in <xref target="I-D.ietf-tls-ticketrequests"/>.</t>
 
 	<t><xref target="figbase2"/> shows an example message flow for a succesfull EAP-TLS full handshake with mutual authentication and ticket establishment of a single ticket.</t>
 
@@ -162,7 +167,7 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
                                                  EAP-Type=EAP-TLS
                                             (TLS NewSessionTicket,
                                              TLS NewSessionTicket,
-                              <--------          TLS close_notify)
+                              <-------- TLS Application Data 0x00)
  EAP-Response/
  EAP-Type=EAP-TLS             -------->
                               <--------               EAP-Success
@@ -172,9 +177,9 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
 		<section title="Resumption" anchor="resumption">
 			<t>This section updates Section 2.1.2 of <xref target="RFC5216"/>.</t>
 
-			<t>TLS 1.3 replaces the session resumption mechanisms in earlier versions of TLS with a new PSK exchange. When EAP-TLS is used with TLS version 1.3 or higher, EAP-TLS SHALL use a resumption mechanism compatible with that version of TLS.</t>
+			<t>TLS 1.3 replaces the session resumption mechanisms in earlier versions of TLS with a new PSK exchange. When EAP-TLS is used with TLS version 1.3, EAP-TLS SHALL use a resumption mechanism compatible with that version of TLS. EAP-TLS is typically used with client authentication and typically fragments the TLS flights into a large number of EAP requests and EAP responses. Resumption significantly reduces the number of round-trips and enables the EAP-TLS server to omit database lookups needed during a full handshake with client authentication.</t>
 
-			<t>For TLS 1.3, resumption is described in Section 2.2 of <xref target="RFC8446"/>. If the client has received a NewSessionTicket message from the EAP-TLS server, the client can use the PSK identity received in the ticket to negotiate the use of the associated PSK. If the EAP-TLS server accepts it, then the security context of the new connection is tied to the original connection and the key derived from the initial handshake is used to bootstrap the cryptographic state instead of a full handshake. It is up to the EAP-TLS peer whether to offer resumption, ut it is RECOMMENDED that the EAP-TLS peer offer resumption if it has a valid ticket that has not been used before. It is left to the EAP-TLS server whether to accept resumption, but it is RECOMMENDED that the EAP-TLS server accept resumption if the ticket that it issued is still valid. However, the EAP-TLS server MAY choose to require a full handshake. As in a full handshake, sending a NewSessionTicket is optional. As described in Appendix C.4 of <xref target="RFC8446"/>, reuse of a ticket allows passive observers to correlate different connections. EAP-TLS peers and EAP-TLS servers SHOULD follow the client tracking preventions in Appendix C.4 of <xref target="RFC8446"/>.</t>
+			<t>For TLS 1.3, resumption is described in Section 2.2 of <xref target="RFC8446"/>. If the client has received a NewSessionTicket message from the EAP-TLS server, the client can use the PSK identity associated with the ticket to negotiate the use of the associated PSK. If the EAP-TLS server accepts it, then the security context of the new connection is tied to the original connection and the key derived from the initial handshake is used to bootstrap the cryptographic state instead of a full handshake. It is up to the EAP-TLS peer whether to offer resumption, ut it is RECOMMENDED that the EAP-TLS peer offer resumption if it has a valid ticket that has not been used before. It is left to the EAP-TLS server whether to accept resumption, but it is RECOMMENDED that the EAP-TLS server accept resumption if the ticket that it issued is still valid. However, the EAP-TLS server MAY choose to require a full handshake. As in a full handshake, sending a NewSessionTicket is optional. As described in Appendix C.4 of <xref target="RFC8446"/>, reuse of a ticket allows passive observers to correlate different connections. EAP-TLS peers and EAP-TLS servers SHOULD follow the client tracking preventions in Appendix C.4 of <xref target="RFC8446"/>.</t>
 
 			<t>It is RECOMMENDED to use a Network Access Identifiers (NAIs) with the same realm in the resumption and the original full handshake. This requirement allows EAP packets to be routable to the same destination as the original full handshake. If this recommendation is not followed, resumption is likely to be impossible. When NAI reuse can be done without privacy implications, it is RECOMMENDED to use the same anonymous NAI in the resumption, as was used in the original full handshake <xref target="RFC7542"/>. For example, the NAI @realm can safely be reused since it does not provide any specific information to associate a user's resumption attempt with the original full handshake. However, reusing the NAI P2ZIM2F+OEVAO21nNWg2bVpgNnU=@realm enables an on-path attacker to associate a resumption attempt with the original full handshake. The TLS PSK identity is typically derived by the TLS implementation and may be an opaque blob without a routable realm. The TLS PSK identity is therefore in general unsuitable for deriving a NAI to use in the Identity Response.</t>
 
@@ -204,7 +209,7 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
 (TLS Finished)                -------->
                                                       EAP-Request/
                                                  EAP-Type=EAP-TLS
-                              <--------         (TLS close_notify)
+                              <-------- TLS Application Data 0x00)
  EAP-Response/
  EAP-Type=EAP-TLS             -------->
                               <--------               EAP-Success
@@ -217,7 +222,7 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
 		<section title='Termination'>
 			<t>This section updates Section 2.1.3 of <xref target="RFC5216"/>.</t>
 
-			<t>TLS 1.3 changes both the message flow and the handshake messages compared to earlier versions of TLS. Therefore, some normative text in Section 2.1.3 of <xref target="RFC5216"/> does not apply for TLS 1.3 or higher. The two paragraphs below replaces the corresponding paragraphs in Section 2.1.3 of <xref target="RFC5216"/> when EAP-TLS is used with TLS 1.3 or higher. The other paragraphs in Section 2.1.3 of <xref target="RFC5216"/> still apply with the exception that SessionID is deprecated.
+			<t>TLS 1.3 changes both the message flow and the handshake messages compared to earlier versions of TLS. Therefore, some normative text in Section 2.1.3 of <xref target="RFC5216"/> does not apply for TLS 1.3 or higher. The two paragraphs below replaces the corresponding paragraphs in Section 2.1.3 of <xref target="RFC5216"/> when EAP-TLS is used with TLS 1.3. The other paragraphs in Section 2.1.3 of <xref target="RFC5216"/> still apply with the exception that SessionID is deprecated.
 			<list>
 				<t>If the EAP-TLS peer authenticates successfully, the EAP-TLS server MUST send an EAP-Request packet with EAP-Type=EAP-TLS containing TLS records conforming to the version of TLS used. The message flow ends with the EAP-TLS server sending an EAP-Success message.</t>
 
@@ -225,10 +230,9 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
 			</list>
 			</t>
 			
-			<t>Figures <xref target="figterm1" format="counter"/>, <xref target="figterm2" format="counter"/>, and <xref target="figterm3" format="counter"/> illustrate message flows in several cases where the EAP-TLS peer or EAP-TLS server sends a TLS fatal alert message.
+			<t>Figures <xref target="figterm1" format="counter"/>, <xref target="figterm2" format="counter"/>, and <xref target="figterm3" format="counter"/> illustrate message flows in several cases where the EAP-TLS peer or EAP-TLS server sends a TLS Error alert message. In earlier versions of TLS, Error alerts could be warnings or fatal. In TLS 1.3, Error alerts are always fatal and the only alerts sent at warning level are "close_notify" and "user_cancelled", both of which indicate that the connection is not going to continue normally, see <xref target="RFC8446"/>.</t>
 				
-				
-In earlier versions of TLS, error alerts could be warnings or fatal. In TLS 1.3, error alerts are always fatal and the only alerts sent at warning level are "close_notify" and "user_cancelled", both of which indicate that the connection is not going to continue normally, see <xref target="RFC8446"/>. </t>
+<t>In TLS 1.3 <xref target="RFC8446"/>, Error alerts are not mandatory to send after a fatal error condition. Failure to send TLS Error alerts means that the peer or server would have no way of determining what went wrong. EAP-TLS 1.3 strengthen this requirement. Whenever an implementation encounters a fatal error condition, it MUST send an appropriate TLS Error alert.</t
 			
 		<t><xref target="figterm1"/> shows an example message flow where the EAP-TLS server rejects the ClientHello with a Error alert. The EAP-TLS server can also partly reject the ClientHello with a HelloRetryRequest, see <xref target="helloretry"/>.</t>	
 
@@ -247,7 +251,7 @@ In earlier versions of TLS, error alerts could be warnings or fatal. In TLS 1.3,
 (TLS ClientHello)             -------->
                                                       EAP-Request/
                                                  EAP-Type=EAP-TLS
-                              <--------          (TLS Fatal Alert)
+                              <--------          (TLS Error Alert)
  EAP-Response/
  EAP-Type=EAP-TLS             -------->
                               <--------               EAP-Failure
@@ -278,7 +282,7 @@ In earlier versions of TLS, error alerts could be warnings or fatal. In TLS 1.3,
                               <--------              TLS Finished)
  EAP-Response/
  EAP-Type=EAP-TLS
-(TLS Fatal Alert)
+(TLS Error Alert)
                               -------->
                               <--------               EAP-Failure
 ]]></artwork></figure>
@@ -314,7 +318,7 @@ In earlier versions of TLS, error alerts could be warnings or fatal. In TLS 1.3,
  TLS Finished)                -------->
                                                       EAP-Request/
                                                  EAP-Type=EAP-TLS
-                              <--------          (TLS Fatal Alert)
+                              <--------          (TLS Error Alert)
  EAP-Response/
  EAP-Type=EAP-TLS             -------->
                               <--------               EAP-Failure
@@ -352,7 +356,7 @@ In earlier versions of TLS, error alerts could be warnings or fatal. In TLS 1.3,
 (TLS Finished)                -------->
                                                       EAP-Request/
                                                  EAP-Type=EAP-TLS
-                              <--------         (TLS close_notify)
+                              <-------- TLS Application Data 0x00)
  EAP-Response/
  EAP-Type=EAP-TLS             -------->
                               <--------               EAP-Success
@@ -401,7 +405,7 @@ In earlier versions of TLS, error alerts could be warnings or fatal. In TLS 1.3,
  TLS Finished)                -------->
                                                       EAP-Request/
                                                  EAP-Type=EAP-TLS
-                              <--------         (TLS close_notify)
+                              <-------- TLS Application Data 0x00)
  EAP-Response/
  EAP-Type=EAP-TLS             -------->
                               <--------               EAP-Success
@@ -420,9 +424,9 @@ In earlier versions of TLS, error alerts could be warnings or fatal. In TLS 1.3,
 
 			<t>TLS 1.3 significantly improves privacy when compared to earlier versions of TLS by forbidding cipher suites without confidentiality and encrypting large parts of the TLS handshake including the certificate messages.</t>
 
-			<t>EAP-TLS peer and server implementations supporting TLS 1.3 or higher MUST support anonymous NAIs (Network Access Identifiers) (Section 2.4 in <xref target="RFC7542"/>) and a client supporting TLS 1.3 MUST NOT send its username in cleartext in the Identity Response. Following <xref target="RFC7542"/>, it is RECOMMENDED to omit the username (i.e., the NAI is @realm), but other constructions such as a fixed username (e.g. anonymous@realm) or an encrypted username (e.g., xCZINCPTK5+7y81CrSYbPg+RKPE3OTrYLn4AQc4AC2U=@realm) are allowed. Note that the NAI MUST be a UTF-8 string as defined by the grammar in Section 2.2 of <xref target="RFC7542"/>.</t>
+			<t>EAP-TLS peer and server implementations supporting TLS 1.3 MUST support anonymous NAIs (Network Access Identifiers) (Section 2.4 in <xref target="RFC7542"/>) and a client supporting TLS 1.3 MUST NOT send its username in cleartext in the Identity Response. Following <xref target="RFC7542"/>, it is RECOMMENDED to omit the username (i.e., the NAI is @realm), but other constructions such as a fixed username (e.g. anonymous@realm) or an encrypted username (e.g., xCZINCPTK5+7y81CrSYbPg+RKPE3OTrYLn4AQc4AC2U=@realm) are allowed. Note that the NAI MUST be a UTF-8 string as defined by the grammar in Section 2.2 of <xref target="RFC7542"/>.</t>
 
-			<t>As the certificate messages in TLS 1.3 are encrypted, there is no need to send an empty certificate_list and perform a second handshake for privacy (as needed by EAP-TLS with earlier versions of TLS). When EAP-TLS is used with TLS version 1.3 or higher the EAP-TLS peer and EAP-TLS server SHALL follow the processing specified by the used version of TLS. For TLS 1.3 this means that the EAP-TLS peer only sends an empty certificate_list if it does not have an appropriate certificate to send, and the EAP-TLS server MAY treat an empty certificate_list as a terminal condition.</t>
+			<t>As the certificate messages in TLS 1.3 are encrypted, there is no need to send an empty certificate_list and perform a second handshake for privacy (as needed by EAP-TLS with earlier versions of TLS). When EAP-TLS is used with TLS version 1.3 the EAP-TLS peer and EAP-TLS server SHALL follow the processing specified by the used version of TLS. For TLS 1.3 this means that the EAP-TLS peer only sends an empty certificate_list if it does not have an appropriate certificate to send, and the EAP-TLS server MAY treat an empty certificate_list as a terminal condition.</t>
 
 			<t>EAP-TLS with TLS 1.3 is always used with privacy. This does not add any extra round-trips and the message flow with privacy is just the normal message flow as shown in <xref target="figbase1"/>.</t>
 
@@ -450,17 +454,17 @@ In earlier versions of TLS, error alerts could be warnings or fatal. In TLS 1.3,
 
 		<t>TLS 1.3 replaces the TLS pseudorandom function (PRF) used in earlier versions of TLS with HKDF and completely changes the Key Schedule. The key hierarchies shown in Section 2.3 of <xref target="RFC5216"/> are therefore not correct when EAP-TLS is used with TLS version 1.3 or higher. For TLS 1.3 the key schedule is described in Section 7.1 of <xref target="RFC8446"/>.</t>
 
-		<t>When EAP-TLS is used with TLS version 1.3 or higher the Key_Material, IV, and Method-Id SHALL be derived from the exporter_secret using the TLS exporter interface <xref target="RFC5705"/> (for TLS 1.3 this is defined in Section 7.5 of <xref target="RFC8446"/>).</t>
+		<t>When EAP-TLS is used with TLS version 1.3 the Key_Material, IV, and Method-Id SHALL be derived from the exporter_secret using the TLS exporter interface <xref target="RFC5705"/> (for TLS 1.3 this is defined in Section 7.5 of <xref target="RFC8446"/>).</t>
 
 <figure><artwork><![CDATA[
 Type-Code  = 0x0D
-MSK        = TLS-Exporter("EXPORTER_EAP_TLS_MSK", Type-Code, 64)
-EMSK       = TLS-Exporter("EXPORTER_EAP_TLS_EMSK", Type-Code, 64)
-Method-Id  = TLS-Exporter("EXPORTER_EAP_TLS_Method-Id", Type-Code, 64)
+MSK        = TLS-Exporter("EXPORTER_EAP_TLS_MSK",Type-Code,64)
+EMSK       = TLS-Exporter("EXPORTER_EAP_TLS_EMSK",Type-Code,64)
+Method-Id  = TLS-Exporter("EXPORTER_EAP_TLS_Method-Id",Type-Code,64)
 Session-Id = Type-Code || Method-Id
 ]]></artwork></figure>
-		<t>Other TLS based EAP methods can use exporters in a similar fashion by replacing the EAP-TLS Type-Code with their own Type-Code (encoded as a hexadecimal string).</t>
-
+		<t>Other TLS based EAP methods can use the TLS exporter in a similar fashion, see <xref target="I-D.ietf-emu-tls-eap-types"/>.</t>
+    
 		<t><xref target="RFC5247"/> deprecates the use of IV. Thus, RECV-IV and SEND-IV are not exported in EAP-TLS with TLS 1.3. As noted in <xref target="RFC5247"/>, lower layers use the MSK in a lower-layer dependent manner. EAP-TLS with TLS 1.3 exports the MSK and does not specify how it used by lower layers.</t>
 
 		<t>Note that the key derivation MUST use the length values given above. While in TLS 1.2 and earlier it was possible to truncate the output by requesting less data from the TLS-Exporter function, this practice is not possible with TLS 1.3. If an implementation intends to use only a part of the output of the TLS-Exporter function, then it MUST ask for the full output and then only use the desired part. Failure to do so will result in incorrect values being calculated for the above keying material.</t>
@@ -481,11 +485,21 @@ Session-Id = Type-Code || Method-Id
 	</section>
 
 	<section title='EAP State Machines' anchor="state">
-		<t>This is a new section when compared to <xref target="RFC5216"/>.</t>
+		
+<t>This is a new section when compared to <xref target="RFC5216"/> and only applies to TLS 1.3 (or higher). <xref target="RFC4137"/> offers a proposed state machine for EAP.</t>
 
-		<t>TLS 1.3 <xref target="RFC8446"/> introduces Post-Handshake messages. These Post-Handshake messages use the handshake content type and can be sent after the main handshake. One such Post-Handshake message is NewSessionTicket. The NewSessionTicket can be used for resumption. After sending TLS Finished, the EAP-TLS server may send any number of Post-Handshake messages in separate EAP-Requests. To decrease the uncertainty for the EAP-TLS peer, the following procedure MUST be followed:</t>
+<t>TLS 1.3 <xref target="RFC8446"/> introduces Post-Handshake messages. These Post-Handshake messages use the handshake content type and can be sent after the main handshake. Examples of Post-Handshake messages are NewSessionTicket, which is used for resumption and KeyUpdate, which is not useful and not expected in EAP-TLS. After sending TLS Finished, the EAP-TLS server may send any number of Post-Handshake messages in separate EAP-Requests.</t>
 
-		<t>When an EAP-TLS server has sent its last handshake message (Finished or a Post-Handshake), it commits to not sending any more handshake messages by sending a TLS close_notify alert. After sending the alert, the EAP-TLS server may only send an EAP-Success or an EAP-Failure. Using the TLS close_notify however results in an extra EAP-Request and EAP-Response exchange between the peer and the server.</t>
+<t>To provide a protected success result indication and to decrease the uncertainty for the EAP-TLS peer, the following procedure MUST be followed:</t>
+
+<t>When an EAP-TLS server has successfully processed the TLS client Finished and sent its last handshake message (Finished or a Post-Handshake), it commits to not sending any more handshake messages by sending a TLS close_notify alert. The TLS close_notify alert is a protected success result indication, as defined in <xref target="RFC3748"/>. Implementations follwing <xref target="RFC4137"/> sets the alternate indication of success variable altAccept after sending or receiving close_notify. After sending the TLS close_notify alert, the EAP-TLS server may only send an EAP-Success. The EAP-TLS server MUST NOT send an TLS close_notify alert before it has successfully processed the client finished and sent its last handshake message.</t>
+
+<t>TLS Error alerts SHOULD be considered a failure result indication, as defined in <xref target="RFC3748"/>. Implementations follwing <xref target="RFC4137"/> sets the alternate indication of failure variable altReject after sending or receiving an Error alert. After sending or receiving a TLS Error alert, the EAP-TLS server may only send an EAP-Failure. Protected TLS Error alerts are protected failure result indications, unprotected TLS Error alerts are not.</t>
+	
+<t>The keying material can be derived after the TLS server Finished has been sent or received. Implementations following <xref target="RFC4137"/> can then set the eapKeyData and aaaEapKeyData variables.</t>
+
+<t>The keying material can be made available to lower layers and the authenticator after the authenticated success result indication has been sent or received. Implementations following <xref target="RFC4137"/> can set the eapKeyAvailable and aaaEapKeyAvailable variables.</t>
+
 	</section>
 
 </section>
@@ -723,6 +737,7 @@ Session-Id = Type-Code || Method-Id
 	<?rfc include='reference.RFC.2560'?>
 	<?rfc include='reference.RFC.2865'?>
 	<?rfc include='reference.RFC.3280'?>
+	<?rfc include='reference.RFC.4137'?>
 	<?rfc include='reference.RFC.4282'?>
 	<?rfc include='reference.RFC.4346'?>
 	<?rfc include='reference.RFC.4851'?>
@@ -740,11 +755,12 @@ Session-Id = Type-Code || Method-Id
 	<?rfc include='reference.I-D.ietf-tls-md5-sha1-deprecate'?>
 	<?rfc include='reference.I-D.ietf-emu-eaptlscert'?>	
 	<?rfc include='reference.I-D.ietf-tls-ticketrequests'?>	
+	<?rfc include='reference.I-D.ietf-emu-tls-eap-types'?>	
 </references>
 
 <section title="Updated references">
 	<t>
-	All the following references in <xref target="RFC5216"/> are updated as specified below when EAP-TLS is used with TLS 1.3 or higher.
+	All the following references in <xref target="RFC5216"/> are updated as specified below when EAP-TLS is used with TLS 1.3.
 	</t>
 
 	<t>
