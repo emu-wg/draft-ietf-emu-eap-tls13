@@ -145,9 +145,9 @@ Internet-Draft            EAP-TLS with TLS 1.3                April 2021
    different cipher suites, different resumption, different privacy
    protection, and record padding.  This means that significant parts of
    the normative text in the previous EAP-TLS specification [RFC5216]
-   are not applicable to EAP-TLS with TLS 1.3 (or higher).  Therefore,
-   aspects such as resumption, privacy handling, and key derivation need
-   to be appropriately addressed for EAP-TLS with TLS 1.3 (or higher).
+   are not applicable to EAP-TLS with TLS 1.3.  Therefore, aspects such
+   as resumption, privacy handling, and key derivation need to be
+   appropriately addressed for EAP-TLS with TLS 1.3.
 
    This document defines how to use EAP-TLS with TLS 1.3 and does not
    change how EAP-TLS is used with older versions of TLS.  It does
@@ -208,7 +208,7 @@ Internet-Draft            EAP-TLS with TLS 1.3                April 2021
 
    TLS 1.3 changes both the message flow and the handshake messages
    compared to earlier versions of TLS.  Therefore, much of Section 2.1
-   of [RFC5216] does not apply for TLS 1.3 (or higher).
+   of [RFC5216] does not apply for TLS 1.3.
 
    After receiving an EAP-Request packet with EAP-Type=EAP-TLS as
    described in [RFC5216] the conversation will continue with the TLS
@@ -568,8 +568,8 @@ Internet-Draft            EAP-TLS with TLS 1.3                April 2021
 
    TLS 1.3 changes both the message flow and the handshake messages
    compared to earlier versions of TLS.  Therefore, some normative text
-   in Section 2.1.3 of [RFC5216] does not apply for TLS 1.3 or higher.
-   The two paragraphs below replaces the corresponding paragraphs in
+   in Section 2.1.3 of [RFC5216] does not apply for TLS 1.3.  The two
+   paragraphs below replaces the corresponding paragraphs in
    Section 2.1.3 of [RFC5216] when EAP-TLS is used with TLS 1.3.  The
    other paragraphs in Section 2.1.3 of [RFC5216] still apply with the
    exception that SessionID is deprecated.
@@ -991,8 +991,8 @@ Internet-Draft            EAP-TLS with TLS 1.3                April 2021
    TLS 1.3 replaces the TLS pseudorandom function (PRF) used in earlier
    versions of TLS with HKDF and completely changes the Key Schedule.
    The key hierarchies shown in Section 2.3 of [RFC5216] are therefore
-   not correct when EAP-TLS is used with TLS version 1.3 or higher.  For
-   TLS 1.3 the key schedule is described in Section 7.1 of [RFC8446].
+   not correct when EAP-TLS is used with TLS version 1.3.  For TLS 1.3
+   the key schedule is described in Section 7.1 of [RFC8446].
 
    When EAP-TLS is used with TLS version 1.3 the Key_Material, IV, and
    Method-Id SHALL be derived from the exporter_secret using the TLS
@@ -1045,15 +1045,15 @@ Internet-Draft            EAP-TLS with TLS 1.3                April 2021
    TLS 1.3 cipher suites are defined differently than in earlier
    versions of TLS (see Section B.4 of [RFC8446]), and the cipher suites
    discussed in Section 2.4 of [RFC5216] can therefore not be used when
-   EAP-TLS is used with TLS version 1.3 or higher.
+   EAP-TLS is used with TLS version 1.3.
 
-   When EAP-TLS is used with TLS version 1.3 or higher, the EAP-TLS
-   peers and EAP-TLS servers MUST comply with the compliance
-   requirements (mandatory-to-implement cipher suites, signature
-   algorithms, key exchange algorithms, extensions, etc.) for the TLS
-   version used.  For TLS 1.3 the compliance requirements are defined in
-   Section 9 of [RFC8446].  In EAP-TLS with TLS 1.3, only cipher suites
-   with confidentiality SHALL be supported.
+   When EAP-TLS is used with TLS version 1.3, the EAP-TLS peers and EAP-
+   TLS servers MUST comply with the compliance requirements (mandatory-
+   to-implement cipher suites, signature algorithms, key exchange
+   algorithms, extensions, etc.) for the TLS version used.  For TLS 1.3
+   the compliance requirements are defined in Section 9 of [RFC8446].
+   In EAP-TLS with TLS 1.3, only cipher suites with confidentiality
+   SHALL be supported.
 
    While EAP-TLS does not protect any application data except for the
    Commitment Message, the negotiated cipher suites and algorithms MAY
@@ -1069,8 +1069,7 @@ Internet-Draft            EAP-TLS with TLS 1.3                April 2021
 2.5.  EAP State Machines
 
    This is a new section when compared to [RFC5216] and only applies to
-   TLS 1.3 (or higher).  [RFC4137] offers a proposed state machine for
-   EAP.
+   TLS 1.3.  [RFC4137] offers a proposed state machine for EAP.
 
    TLS 1.3 [RFC8446] introduces Post-Handshake messages.  These Post-
    Handshake messages use the handshake content type and can be sent
@@ -1112,6 +1111,7 @@ Internet-Draft            EAP-TLS with TLS 1.3                April 2021
    authenticator after the authenticated success result indication has
    been sent or received.  Implementations following [RFC4137] can set
    the eapKeyAvailable and aaaEapKeyAvailable variables.
+
 
 
 
