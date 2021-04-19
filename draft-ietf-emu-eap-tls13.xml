@@ -482,11 +482,21 @@ Session-Id = Type-Code || Method-Id
 	</section>
 
 	<section title='EAP State Machines' anchor="state">
-		<t>This is a new section when compared to <xref target="RFC5216"/>.</t>
+		
+<t>This is a new section when compared to <xref target="RFC5216"/> and only applies to TLS 1.3 (or higher). <xref target="RFC4137"/> offers a proposed state machine for EAP.</t>
 
-		<t>TLS 1.3 <xref target="RFC8446"/> introduces Post-Handshake messages. These Post-Handshake messages use the handshake content type and can be sent after the main handshake. One such Post-Handshake message is NewSessionTicket. The NewSessionTicket can be used for resumption. After sending TLS Finished, the EAP-TLS server may send any number of Post-Handshake messages in separate EAP-Requests. To decrease the uncertainty for the EAP-TLS peer, the following procedure MUST be followed:</t>
+<t>TLS 1.3 <xref target="RFC8446"/> introduces Post-Handshake messages. These Post-Handshake messages use the handshake content type and can be sent after the main handshake. Examples of Post-Handshake messages are NewSessionTicket, which is used for resumption and KeyUpdate, which is not useful and not expected in EAP-TLS. After sending TLS Finished, the EAP-TLS server may send any number of Post-Handshake messages in separate EAP-Requests.</t>
 
-		<t>When an EAP-TLS server has sent its last handshake message (Finished or a Post-Handshake), it commits to not sending any more handshake messages by sending a TLS close_notify alert. After sending the alert, the EAP-TLS server may only send an EAP-Success or an EAP-Failure. Using the TLS close_notify however results in an extra EAP-Request and EAP-Response exchange between the peer and the server.</t>
+<t>To provide a protected success result indication and to decrease the uncertainty for the EAP-TLS peer, the following procedure MUST be followed:</t>
+
+<t>When an EAP-TLS server has successfully processed the TLS client Finished and sent its last handshake message (Finished or a Post-Handshake), it commits to not sending any more handshake messages by sending a TLS close_notify alert. The TLS close_notify alert is a protected success result indication, as defined in <xref target="RFC3748"/>. Implementations follwing <xref target="RFC4137"/> sets the alternate indication of success variable altAccept after sending or receiving close_notify. After sending the TLS close_notify alert, the EAP-TLS server may only send an EAP-Success. The EAP-TLS server MUST NOT send an TLS close_notify alert before it has successfully processed the client finished and sent its last handshake message.</t>
+
+<t>TLS Error alerts SHOULD be considered a failure result indication, as defined in <xref target="RFC3748"/>. Implementations follwing <xref target="RFC4137"/> sets the alternate indication of failure variable altReject after sending or receiving an Error alert. After sending or receiving a TLS Error alert, the EAP-TLS server may only send an EAP-Failure. Protected TLS Error alerts are protected failure result indications, unprotected TLS Error alerts are not.</t>
+	
+<t>The keying material can be derived after the TLS server Finished has been sent or received. Implementations following <xref target="RFC4137"/> can then set the eapKeyData and aaaEapKeyData variables.</t>
+
+<t>The keying material can be made available to lower layers and the authenticator after the authenticated success result indication has been sent or received. Implementations following <xref target="RFC4137"/> can set the eapKeyAvailable and aaaEapKeyAvailable variables.</t>
+
 	</section>
 
 </section>
@@ -724,6 +734,7 @@ Session-Id = Type-Code || Method-Id
 	<?rfc include='reference.RFC.2560'?>
 	<?rfc include='reference.RFC.2865'?>
 	<?rfc include='reference.RFC.3280'?>
+	<?rfc include='reference.RFC.4137'?>
 	<?rfc include='reference.RFC.4282'?>
 	<?rfc include='reference.RFC.4346'?>
 	<?rfc include='reference.RFC.4851'?>
