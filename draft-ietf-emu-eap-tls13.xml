@@ -133,7 +133,7 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
 			<t>This is a new section when compared to <xref target="RFC5216"/>.</t>
 
 
-			<t>To enable resumption when using EAP-TLS with TLS 1.3, the EAP-TLS server MUST send one or more Post-Handshake NewSessionTicket messages (each associated with a PSK, a PSK identity, a ticket lifetime, and other parameters) in the initial authentication. Note that TLS 1.3 <xref target="RFC8446"/> limits the ticket lifetime to a maximum of 604800 seconds (7 days) and EAP-TLS servers MUST respect this upper limit when issuing tickets. The NewSessionTicket is sent after the EAP-TLS server has received the client Finished message in the initial authentication. The NewSessionTicket can be sent in the same flight as the TLS server Finished or later. The PSK associated with the ticket depends on the client Finished and cannot be pre-computed in handshakes with client authentication. The NewSessionTicket message MUST NOT include an "early_data" extension. If the "early_data" extension is received then it MUST be ignored. Servers should take into account that fewer newSessionTickets will likely be needed in EAP-TLS than in the usual HTTPS connection scenario. In most cases a single newSessionTicket will be sufficient. A mechanism by which clients can specify the desired number of tickets needed for future connections is defined in <xref target="I-D.ietf-tls-ticketrequests"/>.</t>
+			<t>To enable resumption when using EAP-TLS with TLS 1.3, the EAP-TLS server MUST send one or more Post-Handshake NewSessionTicket messages (each associated with a PSK, a PSK identity, a ticket lifetime, and other parameters) in the initial authentication. Note that TLS 1.3 <xref target="RFC8446"/> limits the ticket lifetime to a maximum of 604800 seconds (7 days) and EAP-TLS servers MUST respect this upper limit when issuing tickets. The NewSessionTicket is sent after the EAP-TLS server has received the client Finished message in the initial authentication. The NewSessionTicket can be sent in the same flight as the TLS server Finished or later. The PSK associated with the ticket depends on the client Finished and cannot be pre-computed in handshakes with client authentication. The NewSessionTicket message MUST NOT include an "early_data" extension. If the "early_data" extension is received then it MUST be ignored. Servers should take into account that fewer NewSessionTickets will likely be needed in EAP-TLS than in the usual HTTPS connection scenario. In most cases a single NewSessionTicket will be sufficient. A mechanism by which clients can specify the desired number of tickets needed for future connections is defined in <xref target="I-D.ietf-tls-ticketrequests"/>.</t>
 
 	<t><xref target="figbase2"/> shows an example message flow for a succesfull EAP-TLS full handshake with mutual authentication and ticket establishment of a single ticket.</t>
 
@@ -232,9 +232,9 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
 			
 			<t>Figures <xref target="figterm1" format="counter"/>, <xref target="figterm2" format="counter"/>, and <xref target="figterm3" format="counter"/> illustrate message flows in several cases where the EAP-TLS peer or EAP-TLS server sends a TLS Error alert message. In earlier versions of TLS, Error alerts could be warnings or fatal. In TLS 1.3, Error alerts are always fatal and the only alerts sent at warning level are "close_notify" and "user_cancelled", both of which indicate that the connection is not going to continue normally, see <xref target="RFC8446"/>.</t>
 				
-<t>In TLS 1.3 <xref target="RFC8446"/>, Error alerts are not mandatory to send after a fatal error condition. Failure to send TLS Error alerts means that the peer or server would have no way of determining what went wrong. EAP-TLS 1.3 strengthen this requirement. Whenever an implementation encounters a fatal error condition, it MUST send an appropriate TLS Error alert.</t
+			<t>In TLS 1.3 <xref target="RFC8446"/>, Error alerts are not mandatory to send after a fatal error condition. Failure to send TLS Error alerts means that the peer or server would have no way of determining what went wrong. EAP-TLS 1.3 strengthen this requirement. Whenever an implementation encounters a fatal error condition, it MUST send an appropriate TLS Error alert.</t>
 			
-		<t><xref target="figterm1"/> shows an example message flow where the EAP-TLS server rejects the ClientHello with a Error alert. The EAP-TLS server can also partly reject the ClientHello with a HelloRetryRequest, see <xref target="helloretry"/>.</t>	
+			<t><xref target="figterm1"/> shows an example message flow where the EAP-TLS server rejects the ClientHello with a Error alert. The EAP-TLS server can also partly reject the ClientHello with a HelloRetryRequest, see <xref target="helloretry"/>.</t>	
 
 <figure anchor="figterm1" title="EAP-TLS server rejection of ClientHello" align="center"><artwork><![CDATA[
  EAP-TLS Peer                                      EAP-TLS Server
@@ -287,7 +287,7 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
                               <--------               EAP-Failure
 ]]></artwork></figure>
 
-	<t><xref target="figterm3"/> shows an example message flow where the EAP-TLS server authenticates to the EAP-TLS peer successfully, but the EAP-TLS peer fails to authenticate to the EAP-TLS server and sends a TLS Error alert.</t>
+		<t><xref target="figterm3"/> shows an example message flow where the EAP-TLS server authenticates to the EAP-TLS peer successfully, but the EAP-TLS peer fails to authenticate to the EAP-TLS server and sends a TLS Error alert.</t>
 			
 <figure anchor="figterm3" title="EAP-TLS unsuccessful client authentication" align="center"><artwork><![CDATA[
  EAP-TLS Peer                                      EAP-TLS Server
@@ -329,7 +329,7 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
 		<section title='No Peer Authentication'>
 			<t>This is a new section when compared to <xref target="RFC5216"/>.</t>
 
-	<t><xref target="figbase3"/> shows an example message flow for a succesfull EAP-TLS full handshake without peer authentication (e.g., emergency services, as described in <xref target="RFC7406"/>).</t>			
+			<t><xref target="figbase3"/> shows an example message flow for a succesfull EAP-TLS full handshake without peer authentication (e.g., emergency services, as described in <xref target="RFC7406"/>).</t>			
 
 <figure anchor="figbase3" title="EAP-TLS without peer authentication" align="center"><artwork><![CDATA[
  EAP-TLS Peer                                      EAP-TLS Server
@@ -464,7 +464,7 @@ Method-Id  = TLS-Exporter("EXPORTER_EAP_TLS_Method-Id",Type-Code,64)
 Session-Id = Type-Code || Method-Id
 ]]></artwork></figure>
 		<t>Other TLS based EAP methods can use the TLS exporter in a similar fashion, see <xref target="I-D.ietf-emu-tls-eap-types"/>.</t>
-    
+		
 		<t><xref target="RFC5247"/> deprecates the use of IV. Thus, RECV-IV and SEND-IV are not exported in EAP-TLS with TLS 1.3. As noted in <xref target="RFC5247"/>, lower layers use the MSK in a lower-layer dependent manner. EAP-TLS with TLS 1.3 exports the MSK and does not specify how it used by lower layers.</t>
 
 		<t>Note that the key derivation MUST use the length values given above. While in TLS 1.2 and earlier it was possible to truncate the output by requesting less data from the TLS-Exporter function, this practice is not possible with TLS 1.3. If an implementation intends to use only a part of the output of the TLS-Exporter function, then it MUST ask for the full output and then only use the desired part. Failure to do so will result in incorrect values being calculated for the above keying material.</t>
