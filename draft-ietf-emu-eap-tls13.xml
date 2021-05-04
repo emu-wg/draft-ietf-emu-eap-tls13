@@ -164,7 +164,6 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
                                                       EAP-Request/
                                                  EAP-Type=EAP-TLS
                                             (TLS NewSessionTicket,
-                                             TLS NewSessionTicket,
                               <-------- TLS Application Data 0x00)
  EAP-Response/
  EAP-Type=EAP-TLS             -------->
