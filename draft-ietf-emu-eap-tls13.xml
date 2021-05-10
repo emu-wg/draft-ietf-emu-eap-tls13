@@ -455,15 +455,24 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
 
 		<t>TLS 1.3 replaces the TLS pseudorandom function (PRF) used in earlier versions of TLS with HKDF and completely changes the Key Schedule. The key hierarchies shown in Section 2.3 of <xref target="RFC5216"/> are therefore not correct when EAP-TLS is used with TLS version 1.3. For TLS 1.3 the key schedule is described in Section 7.1 of <xref target="RFC8446"/>.</t>
 
-		<t>When EAP-TLS is used with TLS version 1.3 the Key_Material, IV, and Method-Id SHALL be derived from the exporter_secret using the TLS exporter interface <xref target="RFC5705"/> (for TLS 1.3 this is defined in Section 7.5 of <xref target="RFC8446"/>).</t>
+		<t>When EAP-TLS is used with TLS version 1.3 the Key_Material and Method-Id SHALL be derived from the exporter_secret using the TLS exporter interface <xref target="RFC5705"/> (for TLS 1.3 this is defined in Section 7.5 of <xref target="RFC8446"/>).</t>
 
 <figure><artwork><![CDATA[
 Type-Code  = 0x0D
-MSK        = TLS-Exporter("EXPORTER_EAP_TLS_MSK",Type-Code,64)
-EMSK       = TLS-Exporter("EXPORTER_EAP_TLS_EMSK",Type-Code,64)
-Method-Id  = TLS-Exporter("EXPORTER_EAP_TLS_Method-Id",Type-Code,64)
-Session-Id = Type-Code || Method-Id
+Key_Material = TLS-Exporter("EXPORTER_EAP_TLS_Key_Material",
+                            Type-Code, 128)
+Method-Id    = TLS-Exporter("EXPORTER_EAP_TLS_Method-Id",
+                            Type-Code, 64)
+Session-Id   = Type-Code || Method-Id
 ]]></artwork></figure>
+
+<t>The MSK and EMSK are derived in the same manner as with EAP-TLS <xref target="RFC5216"/>, Section 2.3. The definitions are repeated below for simplicity:</t>
+
+<figure><artwork><![CDATA[
+MSK          = Key_Material(0, 63)
+EMSK         = Key_Material(64, 127)
+]]></artwork></figure>
+		
 		<t>Other TLS based EAP methods can use the TLS exporter in a similar fashion, see <xref target="I-D.ietf-emu-tls-eap-types"/>.</t>
 
 		<t><xref target="RFC5247"/> deprecates the use of IV. Thus, RECV-IV and SEND-IV are not exported in EAP-TLS with TLS 1.3. As noted in <xref target="RFC5247"/>, lower layers use the MSK in a lower-layer dependent manner. EAP-TLS with TLS 1.3 exports the MSK and does not specify how it used by lower layers.</t>
@@ -514,18 +523,13 @@ Session-Id = Type-Code || Method-Id
 	
 	<t>This section provides guidance to the Internet Assigned Numbers Authority (IANA) regarding registration of values related to the EAP-TLS 1.3 protocol in accordance with <xref target="RFC8126"/>.</t>
 
-	<t>This document requires IANA to add the following labels to the TLS Exporter Label Registry defined by <xref target="RFC5705"/>. These labels are used in derivation of Key_Material, IV and Method-Id as defined in <xref target="keyheirarchy"/>:</t>
+	<t>This document requires IANA to add the following labels to the TLS Exporter Label Registry defined by <xref target="RFC5705"/>. These labels are used in derivation of Key_Material and Method-Id as defined in <xref target="keyheirarchy"/>:</t>
 	<texttable title="TLS Exporter Label Registry" anchor="exporter-label">
             <ttcol align="left">Value</ttcol>
             <ttcol align="left">DTLS-OK</ttcol>
             <ttcol align="left">Recommended</ttcol>
             <ttcol align="left">Note</ttcol>
-            <c>EXPORTER_EAP_TLS_MSK</c>
-            <c>N</c>
-            <c>Y</c>
-            <c></c>
-            <c></c><c></c><c></c><c></c>
-	    	<c>EXPORTER_EAP_TLS_EMSK</c>
+            <c>EXPORTER_EAP_TLS_Key_Material</c>
             <c>N</c>
             <c>Y</c>
             <c></c>
