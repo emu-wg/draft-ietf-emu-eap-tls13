@@ -466,7 +466,7 @@ Method-Id    = TLS-Exporter("EXPORTER_EAP_TLS_Method-Id",
 Session-Id   = Type-Code || Method-Id
 ]]></artwork></figure>
 
-<t>The MSK and EMSK are derived in the same manner as with EAP-TLS <xref target="RFC5216"/>, Section 2.3. The definitions are repeated below for simplicity:</t>
+<t>The MSK and EMSK are derived from the Key_Material in the same manner as with EAP-TLS <xref target="RFC5216"/>, Section 2.3. The definitions are repeated below for simplicity:</t>
 
 <figure><artwork><![CDATA[
 MSK          = Key_Material(0, 63)
