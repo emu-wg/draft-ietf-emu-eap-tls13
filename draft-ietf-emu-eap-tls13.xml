@@ -603,7 +603,7 @@ Session-Id = Type-Code || Method-Id
 	<section title="Resumption" anchor="secres">
 		<t>This is a new section when compared to <xref target="RFC5216"/>. The guidance in this section is relevant for EAP-TLS in general (regardless of the underlying TLS version used).</t>
 
-		<t>There are a number of security issues related to resumption that are not described in <xref target="RFC5216"/>. The problems, guidelines, and requirements in this section therefore applies to all version of TLS.</t>
+		<t>There are a number of security issues related to resumption that are not described in <xref target="RFC5216"/>. The problems, guidelines, and requirements in this section therefore applies to EAP-TLS when it is used with any version of TLS.</t>
 
 		<t>When resumption occurs, it is based on cached information at the TLS layer. To perform resumption in a secure way, the EAP-TLS peer and EAP-TLS server need to be able to securely retrieve authorization information such as certificate chains from the initial full handshake. We use the term "cached data" to describe such information. Authorization during resumption MUST be based on such cached data. The EAP-TLS peer and EAP-TLS server MAY perform fresh revocation checks on the cached certificate data. Any security policies for authorization MUST be followed also for resumption. The certificates may have been revoked since the initial full handshake and the authorizations of the other party may have reduced. If the cached revocation data is not sufficiently current, the EAP-TLS peer or EAP-TLS server MAY force a full TLS handshake.</t>
 
