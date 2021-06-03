@@ -75,7 +75,7 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
 		<t>Readers are expected to be familiar with the terms and concepts used in EAP-TLS <xref target="RFC5216"/> and TLS <xref target="RFC8446"/>. The term EAP-TLS peer is used for the entity acting as EAP peer and TLS client. The term EAP-TLS server is used for the entity acting as EAP server and TLS server.</t>
 	</section>
 
-		<t>This document follow the terminology from <xref target="I-D.ietf-tls-rfc8446bis"/> where the master secret is renamed to the main secret and the exporter_master_secret is renamed to the exporter_secret.</t>
+		<t>This document follows the terminology from <xref target="I-D.ietf-tls-rfc8446bis"/> where the master secret is renamed to the main secret and the exporter_master_secret is renamed to the exporter_secret.</t>
 </section>
 
 
