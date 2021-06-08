@@ -284,7 +284,7 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
                              <--------               EAP-Failure
 ]]></artwork></figure>
 
-		<t><xref target="figterm3"/> shows an example message flow where the EAP-TLS server authenticates to the EAP-TLS peer successfully, but the EAP-TLS peer fails to authenticate to the EAP-TLS server and sends a TLS Error alert.</t>
+		<t><xref target="figterm3"/> shows an example message flow where the EAP-TLS server authenticates to the EAP-TLS peer successfully, but the EAP-TLS peer fails to authenticate to the EAP-TLS server and the server sends a TLS Error alert.</t>
 			
 <figure anchor="figterm3" title="EAP-TLS unsuccessful client authentication" align="center"><artwork><![CDATA[
  EAP-TLS Peer                                      EAP-TLS Server
