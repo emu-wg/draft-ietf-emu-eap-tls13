@@ -88,7 +88,7 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
 		<section title='Authentication'>
 			<t>This section updates Section 2.1.1 of <xref target="RFC5216"/>.</t>
 
-			<t>The EAP-TLS server MUST authenticate with a certificate and SHOULD require the EAP-TLS peer to authenticate with a certificate. Certificates can be of any type supported by TLS including raw public keys. Pre-Shared Key (PSK) authentication SHALL NOT be used except for resumption. The full handshake in EAP-TLS with TLS 1.3 always provide forward secrecy by exchange of ephemeral "key_share" extensions in the ClientHello and ServerHello (e.g. containing ephemeral ECDHE public keys). SessionID is deprecated in TLS 1.3, see Sections 4.1.2 and 4.1.3 of <xref target="RFC8446"/>. TLS 1.3 introduced early application data which like all other application data is not used in EAP-TLS, see Section 4.2.10 of <xref target="RFC8446"/> for additional information of the "early_data" extension. Resumption is handled as described in <xref target="resumption"/>. TLS 1.3 introduced the Post-Handshake KeyUpdate message which is not useful and not expected in EAP-TLS. As a protected success indication <xref target="RFC3748"/> the EAP-TLS server always sends TLS application data 0x00, see Section 2.5. Note that a TLS implementation MAY not allow the EAP-TLS layer to control in which order things are sent and the application data MAY therefore be sent before a NewSessionTicket. TLS application data 0x00 is therefore to be interpreted as success after the EAP-Request that contains TLS application data 0x00. After the EAP-TLS server has received an empty EAP-Response to the EAP-Request containing the TLS application data 0x00, the EAP-TLS server sends EAP-Success.</t>
+			<t>The EAP-TLS server MUST authenticate with a certificate and SHOULD require the EAP-TLS peer to authenticate with a certificate. Certificates can be of any type supported by TLS including raw public keys. Pre-Shared Key (PSK) authentication SHALL NOT be used except for resumption. The full handshake in EAP-TLS with TLS 1.3 always provides forward secrecy by exchange of ephemeral "key_share" extensions in the ClientHello and ServerHello (e.g. containing ephemeral ECDHE public keys). SessionID is deprecated in TLS 1.3, see Sections 4.1.2 and 4.1.3 of <xref target="RFC8446"/>. TLS 1.3 introduced early application data which like all other application data is not used in EAP-TLS, see Section 4.2.10 of <xref target="RFC8446"/> for additional information of the "early_data" extension. Resumption is handled as described in <xref target="resumption"/>. TLS 1.3 introduced the Post-Handshake KeyUpdate message which is not useful and not expected in EAP-TLS. As a protected success indication <xref target="RFC3748"/> the EAP-TLS server always sends TLS application data 0x00, see Section 2.5. Note that a TLS implementation MAY not allow the EAP-TLS layer to control in which order things are sent and the application data MAY therefore be sent before a NewSessionTicket. TLS application data 0x00 is therefore to be interpreted as success after the EAP-Request that contains TLS application data 0x00. After the EAP-TLS server has received an empty EAP-Response to the EAP-Request containing the TLS application data 0x00, the EAP-TLS server sends EAP-Success.</t>
 			
 			<t><xref target="figbase1"/> shows an example message flow for a successful EAP-TLS full handshake with mutual authentication (and neither HelloRetryRequest nor Post-Handshake messages are sent).</t>
 
@@ -96,15 +96,15 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
  EAP-TLS Peer                                      EAP-TLS Server
 
                                                       EAP-Request/
-                              <--------                  Identity
+                             <--------                   Identity
  EAP-Response/
- Identity (Privacy-Friendly)  -------->
+ Identity (Privacy-Friendly) -------->
                                                       EAP-Request/
                                                  EAP-Type=EAP-TLS
-                              <--------                (TLS Start)
+                             <--------                 (TLS Start)
  EAP-Response/
  EAP-Type=EAP-TLS
-(TLS ClientHello)             -------->
+(TLS ClientHello)            -------->
                                                       EAP-Request/
                                                  EAP-Type=EAP-TLS
                                                  (TLS ServerHello,
@@ -112,18 +112,18 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
                                            TLS CertificateRequest,
                                                   TLS Certificate,
                                             TLS CertificateVerify,
-                              <--------              TLS Finished)
+                             <--------               TLS Finished)
  EAP-Response/
  EAP-Type=EAP-TLS
 (TLS Certificate,
  TLS CertificateVerify,
- TLS Finished)                -------->
+ TLS Finished)               -------->
                                                       EAP-Request/
                                                  EAP-Type=EAP-TLS
-                              <-------- TLS Application Data 0x00)
+                             <-------- (TLS Application Data 0x00)
  EAP-Response/
- EAP-Type=EAP-TLS             -------->
-                              <--------               EAP-Success
+ EAP-Type=EAP-TLS            -------->
+                             <--------                EAP-Success
 ]]></artwork></figure>
 	   </section>
 
@@ -139,15 +139,15 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
  EAP-TLS Peer                                      EAP-TLS Server
 
                                                       EAP-Request/
-                              <--------                  Identity
+                             <--------                   Identity
  EAP-Response/
- Identity (Privacy-Friendly)  -------->
+ Identity (Privacy-Friendly) -------->
                                                       EAP-Request/
                                                  EAP-Type=EAP-TLS
-                              <--------                (TLS Start)
+                             <--------                 (TLS Start)
  EAP-Response/
  EAP-Type=EAP-TLS
-(TLS ClientHello)             -------->
+(TLS ClientHello)            -------->
                                                       EAP-Request/
                                                  EAP-Type=EAP-TLS
                                                  (TLS ServerHello,
@@ -155,19 +155,19 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
                                            TLS CertificateRequest,
                                                   TLS Certificate,
                                             TLS CertificateVerify,
-                              <--------              TLS Finished)
+                             <--------               TLS Finished)
  EAP-Response/
  EAP-Type=EAP-TLS
 (TLS Certificate,
  TLS CertificateVerify,
- TLS Finished)                -------->
+ TLS Finished)               -------->
                                                       EAP-Request/
                                                  EAP-Type=EAP-TLS
                                             (TLS NewSessionTicket,
-                              <-------- TLS Application Data 0x00)
+                             <-------- (TLS Application Data 0x00)
  EAP-Response/
- EAP-Type=EAP-TLS             -------->
-                              <--------               EAP-Success
+ EAP-Type=EAP-TLS            -------->
+                             <--------                EAP-Success
 ]]></artwork></figure>	
 		</section>			
 
@@ -186,30 +186,30 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
  EAP-TLS Peer                                      EAP-TLS Server
 
                                                       EAP-Request/
-                              <--------                  Identity
+                             <--------                   Identity
  EAP-Response/
- Identity (Privacy-Friendly)  -------->
+ Identity (Privacy-Friendly) -------->
                                                       EAP-Request/
                                                  EAP-Type=EAP-TLS
-                              <--------                (TLS Start)
+                             <--------                 (TLS Start)
  EAP-Response/
  EAP-Type=EAP-TLS
-(TLS ClientHello)             -------->
+(TLS ClientHello)            -------->
                                                       EAP-Request/
                                                  EAP-Type=EAP-TLS
                                                  (TLS ServerHello,
                                           TLS EncryptedExtensions,
-                              <--------              TLS Finished,
+                             <--------               TLS Finished,
                                              TLS NewSessionTicket)
  EAP-Response/
  EAP-Type=EAP-TLS
-(TLS Finished)                -------->
+(TLS Finished)               -------->
                                                       EAP-Request/
                                                  EAP-Type=EAP-TLS
-                              <-------- TLS Application Data 0x00)
+                             <-------- (TLS Application Data 0x00)
  EAP-Response/
- EAP-Type=EAP-TLS             -------->
-                              <--------               EAP-Success
+ EAP-Type=EAP-TLS            -------->
+                             <--------                EAP-Success
 ]]></artwork></figure>
 
 			<t>As specified in Section 2.2 of <xref target="RFC8446"/>, the EAP-TLS peer SHOULD supply a "key_share" extension when attempting resumption, which allows the EAP-TLS server to potentially decline resumption and fall back to a full handshake. If the EAP-TLS peer did not supply a "key_share" extension when attempting resumption, the EAP-TLS server needs to send HelloRetryRequest to signal that additional information is needed to complete the handshake, and the EAP-TLS peer needs to send a second ClientHello containing that information. Providing a "key_share" and using the "psk_dhe_ke" pre-shared key exchange mode is also important in order to limit the impact of a key compromise. When using "psk_dhe_ke", TLS 1.3 provides forward secrecy meaning that key leakage does not compromise any earlier connections. It is RECOMMMENDED to use "psk_dhe_ke" for resumption.</t>
@@ -237,21 +237,21 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
  EAP-TLS Peer                                      EAP-TLS Server
 
                                                       EAP-Request/
-                              <--------                  Identity
+                             <--------                   Identity
  EAP-Response/
- Identity (Privacy-Friendly)  -------->
+ Identity (Privacy-Friendly) -------->
                                                       EAP-Request/
                                                  EAP-Type=EAP-TLS
-                              <--------                (TLS Start)
+                             <--------                 (TLS Start)
  EAP-Response/
  EAP-Type=EAP-TLS
-(TLS ClientHello)             -------->
+(TLS ClientHello)            -------->
                                                       EAP-Request/
                                                  EAP-Type=EAP-TLS
-                              <--------          (TLS Error Alert)
+                             <--------           (TLS Error Alert)
  EAP-Response/
- EAP-Type=EAP-TLS             -------->
-                              <--------               EAP-Failure
+ EAP-Type=EAP-TLS            -------->
+                             <--------                EAP-Failure
 ]]></artwork></figure>
 
 		<t><xref target="figterm2"/> shows an example message flow where EAP-TLS server authentication is unsuccessful and the EAP-TLS peer sends a TLS Error alert.</t>	
@@ -260,15 +260,15 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
  EAP-TLS Peer                                      EAP-TLS Server
 
                                                       EAP-Request/
-                              <--------                  Identity
+                             <--------                   Identity
  EAP-Response/
- Identity (Privacy-Friendly)  -------->
+ Identity (Privacy-Friendly) -------->
                                                       EAP-Request/
                                                  EAP-Type=EAP-TLS
-                              <--------                (TLS Start)
+                             <--------                 (TLS Start)
  EAP-Response/
  EAP-Type=EAP-TLS
-(TLS ClientHello)             -------->
+(TLS ClientHello)            -------->
                                                       EAP-Request/
                                                  EAP-Type=EAP-TLS
                                                  (TLS ServerHello,
@@ -276,12 +276,12 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
                                            TLS CertificateRequest,
                                                   TLS Certificate,
                                             TLS CertificateVerify,
-                              <--------              TLS Finished)
+                             <--------               TLS Finished)
  EAP-Response/
  EAP-Type=EAP-TLS
 (TLS Error Alert)
-                              -------->
-                              <--------               EAP-Failure
+                             -------->
+                             <--------               EAP-Failure
 ]]></artwork></figure>
 
 		<t><xref target="figterm3"/> shows an example message flow where the EAP-TLS server authenticates to the EAP-TLS peer successfully, but the EAP-TLS peer fails to authenticate to the EAP-TLS server and sends a TLS Error alert.</t>
@@ -290,16 +290,16 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
  EAP-TLS Peer                                      EAP-TLS Server
 
                                                       EAP-Request/
-                              <--------                  Identity
+                             <--------                  Identity
  EAP-Response/
- Identity (Privacy-Friendly)  -------->
+ Identity (Privacy-Friendly) -------->
 
                                                       EAP-Request/
                                                  EAP-Type=EAP-TLS
-                              <--------                (TLS Start)
+                             <--------                 (TLS Start)
  EAP-Response/
  EAP-Type=EAP-TLS
-(TLS ClientHello)             -------->
+(TLS ClientHello)            -------->
                                                       EAP-Request/
                                                  EAP-Type=EAP-TLS
                                                  (TLS ServerHello,
@@ -307,18 +307,18 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
                                            TLS CertificateRequest,
                                                   TLS Certificate,
                                             TLS CertificateVerify,
-                              <--------              TLS Finished)
+                             <--------               TLS Finished)
  EAP-Response/
  EAP-Type=EAP-TLS
 (TLS Certificate,
  TLS CertificateVerify,
- TLS Finished)                -------->
+ TLS Finished)               -------->
                                                       EAP-Request/
                                                  EAP-Type=EAP-TLS
-                              <--------          (TLS Error Alert)
+                             <--------           (TLS Error Alert)
  EAP-Response/
- EAP-Type=EAP-TLS             -------->
-                              <--------               EAP-Failure
+ EAP-Type=EAP-TLS            -------->
+                             <--------                EAP-Failure
 ]]></artwork></figure>
 			
 		</section>
@@ -332,31 +332,31 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
  EAP-TLS Peer                                      EAP-TLS Server
 
                                                       EAP-Request/
-                              <--------                  Identity
+                             <--------                   Identity
  EAP-Response/
- Identity (Privacy-Friendly)  -------->
+ Identity (Privacy-Friendly) -------->
                                                       EAP-Request/
                                                  EAP-Type=EAP-TLS
-                              <--------                (TLS Start)
+                             <--------                 (TLS Start)
  EAP-Response/
  EAP-Type=EAP-TLS
-(TLS ClientHello)             -------->
+(TLS ClientHello)            -------->
                                                       EAP-Request/
                                                  EAP-Type=EAP-TLS
                                                  (TLS ServerHello,
                                           TLS EncryptedExtensions,
                                                   TLS Certificate,
                                             TLS CertificateVerify,
-                              <--------              TLS Finished)
+                             <--------               TLS Finished)
  EAP-Response/
  EAP-Type=EAP-TLS
-(TLS Finished)                -------->
+(TLS Finished)               -------->
                                                       EAP-Request/
                                                  EAP-Type=EAP-TLS
-                              <-------- TLS Application Data 0x00)
+                             <-------- (TLS Application Data 0x00)
  EAP-Response/
- EAP-Type=EAP-TLS             -------->
-                              <--------               EAP-Success
+ EAP-Type=EAP-TLS            -------->
+                             <--------                EAP-Success
 ]]></artwork></figure>
 		</section>			
 
@@ -371,22 +371,22 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
  EAP-TLS Peer                                      EAP-TLS Server
 
                                                       EAP-Request/
-                              <--------                  Identity
+                             <--------                   Identity
  EAP-Response/
- Identity (Privacy-Friendly)  -------->
+ Identity (Privacy-Friendly) -------->
                                                       EAP-Request/
                                                  EAP-Type=EAP-TLS
-                              <--------                (TLS Start)
+                             <--------                 (TLS Start)
  EAP-Response/
  EAP-Type=EAP-TLS
-(TLS ClientHello)             -------->
+(TLS ClientHello)            -------->
                                                       EAP-Request/
                                                  EAP-Type=EAP-TLS
                                            (TLS HelloRetryRequest)
-                              <--------
+                             <--------
  EAP-Response/
  EAP-Type=EAP-TLS
-(TLS ClientHello)             -------->
+(TLS ClientHello)            -------->
                                                       EAP-Request/
                                                  EAP-Type=EAP-TLS
                                                  (TLS ServerHello,
@@ -399,13 +399,13 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
  EAP-Type=EAP-TLS
 (TLS Certificate,
  TLS CertificateVerify,
- TLS Finished)                -------->
+ TLS Finished)               -------->
                                                       EAP-Request/
                                                  EAP-Type=EAP-TLS
-                              <-------- TLS Application Data 0x00)
+                             <-------- (TLS Application Data 0x00)
  EAP-Response/
- EAP-Type=EAP-TLS             -------->
-                              <--------               EAP-Success
+ EAP-Type=EAP-TLS            -------->
+                             <--------                EAP-Success
 ]]></artwork></figure>
 	   </section>
 
