@@ -71,8 +71,11 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
 		<t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 <xref target='RFC2119'/> <xref target='RFC8174'/> when, and only when, they appear in all capitals, as shown here.</t>
 
 		<t>Readers are expected to be familiar with the terms and concepts used in EAP-TLS <xref target="RFC5216"/> and TLS <xref target="RFC8446"/>. The term EAP-TLS peer is used for the entity acting as EAP peer and TLS client. The term EAP-TLS server is used for the entity acting as EAP server and TLS server.</t>
+
+		<t>Readers are expected to be familiar with the terms and concepts used in EAP-TLS <xref target="RFC5216"/> and TLS <xref target="RFC8446"/>. The term EAP-TLS peer is used for the entity acting as EAP peer and TLS client. The term EAP-TLS server is used for the entity acting as EAP server and TLS server.</t>
 	</section>
 
+		<t>This document follows the terminology from <xref target="I-D.ietf-tls-rfc8446bis"/> where the master secret is renamed to the main secret and the exporter_master_secret is renamed to the exporter_secret.</t>
 </section>
 
 
@@ -761,7 +764,8 @@ EMSK         = Key_Material(64, 127)
 	<?rfc include='reference.I-D.ietf-tls-md5-sha1-deprecate'?>
 	<?rfc include='reference.I-D.ietf-emu-eaptlscert'?>	
 	<?rfc include='reference.I-D.ietf-tls-ticketrequests'?>	
-	<?rfc include='reference.I-D.ietf-emu-tls-eap-types'?>	
+	<?rfc include='reference.I-D.ietf-emu-tls-eap-types'?>
+	<?rfc include='reference.I-D.ietf-tls-rfc8446bis'?>
 </references>
 
 <section title="Updated references">
