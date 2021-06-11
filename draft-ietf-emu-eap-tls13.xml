@@ -424,7 +424,7 @@ However, the EAP-TLS server MAY choose to require a full handshake.  In the case
 		<section title="Privacy" anchor="privacy">
 			<t>This section updates Section 2.1.4 of <xref target="RFC5216"/>.</t>
 
-			<t>TLS 1.3 significantly improves privacy when compared to earlier versions of TLS by forbidding cipher suites without confidentiality and encrypting large parts of the TLS handshake including the certificate messages.</t>
+			<t>EAP-TLS 1.3 significantly improves privacy when compared to earlier versions of EAP-TLS. EAP-TLS 1.3 forbids cipher suites without confidentiality which means that TLS 1.3 is always encrypting large parts of the TLS handshake including the certificate messages.</t>
 
 			<t>EAP-TLS peer and server implementations supporting TLS 1.3 MUST support anonymous Network Access Identifiers (NAIs) (Section 2.4 in <xref target="RFC7542"/>) and a client supporting TLS 1.3 MUST NOT send its username in cleartext in the Identity Response. Following <xref target="RFC7542"/>, it is RECOMMENDED to omit the username (i.e., the NAI is @realm), but other constructions such as a fixed username (e.g. anonymous@realm) or an encrypted username (e.g., xCZINCPTK5+7y81CrSYbPg+RKPE3OTrYLn4AQc4AC2U=@realm) are allowed. Note that the NAI MUST be a UTF-8 string as defined by the grammar in Section 2.2 of <xref target="RFC7542"/>.</t>
 
@@ -480,7 +480,7 @@ EMSK         = Key_Material(64, 127)
 		
 		<t>Other TLS based EAP methods can use the TLS exporter in a similar fashion, see <xref target="I-D.ietf-emu-tls-eap-types"/>.</t>
 
-		<t><xref target="RFC5247"/> deprecates the use of IV. Thus, RECV-IV and SEND-IV are not exported in EAP-TLS with TLS 1.3. As noted in <xref target="RFC5247"/>, lower layers use the MSK in a lower-layer dependent manner. EAP-TLS with TLS 1.3 exports the MSK and does not specify how it used by lower layers.</t>
+		<t><xref target="RFC5247"/> deprecates the use of IV. Thus, RECV-IV and SEND-IV are not exported in EAP-TLS with TLS 1.3. As noted in <xref target="RFC5247"/>, lower layers use the MSK in a lower-layer dependent manner. EAP-TLS with TLS 1.3 exports the MSK and does not specify how it is used by lower layers.</t>
 
 		<t>Note that the key derivation MUST use the length values given above. While in TLS 1.2 and earlier it was possible to truncate the output by requesting less data from the TLS-Exporter function, this practice is not possible with TLS 1.3. If an implementation intends to use only a part of the output of the TLS-Exporter function, then it MUST ask for the full output and then only use the desired part. Failure to do so will result in incorrect values being calculated for the above keying material.</t>
 		
