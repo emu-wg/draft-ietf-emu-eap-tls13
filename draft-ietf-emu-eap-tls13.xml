@@ -87,6 +87,20 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
 
 			<t>TLS 1.3 changes both the message flow and the handshake messages compared to earlier versions of TLS. Therefore, much of Section 2.1 of <xref target="RFC5216"/> does not apply for TLS 1.3. EAP-TLS 1.3 remains backwards compatible with EAP-TLS 1.2 <xref target="RFC5216"/> . TLS version negotiation is handled by the TLS layer, and thus outside of the scope of EAP-TLS. Therefore so long as the underlying TLS implementation correctly implements TLS version negotiation, EAP-TLS will automatically leverage that capability. Except for <xref target="secres" />, this document applies only when TLS 1.3 is negotiated. When TLS 1.2 is negotiated, then <xref target="RFC5216"/> applies. The EAP-TLS implementation needs to know which version of TLS that was negotiated.</t>
 
+			<t>TLS 1.3 introduces several new handshake messages including HelloRetryRequest, NewSessionTicket, and KeyUpdate. In general, these messages will be handled by the underlying TLS libraries and are not visible to EAP-TLS, however there are a few things to note:
+
+			<list style="symbols">
+			<t>The HelloRetryRequest is used by the server to reject the parameters offered in the ClientHello and suggest new parameters. When this message is encountered it will increase the number of round trips used by the protocol.</t>
+
+			<t>The NewSessionTicket message is used to convey resumption information and is covered in Sections <xref target="ticket" format="counter"/> and <xref target="resumption" format="counter"/>.</t>
+
+			<t>The KeyUpdate message is used to update the traffic keys used on a TLS connection. EAP-TLS does not encrypt significant amounts of data so this functionality is not needed. Implementations SHOULD NOT send this message, however some TLS libraries may automatically generate and process this message.</t>
+
+			<t>Early Data MUST NOT be used in EAP-TLS. EAP-TLS servers MUST NOT send an early_data extension and clients MUST NOT send an EndOfEarlyData message.</t>
+
+			<t>Servers MUST NOT request post-handshake client authentication.</t>
+			</list></t>
+		
 			<t>After receiving an EAP-Request packet with EAP-Type=EAP-TLS as described in <xref target="RFC5216"/> the conversation will continue with the TLS handshake protocol encapsulated in the data fields of EAP-Response and EAP-Request packets. When EAP-TLS is used with TLS version 1.3, the formatting and processing of the TLS handshake SHALL be done as specified in version 1.3 of TLS. This document only lists additional and different requirements, restrictions, and processing compared to <xref target="RFC8446"/> and <xref target="RFC5216"/>.</t>
 
 		<section title='Authentication' anchor="section_auth">
