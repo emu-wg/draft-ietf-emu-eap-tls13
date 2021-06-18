@@ -579,8 +579,8 @@ EMSK         = Key_Material(64, 127)
 
 	<section title="Peer and Server Identities">
 		
-		<t>No updates to section 5.2 of <xref target="RFC5216"/>.</t>
-
+		<t>No updates to section 5.2 of <xref target="RFC5216"/>. Note that <xref target="identity"/> has additional discussion on identities.</t>
+				
 	</section>
 
 	<section title="Certificate Validation">
