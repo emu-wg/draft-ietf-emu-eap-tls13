@@ -83,7 +83,7 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
 <section title='Protocol Overview'>
 
 	<section title='Overview of the EAP-TLS Conversation'>
-			<t>This section updates Section 2.1 of <xref target="RFC5216"/>.</t>
+			<t>This section updates Section 2.1 of <xref target="RFC5216"/> by amending it with the following text.</t>
 
 			<t>If the TLS implementation correctly implements TLS version negotiation, EAP-TLS will automatically leverage that capability. The EAP-TLS implementation needs to know which version of TLS was negotiated to correctly support EAP-TLS 1.3 as well as to maintain backward compatibility with EAP-TLS 1.2.</t>
 
@@ -606,7 +606,7 @@ EMSK         = Key_Material(64, 127)
 
 	<section title="Packet Modification Attacks">
 		
-		<t>This section updates Section 5.5 of <xref target="RFC5216"/>.</t>
+		<t>This section updates Section 5.5 of <xref target="RFC5216"/> by amending it with the following text.</t>
 
 		<t>As described in <xref target="RFC3748"/> and Section 5.5 of <xref target="RFC5216"/>, the only information that is integrity and replay protected in EAP-TLS are the parts of the TLS Data that TLS protects. All other information in the EAP-TLS message exchange including EAP-Request and EAP-Response headers, the identity in the identity response, EAP-TLS packet header fields, Type, and Flags, EAP-Success, and EAP-Failure can be modified, spoofed, or replayed.</t>
 
