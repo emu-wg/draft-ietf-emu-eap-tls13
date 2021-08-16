@@ -83,7 +83,7 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
 <section title='Protocol Overview'>
 
 	<section title='Overview of the EAP-TLS Conversation'>
-			<t>This section updates Section 2.1 of <xref target="RFC5216"/>.</t>
+			<t>This section updates Section 2.1 of <xref target="RFC5216"/> by amending it with the following text.</t>
 
 			<t>If the TLS implementation correctly implements TLS version negotiation, EAP-TLS will automatically leverage that capability. The EAP-TLS implementation needs to know which version of TLS was negotiated to correctly support EAP-TLS 1.3 as well as to maintain backward compatibility with EAP-TLS 1.2.</t>
 
@@ -106,7 +106,7 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
 			<t>After receiving an EAP-Request packet with EAP-Type=EAP-TLS as described in <xref target="RFC5216"/> the conversation will continue with the TLS handshake protocol encapsulated in the data fields of EAP-Response and EAP-Request packets. When EAP-TLS is used with TLS version 1.3, the formatting and processing of the TLS handshake SHALL be done as specified in version 1.3 of TLS. This document only lists additional and different requirements, restrictions, and processing compared to <xref target="RFC8446"/> and <xref target="RFC5216"/>.</t>
 
 		<section title='Authentication' anchor="section_auth">
-			<t>This section updates Section 2.1.1 of <xref target="RFC5216"/>.</t>
+			<t>This section updates Section 2.1.1 of <xref target="RFC5216"/> by amending it with the following text.</t>
 
 			<t>The EAP-TLS server MUST authenticate with a certificate and SHOULD require the EAP-TLS peer to authenticate with a certificate. Certificates can be of any type supported by TLS including raw public keys. Pre-Shared Key (PSK) authentication SHALL NOT be used except for resumption. The full handshake in EAP-TLS with TLS 1.3 always provides forward secrecy by exchange of ephemeral "key_share" extensions in the ClientHello and ServerHello (e.g., containing ephemeral ECDHE public keys). SessionID is deprecated in TLS 1.3, see Sections 4.1.2 and 4.1.3 of <xref target="RFC8446"/>. TLS 1.3 introduced early application data which like all other application data is not used in EAP-TLS, see Section 4.2.10 of <xref target="RFC8446"/> for additional information of the "early_data" extension. Resumption is handled as described in <xref target="resumption"/>. As a protected success indication <xref target="RFC3748"/> the EAP-TLS server always sends TLS application data 0x00, see Section 2.5. Note that a TLS implementation MAY not allow the EAP-TLS layer to control in which order things are sent and the application data MAY therefore be sent before a NewSessionTicket. TLS application data 0x00 is therefore to be interpreted as success after the EAP-Request that contains TLS application data 0x00. After the EAP-TLS server has sent an EAP-Request containing the TLS application data 0x00 and received an EAP-Response packet of EAP-Type=EAP-TLS and no data, the EAP-TLS server sends EAP-Success.</t>
 			
@@ -192,13 +192,11 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
 		</section>			
 
 		<section title="Resumption" anchor="resumption">
-			<t>This section updates Section 2.1.2 of <xref target="RFC5216"/>.</t>
+			<t>This section updates Section 2.1.2 of <xref target="RFC5216"/> by amending it with the following text.</t>
 
 			<t>EAP-TLS is typically used with client authentication and typically fragments the TLS flights into a large number of EAP requests and EAP responses. Resumption significantly reduces the number of round-trips and enables the EAP-TLS server to omit database lookups needed during a full handshake with client authentication. TLS 1.3 replaces the session resumption mechanisms in earlier versions of TLS with a new PSK exchange. When EAP-TLS is used with TLS version 1.3, EAP-TLS SHALL use a resumption mechanism compatible with version 1.3 of TLS.</t>
 
-			<t>For TLS 1.3, resumption is described in Section 2.2 of <xref target="RFC8446"/>. If the client has received a NewSessionTicket message from the EAP-TLS server, the client can use the PSK identity associated with the ticket to negotiate the use of the associated PSK. If the EAP-TLS server accepts it, then the resumed session has been deemed to be authenticated, and securely associated with the prior authentication or resumption. It is up to the EAP-TLS peer to use resumption, but it is RECOMMENDED that the EAP-TLS peer use resumption if it has a valid ticket that has not been used before. It is left to the EAP-TLS server whether to accept resumption, but it is RECOMMENDED that the EAP-TLS server accept resumption if the ticket which was issued is still valid.
-				
-However, the EAP-TLS server MAY choose to require a full handshake.  In the case a full handshake is required, the negotiation proceeds as if the session was a new authentication, and resumption had never been requested. The requirements of Sections <xref target="section_auth" format="counter"/> and <xref target="ticket" format="counter"/> then apply in their entirety. As described in Appendix C.4 of <xref target="RFC8446"/>, reuse of a ticket allows passive observers to correlate different connections. EAP-TLS peers and EAP-TLS servers SHOULD follow the client tracking preventions in Appendix C.4 of <xref target="RFC8446"/>.</t>			
+			<t>For TLS 1.3, resumption is described in Section 2.2 of <xref target="RFC8446"/>. If the client has received a NewSessionTicket message from the EAP-TLS server, the client can use the PSK identity associated with the ticket to negotiate the use of the associated PSK. If the EAP-TLS server accepts it, then the resumed session has been deemed to be authenticated, and securely associated with the prior authentication or resumption. It is up to the EAP-TLS peer to use resumption, but it is RECOMMENDED that the EAP-TLS peer use resumption if it has a valid ticket that has not been used before. It is left to the EAP-TLS server whether to accept resumption, but it is RECOMMENDED that the EAP-TLS server accept resumption if the ticket which was issued is still valid. However, the EAP-TLS server MAY choose to require a full handshake. In the case a full handshake is required, the negotiation proceeds as if the session was a new authentication, and resumption had never been requested. The requirements of Sections <xref target="section_auth" format="counter"/> and <xref target="ticket" format="counter"/> then apply in their entirety. As described in Appendix C.4 of <xref target="RFC8446"/>, reuse of a ticket allows passive observers to correlate different connections. EAP-TLS peers and EAP-TLS servers SHOULD follow the client tracking preventions in Appendix C.4 of <xref target="RFC8446"/>.</t>			
 			
 			<t>It is RECOMMENDED to use a Network Access Identifiers (NAIs) with the same realm during resumption and the original full handshake. This requirement allows EAP packets to be routed to the same destination as the original full handshake. If this recommendation is not followed, resumption is likely impossible. When NAI reuse can be done without privacy implications, it is RECOMMENDED to use the same NAI in the resumption, as was used in the original full handshake <xref target="RFC7542"/>. For example, the NAI @realm can safely be reused since it does not provide any specific information to associate a user's resumption attempt with the original full handshake. However, reusing the NAI P2ZIM2F+OEVAO21nNWg2bVpgNnU=@realm enables an on-path attacker to associate a resumption attempt with the original full handshake. The TLS PSK identity is typically derived by the TLS implementation and may be an opaque blob without a routable realm. The TLS PSK identity on its own is therefore unsuitable as a NAI in the Identity Response.</t>
 
@@ -239,7 +237,7 @@ However, the EAP-TLS server MAY choose to require a full handshake.  In the case
 		</section>
 
 		<section title='Termination'>
-			<t>This section updates Section 2.1.3 of <xref target="RFC5216"/>.</t>
+			<t>This section updates Section 2.1.3 of <xref target="RFC5216"/> by amending it with the following text.</t>
 
 			<t>TLS 1.3 changes both the message flow and the handshake messages compared to earlier versions of TLS. Therefore, some normative text in Section 2.1.3 of <xref target="RFC5216"/> does not apply for TLS 1.3. The two paragraphs below replace the corresponding paragraphs in Section 2.1.3 of <xref target="RFC5216"/> when EAP-TLS is used with TLS 1.3. The other paragraphs in Section 2.1.3 of <xref target="RFC5216"/> still apply with the exception that SessionID is deprecated.
 			<list>
@@ -439,7 +437,7 @@ However, the EAP-TLS server MAY choose to require a full handshake.  In the case
 		</section>
 
 		<section title="Privacy" anchor="privacy">
-			<t>This section updates Section 2.1.4 of <xref target="RFC5216"/>.</t>
+			<t>This section updates Section 2.1.4 of <xref target="RFC5216"/> by amending it with the following text.</t>
 
 			<t>EAP-TLS 1.3 significantly improves privacy when compared to earlier versions of EAP-TLS. EAP-TLS 1.3 forbids cipher suites without confidentiality which means that TLS 1.3 is always encrypting large parts of the TLS handshake including the certificate messages.</t>
 
@@ -452,7 +450,7 @@ However, the EAP-TLS server MAY choose to require a full handshake.  In the case
 		</section>
 
 		<section title='Fragmentation'>
-			<t>This section updates Section 2.1.5 of <xref target="RFC5216"/>.</t>			
+			<t>This section updates Section 2.1.5 of <xref target="RFC5216"/> by amending it with the following text.</t>			
 
 			<t>Including ContentType (1 byte), ProtocolVersion (2 bytes), and length (2 bytes) headers a single TLS record may be up to 16645 octets in length. EAP-TLS fragmentation support is provided through addition of a flags octet within the EAP-Response and EAP-Request packets, as well as a TLS Message Length field of four octets. Implementations MUST NOT set the L bit in unfragmented messages, but MUST accept unfragmented messages with and without the L bit set.</t>
 
@@ -462,7 +460,7 @@ However, the EAP-TLS server MAY choose to require a full handshake.  In the case
 	</section>
 
 	<section title='Identity Verification' anchor="identity">
-		<t>This section updates Section 2.2 of <xref target="RFC5216"/>. The guidance in this section is relevant for EAP-TLS in general (regardless of the underlying TLS version used).</t>
+		<t>This section updates Section 2.2 of <xref target="RFC5216"/> by amending it with the following text. The guidance in this section is relevant for EAP-TLS in general (regardless of the underlying TLS version used).</t>
 
 		<t>The EAP peer identity provided in the EAP-Response/Identity is not authenticated by EAP-TLS. Unauthenticated information MUST NOT be used for accounting purposes or to give authorization. The authenticator and the EAP-TLS server MAY examine the identity presented in EAP-Response/Identity for purposes such as routing and EAP method selection. EAP-TLS servers MAY reject conversations if the identity does not match their policy. Note that this also applies to resumption, see Sections <xref target="resumption" format="counter"/>, <xref target="secauth" format="counter"/>, and <xref target="secres" format="counter"/>.</t>
 
@@ -473,7 +471,7 @@ However, the EAP-TLS server MAY choose to require a full handshake.  In the case
 	</section>
 
 	<section title='Key Hierarchy' anchor="keyheirarchy">
-		<t>This section updates Section 2.3 of <xref target="RFC5216"/>.</t>
+		<t>This section updates Section 2.3 of <xref target="RFC5216"/> by replacing it with the following text.</t>
 
 		<t>TLS 1.3 replaces the TLS pseudorandom function (PRF) used in earlier versions of TLS with HKDF and completely changes the Key Schedule. The key hierarchies shown in Section 2.3 of <xref target="RFC5216"/> are therefore not correct when EAP-TLS is used with TLS version 1.3. For TLS 1.3 the key schedule is described in Section 7.1 of <xref target="RFC8446"/>.</t>
 
@@ -506,7 +504,7 @@ EMSK         = Key_Material(64, 127)
 	</section>
 
 	<section title='Parameter Negotiation and Compliance Requirements'>
-		<t>This section updates Section 2.4 of <xref target="RFC5216"/>.</t>
+		<t>This section updates Section 2.4 of <xref target="RFC5216"/> by amending it with the following text.</t>
 
 		<t>TLS 1.3 cipher suites are defined differently than in earlier versions of TLS (see Section B.4 of <xref target="RFC8446"/>), and the cipher suites discussed in Section 2.4 of <xref target="RFC5216"/> can therefore not be used when EAP-TLS is used with TLS version 1.3.</t>
 		
@@ -592,7 +590,7 @@ EMSK         = Key_Material(64, 127)
 	</section>
 
 	<section title="Certificate Revocation">
-		<t>This section updates Section 5.4 of <xref target="RFC5216"/>.</t>
+		<t>This section updates Section 5.4 of <xref target="RFC5216"/> by amending it with the following text.</t>
 
 		<t>There are a number of reasons (e.g., key compromise, CA compromise, privilege withdrawn, etc.) why EAP-TLS peer, EAP-TLS server, or sub-CA certificates have to be revoked before their expiry date. Revocation of the EAP-TLS server's certificate is complicated by the fact that the EAP-TLS peer may not have Internet connectivity until authentication completes.</t>
 
@@ -606,7 +604,7 @@ EMSK         = Key_Material(64, 127)
 
 	<section title="Packet Modification Attacks">
 		
-		<t>This section updates Section 5.5 of <xref target="RFC5216"/>.</t>
+		<t>This section updates Section 5.5 of <xref target="RFC5216"/> by amending it with the following text.</t>
 
 		<t>As described in <xref target="RFC3748"/> and Section 5.5 of <xref target="RFC5216"/>, the only information that is integrity and replay protected in EAP-TLS are the parts of the TLS Data that TLS protects. All other information in the EAP-TLS message exchange including EAP-Request and EAP-Response headers, the identity in the identity response, EAP-TLS packet header fields, Type, and Flags, EAP-Success, and EAP-Failure can be modified, spoofed, or replayed.</t>
 
