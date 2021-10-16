@@ -740,9 +740,9 @@ EMSK         = Key_Material(64, 127)
 	     <author>
 	       <organization>3GPP</organization>
 	       </author>
-	     <date month="July" year="2021" />
+	     <date month="September" year="2021" />
 	   </front>
-	   <seriesInfo name="3GPP TS" value="33.501 17.2.1" />
+	   <seriesInfo name="3GPP TS" value="33.501 17.3.0" />
 	</reference>
 	<reference anchor="MulteFire">
 	   <front>
@@ -759,7 +759,7 @@ EMSK         = Key_Material(64, 127)
 	     <author>
 	       <organization>Microsoft Corporation</organization>
 	       </author>
-	     <date month="April" year="2021" />
+	     <date month="June" year="2021" />
 	   </front>
 	</reference>
 	<?rfc include='reference.RFC.1661'?>	
