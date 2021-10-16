@@ -800,11 +800,11 @@ EMSK         = Key_Material(64, 127)
 	</t>
 
 	<t>
-	All references to <xref target="RFC3280"/> are updated with <xref target="RFC5280"/>.
+	All references to <xref target="RFC3280"/> are updated with <xref target="RFC5280"/>. References to Section 3.3 of <xref target="RFC3280"/> are updated with Section 3.3 of <xref target="RFC5280"/>. References to Section 4.1.2.6 of <xref target="RFC3280"/> are updated with Section 4.1.2.6 of <xref target="RFC5280"/>. References to Section 4.2.1.13 of <xref target="RFC3280"/> are updated with Section 4.2.1.12 of <xref target="RFC5280"/>. References to Section 4.2.2.1 of <xref target="RFC3280"/> are updated with Section 4.2.2.1 of <xref target="RFC5280"/>.
 	</t>
 
 	<t>
-	All references to <xref target="RFC4282"/> are updated with <xref target="RFC7542"/>.
+	All references to <xref target="RFC4282"/> are updated with <xref target="RFC7542"/>. References to Section 2.1 of <xref target="RFC4282"/> are updated with Section 2.2 of <xref target="RFC7542"/>.
 	</t>
 </section>
 
