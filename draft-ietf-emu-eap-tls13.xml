@@ -516,7 +516,7 @@ EMSK         = Key_Material(64, 127)
 		
 		<t>This is a new section when compared to <xref target="RFC5216"/> and only applies to TLS 1.3. <xref target="RFC4137"/> offers a proposed state machine for EAP.</t>
 
-		<t>TLS 1.3 <xref target="RFC8446"/> introduces post-handshake messages. These post-handshake messages use the handshake content type and can be sent after the main handshake. Examples of post-handshake messages are NewSessionTicket, which is used for resumption and KeyUpdate, which is not useful and not expected in EAP-TLS. After sending TLS Finished, the EAP-TLS server may send any number of post-handshake messages in separate EAP-Requests.</t>
+		<t>TLS 1.3 <xref target="RFC8446"/> introduces post-handshake messages. These post-handshake messages use the handshake content type and can be sent after the main handshake. Examples of post-handshake messages are NewSessionTicket, which is used for resumption and KeyUpdate, which is not useful and not expected in EAP-TLS. After sending TLS Finished, the EAP-TLS server may send any number of post-handshake messages in one or more EAP-Requests.</t>
 
 		<t>To provide a protected success result indication and to decrease the uncertainty for the EAP-TLS peer, the following procedure MUST be followed:</t>
 
