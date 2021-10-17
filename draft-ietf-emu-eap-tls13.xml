@@ -212,7 +212,8 @@ href='http://xml.resource.org/authoring/rfc2629.xslt' ?>
                              <--------                 (TLS Start)
  EAP-Response/
  EAP-Type=EAP-TLS
-(TLS ClientHello)            -------->
+(TLS ClientHello
+ + pre_shared_key)           -------->
                                                       EAP-Request/
                                                  EAP-Type=EAP-TLS
                                                  (TLS ServerHello,
