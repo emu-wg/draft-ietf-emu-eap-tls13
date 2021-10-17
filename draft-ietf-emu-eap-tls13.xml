@@ -497,8 +497,8 @@ EMSK         = Key_Material(64, 127)
 
 		<t>Note that the key derivation MUST use the length values given above. While in TLS 1.2 and earlier it was possible to truncate the output by requesting less data from the TLS-Exporter function, this practice is not possible with TLS 1.3. If an implementation intends to use only a part of the output of the TLS-Exporter function, then it MUST ask for the full output and then only use the desired part. Failure to do so will result in incorrect values being calculated for the above keying material.</t>
 		
-		<t>By using the TLS exporter, EAP-TLS can use any TLS 1.3 implementation which provides a public API for the exporter. Note that EAP-TLS with TLS 1.2 <xref target="RFC5216"/> can be used with the TLS exporter since the public exporter was defined in <xref target="RFC5705"/>.</t>		
-
+		<t>By using the TLS exporter, EAP-TLS can use any TLS 1.3 implementation which provides a public API for the exporter. Note that when TLS 1.2 is used with the EAP-TLS exporter <xref target="RFC5705"/> it generates the same key material as in EAP-TLS <xref target="RFC5216"/>.</t>		
+		
 	</section>
 
 	<section title='Parameter Negotiation and Compliance Requirements'>
