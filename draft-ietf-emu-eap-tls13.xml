@@ -701,10 +701,8 @@ EMSK         = Key_Material(64, 127)
 	<?rfc include='reference.RFC.6066'?>
 	<?rfc include='reference.RFC.6960'?>
 	<?rfc include='reference.RFC.7542'?>
-	<?rfc include='reference.RFC.8126'?>
 	<?rfc include='reference.RFC.8174'?>
 	<?rfc include='reference.RFC.8446'?>
-	<?rfc include='reference.RFC.8996'?>
 </references>
 
 <references title='Informative references'>
@@ -786,7 +784,9 @@ EMSK         = Key_Material(64, 127)
 	<?rfc include='reference.RFC.7457'?>
 	<?rfc include='reference.RFC.7525'?>
 	<?rfc include='reference.RFC.7593'?>
+	<?rfc include='reference.RFC.8126'?>
 	<?rfc include='reference.RFC.8447'?>
+	<?rfc include='reference.RFC.8996'?>
 	<?rfc include='reference.I-D.ietf-tls-md5-sha1-deprecate'?>
 	<?rfc include='reference.I-D.ietf-emu-eaptlscert'?>	
 	<?rfc include='reference.I-D.ietf-tls-ticketrequests'?>	
