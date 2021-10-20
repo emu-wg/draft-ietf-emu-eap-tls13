@@ -1461,7 +1461,8 @@ Internet-Draft                 EAP-TLS 1.3                  October 2021
    and one or more server names to match against the SubjectAltName
    (SAN) extension, EAP peer implementations MAY allow binding the
    configured acceptable SAN to a specific CA (or CAs) that should have
-   issued it to prevent attacks from rogue or compromised CAs.
+   issued the server certificate to prevent attacks from rogue or
+   compromised CAs.
 
 5.7.  Resumption
 
@@ -1505,7 +1506,6 @@ Internet-Draft                 EAP-TLS 1.3                  October 2021
 
    The EAP-TLS server or EAP client MUST cache data during the initial
    full handshake sufficient to allow authorization decisions to be made
-
 
 
 
