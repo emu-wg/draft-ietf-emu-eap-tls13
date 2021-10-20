@@ -5,8 +5,8 @@
 Network Working Group                                 J. Preuss Mattsson
 Internet-Draft                                                  M. Sethi
 Updates: 5216 (if approved)                                     Ericsson
-Intended status: Standards Track                        October 10, 2021
-Expires: April 13, 2022
+Intended status: Standards Track                        October 20, 2021
+Expires: April 23, 2022
 
 
                 Using EAP-TLS with TLS 1.3 (EAP-TLS 1.3)
@@ -44,7 +44,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on April 13, 2022.
+   This Internet-Draft will expire on April 23, 2022.
 
 
 
@@ -53,7 +53,7 @@ Status of This Memo
 
 
 
-Preuss Mattsson & Sethi  Expires April 13, 2022                 [Page 1]
+Preuss Mattsson & Sethi  Expires April 23, 2022                 [Page 1]
 
 Internet-Draft                 EAP-TLS 1.3                  October 2021
 
@@ -101,15 +101,15 @@ Table of Contents
      5.4.  Certificate Revocation  . . . . . . . . . . . . . . . . .  24
      5.5.  Packet Modification Attacks . . . . . . . . . . . . . . .  25
      5.6.  Authorization . . . . . . . . . . . . . . . . . . . . . .  26
-     5.7.  Resumption  . . . . . . . . . . . . . . . . . . . . . . .  26
+     5.7.  Resumption  . . . . . . . . . . . . . . . . . . . . . . .  27
      5.8.  Privacy Considerations  . . . . . . . . . . . . . . . . .  28
      5.9.  Pervasive Monitoring  . . . . . . . . . . . . . . . . . .  30
      5.10. Discovered Vulnerabilities  . . . . . . . . . . . . . . .  30
-     5.11. Cross-Protocol Attacks  . . . . . . . . . . . . . . . . .  30
+     5.11. Cross-Protocol Attacks  . . . . . . . . . . . . . . . . .  31
 
 
 
-Preuss Mattsson & Sethi  Expires April 13, 2022                 [Page 2]
+Preuss Mattsson & Sethi  Expires April 23, 2022                 [Page 2]
 
 Internet-Draft                 EAP-TLS 1.3                  October 2021
 
@@ -119,8 +119,8 @@ Internet-Draft                 EAP-TLS 1.3                  October 2021
      6.2.  Informative references  . . . . . . . . . . . . . . . . .  32
    Appendix A.  Updated References . . . . . . . . . . . . . . . . .  36
    Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  36
-   Contributors  . . . . . . . . . . . . . . . . . . . . . . . . . .  36
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  36
+   Contributors  . . . . . . . . . . . . . . . . . . . . . . . . . .  37
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  37
 
 1.  Introduction
 
@@ -165,7 +165,7 @@ Internet-Draft                 EAP-TLS 1.3                  October 2021
 
 
 
-Preuss Mattsson & Sethi  Expires April 13, 2022                 [Page 3]
+Preuss Mattsson & Sethi  Expires April 23, 2022                 [Page 3]
 
 Internet-Draft                 EAP-TLS 1.3                  October 2021
 
@@ -215,13 +215,13 @@ Internet-Draft                 EAP-TLS 1.3                  October 2021
 
 2.1.  Overview of the EAP-TLS Conversation
 
-   This section updates Section 2.1 of [RFC5216] by amending it with the
-   following text.
+   This section updates Section 2.1 of [RFC5216] by amending it in
+   accordance with the following discussion.
 
 
 
 
-Preuss Mattsson & Sethi  Expires April 13, 2022                 [Page 4]
+Preuss Mattsson & Sethi  Expires April 23, 2022                 [Page 4]
 
 Internet-Draft                 EAP-TLS 1.3                  October 2021
 
@@ -235,7 +235,7 @@ Internet-Draft                 EAP-TLS 1.3                  October 2021
    TLS 1.3 changes both the message flow and the handshake messages
    compared to earlier versions of TLS.  Therefore, much of Section 2.1
    of [RFC5216] does not apply for TLS 1.3.  Except for Sections 2.2 and
-   5.7 this document applies only when TLS 1.3 is negotiated.  When TLS
+   5.7, this update applies only when TLS 1.3 is negotiated.  When TLS
    1.2 is negotiated, then [RFC5216] applies.
 
    TLS 1.3 introduces several new handshake messages including
@@ -261,31 +261,31 @@ Internet-Draft                 EAP-TLS 1.3                  October 2021
       send an early_data extension and clients MUST NOT send an
       EndOfEarlyData message.
 
-   o  Servers MUST NOT request post-handshake client authentication.
+   o  Post-handshake authentication MUST NOT be used in EAP-TLS.
+      Clients MUST NOT send a "post_handshake_auth" extension and
+      Servers MUST NOT request post-handshake client authentication.
 
    After receiving an EAP-Request packet with EAP-Type=EAP-TLS as
    described in [RFC5216] the conversation will continue with the TLS
    handshake protocol encapsulated in the data fields of EAP-Response
    and EAP-Request packets.  When EAP-TLS is used with TLS version 1.3,
    the formatting and processing of the TLS handshake SHALL be done as
-   specified in version 1.3 of TLS.  This document only lists additional
+   specified in version 1.3 of TLS.  This update only lists additional
    and different requirements, restrictions, and processing compared to
    [RFC8446] and [RFC5216].
 
 
 
 
-
-
-Preuss Mattsson & Sethi  Expires April 13, 2022                 [Page 5]
+Preuss Mattsson & Sethi  Expires April 23, 2022                 [Page 5]
 
 Internet-Draft                 EAP-TLS 1.3                  October 2021
 
 
 2.1.1.  Authentication
 
-   This section updates Section 2.1.1 of [RFC5216] by amending it with
-   the following text.
+   This section updates Section 2.1.1 of [RFC5216] by amending it in
+   accordance with the following discussion.
 
    The EAP-TLS server MUST authenticate with a certificate and SHOULD
    require the EAP-TLS peer to authenticate with a certificate.
@@ -333,7 +333,7 @@ Internet-Draft                 EAP-TLS 1.3                  October 2021
 
 
 
-Preuss Mattsson & Sethi  Expires April 13, 2022                 [Page 6]
+Preuss Mattsson & Sethi  Expires April 23, 2022                 [Page 6]
 
 Internet-Draft                 EAP-TLS 1.3                  October 2021
 
@@ -389,7 +389,7 @@ Internet-Draft                 EAP-TLS 1.3                  October 2021
 
 
 
-Preuss Mattsson & Sethi  Expires April 13, 2022                 [Page 7]
+Preuss Mattsson & Sethi  Expires April 23, 2022                 [Page 7]
 
 Internet-Draft                 EAP-TLS 1.3                  October 2021
 
@@ -445,7 +445,7 @@ Internet-Draft                 EAP-TLS 1.3                  October 2021
 
 
 
-Preuss Mattsson & Sethi  Expires April 13, 2022                 [Page 8]
+Preuss Mattsson & Sethi  Expires April 23, 2022                 [Page 8]
 
 Internet-Draft                 EAP-TLS 1.3                  October 2021
 
@@ -487,8 +487,8 @@ Internet-Draft                 EAP-TLS 1.3                  October 2021
 
 2.1.3.  Resumption
 
-   This section updates Section 2.1.2 of [RFC5216] by amending it with
-   the following text.
+   This section updates Section 2.1.2 of [RFC5216] by amending it in
+   accordance with the following discussion.
 
    EAP-TLS is typically used with client authentication and typically
    fragments the TLS flights into a large number of EAP requests and EAP
@@ -501,7 +501,7 @@ Internet-Draft                 EAP-TLS 1.3                  October 2021
 
 
 
-Preuss Mattsson & Sethi  Expires April 13, 2022                 [Page 9]
+Preuss Mattsson & Sethi  Expires April 23, 2022                 [Page 9]
 
 Internet-Draft                 EAP-TLS 1.3                  October 2021
 
@@ -557,7 +557,7 @@ Internet-Draft                 EAP-TLS 1.3                  October 2021
 
 
 
-Preuss Mattsson & Sethi  Expires April 13, 2022                [Page 10]
+Preuss Mattsson & Sethi  Expires April 23, 2022                [Page 10]
 
 Internet-Draft                 EAP-TLS 1.3                  October 2021
 
@@ -573,7 +573,8 @@ Internet-Draft                 EAP-TLS 1.3                  October 2021
                                 <--------                 (TLS Start)
     EAP-Response/
     EAP-Type=EAP-TLS
-   (TLS ClientHello)            -------->
+   (TLS ClientHello
+    + pre_shared_key)           -------->
                                                          EAP-Request/
                                                     EAP-Type=EAP-TLS
                                                     (TLS ServerHello,
@@ -603,25 +604,24 @@ Internet-Draft                 EAP-TLS 1.3                  October 2021
    "key_share" and using the "psk_dhe_ke" pre-shared key exchange mode
    is also important in order to limit the impact of a key compromise.
    When using "psk_dhe_ke", TLS 1.3 provides forward secrecy meaning
-   that key leakage does not compromise any earlier connections.  The
-   "psk_dh_ke" key-exchange mode MUST be used for resumption unless the
-   deployment has a local requirement to allow configuration of other
-   mechanisms.
+   that compromise of the PSK used for resumption does not compromise
+   any earlier connections.  The "psk_dh_ke" key-exchange mode MUST be
+   used for resumption unless the deployment has a local requirement to
+   allow configuration of other mechanisms.
 
 
 
 
 
-
-Preuss Mattsson & Sethi  Expires April 13, 2022                [Page 11]
+Preuss Mattsson & Sethi  Expires April 23, 2022                [Page 11]
 
 Internet-Draft                 EAP-TLS 1.3                  October 2021
 
 
 2.1.4.  Termination
 
-   This section updates Section 2.1.3 of [RFC5216] by amending it with
-   the following text.
+   This section updates Section 2.1.3 of [RFC5216] by amending it in
+   accordance with the following discussion.
 
    TLS 1.3 changes both the message flow and the handshake messages
    compared to earlier versions of TLS.  Therefore, some normative text
@@ -635,8 +635,8 @@ Internet-Draft                 EAP-TLS 1.3                  October 2021
       MUST send an EAP-Request packet with EAP-Type=EAP-TLS containing
       TLS records conforming to the version of TLS used.  The message
       flow ends with a protected success indication from the EAP-TLS
-      server, follwed by an EAP-Response packet of EAP-Type=EAP-TLS and
-      no data from the EAP-TLS peer, follwed by EAP-Success from the
+      server, followed by an EAP-Response packet of EAP-Type=EAP-TLS and
+      no data from the EAP-TLS peer, followed by EAP-Success from the
       server.
 
       If the EAP-TLS server authenticates successfully, the EAP-TLS peer
@@ -669,7 +669,7 @@ Internet-Draft                 EAP-TLS 1.3                  October 2021
 
 
 
-Preuss Mattsson & Sethi  Expires April 13, 2022                [Page 12]
+Preuss Mattsson & Sethi  Expires April 23, 2022                [Page 12]
 
 Internet-Draft                 EAP-TLS 1.3                  October 2021
 
@@ -725,7 +725,7 @@ Internet-Draft                 EAP-TLS 1.3                  October 2021
 
 
 
-Preuss Mattsson & Sethi  Expires April 13, 2022                [Page 13]
+Preuss Mattsson & Sethi  Expires April 23, 2022                [Page 13]
 
 Internet-Draft                 EAP-TLS 1.3                  October 2021
 
@@ -781,7 +781,7 @@ Internet-Draft                 EAP-TLS 1.3                  October 2021
 
 
 
-Preuss Mattsson & Sethi  Expires April 13, 2022                [Page 14]
+Preuss Mattsson & Sethi  Expires April 23, 2022                [Page 14]
 
 Internet-Draft                 EAP-TLS 1.3                  October 2021
 
@@ -837,7 +837,7 @@ Internet-Draft                 EAP-TLS 1.3                  October 2021
 
 
 
-Preuss Mattsson & Sethi  Expires April 13, 2022                [Page 15]
+Preuss Mattsson & Sethi  Expires April 23, 2022                [Page 15]
 
 Internet-Draft                 EAP-TLS 1.3                  October 2021
 
@@ -893,7 +893,7 @@ Internet-Draft                 EAP-TLS 1.3                  October 2021
 
 
 
-Preuss Mattsson & Sethi  Expires April 13, 2022                [Page 16]
+Preuss Mattsson & Sethi  Expires April 23, 2022                [Page 16]
 
 Internet-Draft                 EAP-TLS 1.3                  October 2021
 
@@ -949,7 +949,7 @@ Internet-Draft                 EAP-TLS 1.3                  October 2021
 
 
 
-Preuss Mattsson & Sethi  Expires April 13, 2022                [Page 17]
+Preuss Mattsson & Sethi  Expires April 23, 2022                [Page 17]
 
 Internet-Draft                 EAP-TLS 1.3                  October 2021
 
@@ -965,8 +965,8 @@ Internet-Draft                 EAP-TLS 1.3                  October 2021
 
 2.1.8.  Privacy
 
-   This section updates Section 2.1.4 of [RFC5216] by amending it with
-   the following text.
+   This section updates Section 2.1.4 of [RFC5216] by amending it in
+   accordance with the following discussion.
 
    EAP-TLS 1.3 significantly improves privacy when compared to earlier
    versions of EAP-TLS.  EAP-TLS 1.3 forbids cipher suites without
@@ -984,15 +984,16 @@ Internet-Draft                 EAP-TLS 1.3                  October 2021
    Note that the NAI MUST be a UTF-8 string as defined by the grammar in
    Section 2.2 of [RFC7542].
 
-   As the certificate messages in TLS 1.3 are encrypted, there is no
-   need to send an empty certificate_list and perform a second handshake
-   for privacy (as needed by EAP-TLS with earlier versions of TLS).
-   When EAP-TLS is used with TLS version 1.3 the EAP-TLS peer and EAP-
-   TLS server SHALL follow the processing specified by version 1.3 of
-   TLS.  This means that the EAP-TLS peer only sends an empty
-   certificate_list if it does not have an appropriate certificate to
-   send, and the EAP-TLS server MAY treat an empty certificate_list as a
-   terminal condition.
+   The HelloRequest message used for privacy in EAP-TLS 1.2 does not
+   exist in TLS 1.3 but as the certificate messages in TLS 1.3 are
+   encrypted, there is no need to send an empty certificate_list and
+   perform a second handshake for privacy (as needed by EAP-TLS with
+   earlier versions of TLS).  When EAP-TLS is used with TLS version 1.3
+   the EAP-TLS peer and EAP-TLS server SHALL follow the processing
+   specified by version 1.3 of TLS.  This means that the EAP-TLS peer
+   only sends an empty certificate_list if it does not have an
+   appropriate certificate to send, and the EAP-TLS server MAY treat an
+   empty certificate_list as a terminal condition.
 
    EAP-TLS with TLS 1.3 is always used with privacy.  This does not add
    any extra round-trips and the message flow with privacy is just the
@@ -1004,16 +1005,15 @@ Internet-Draft                 EAP-TLS 1.3                  October 2021
 
 
 
-
-Preuss Mattsson & Sethi  Expires April 13, 2022                [Page 18]
+Preuss Mattsson & Sethi  Expires April 23, 2022                [Page 18]
 
 Internet-Draft                 EAP-TLS 1.3                  October 2021
 
 
 2.1.9.  Fragmentation
 
-   This section updates Section 2.1.5 of [RFC5216] by amending it with
-   the following text.
+   This section updates Section 2.1.5 of [RFC5216] by amending it in
+   accordance with the following discussion.
 
    Including ContentType (1 byte), ProtocolVersion (2 bytes), and length
    (2 bytes) headers a single TLS record may be up to 16645 octets in
@@ -1034,9 +1034,10 @@ Internet-Draft                 EAP-TLS 1.3                  October 2021
 
 2.2.  Identity Verification
 
-   This section updates Section 2.2 of [RFC5216] by amending it with the
-   following text.  The guidance in this section is relevant for EAP-TLS
-   in general (regardless of the underlying TLS version used).
+   This section updates Section 2.2 of [RFC5216] by amending it in
+   accordance with the following discussion.  The guidance in this
+   section is relevant for EAP-TLS in general (regardless of the
+   underlying TLS version used).
 
    The EAP peer identity provided in the EAP-Response/Identity is not
    authenticated by EAP-TLS.  Unauthenticated information MUST NOT be
@@ -1057,15 +1058,15 @@ Internet-Draft                 EAP-TLS 1.3                  October 2021
    (SAN) extension in the server certificate.  If any of the configured
    names match any of the names in the SAN extension then the name check
    passes.  To simplify name matching, an EAP-TLS deployment can assign
-   a name to represent an authorized EAP server and EAP Server
 
 
 
-Preuss Mattsson & Sethi  Expires April 13, 2022                [Page 19]
+Preuss Mattsson & Sethi  Expires April 23, 2022                [Page 19]
 
 Internet-Draft                 EAP-TLS 1.3                  October 2021
 
 
+   a name to represent an authorized EAP server and EAP Server
    certificates can include this name in the list of SANs for each
    certificate that represents an EAP-TLS server.  If server name
    matching is not used, then it degrades the confidence that the EAP
@@ -1098,8 +1099,8 @@ Internet-Draft                 EAP-TLS 1.3                  October 2021
 
 2.3.  Key Hierarchy
 
-   This section updates Section 2.3 of [RFC5216] by replacing it with
-   the following text.
+   This section updates Section 2.3 of [RFC5216] by replacing it in
+   accordance with the following discussion.
 
    TLS 1.3 replaces the TLS pseudorandom function (PRF) used in earlier
    versions of TLS with HKDF and completely changes the Key Schedule.
@@ -1116,8 +1117,7 @@ Internet-Draft                 EAP-TLS 1.3                  October 2021
 
 
 
-
-Preuss Mattsson & Sethi  Expires April 13, 2022                [Page 20]
+Preuss Mattsson & Sethi  Expires April 23, 2022                [Page 20]
 
 Internet-Draft                 EAP-TLS 1.3                  October 2021
 
@@ -1155,14 +1155,14 @@ Internet-Draft                 EAP-TLS 1.3                  October 2021
    above keying material.
 
    By using the TLS exporter, EAP-TLS can use any TLS 1.3 implementation
-   which provides a public API for the exporter.  Note that EAP-TLS with
-   TLS 1.2 [RFC5216] can be used with the TLS exporter since the public
-   exporter was defined in [RFC5705].
+   which provides a public API for the exporter.  Note that when TLS 1.2
+   is used with the EAP-TLS exporter [RFC5705] it generates the same key
+   material as in EAP-TLS [RFC5216].
 
 2.4.  Parameter Negotiation and Compliance Requirements
 
-   This section updates Section 2.4 of [RFC5216] by amending it with the
-   following text.
+   This section updates Section 2.4 of [RFC5216] by amending it in
+   accordance with the following discussion.
 
    TLS 1.3 cipher suites are defined differently than in earlier
    versions of TLS (see Section B.4 of [RFC8446]), and the cipher suites
@@ -1173,7 +1173,7 @@ Internet-Draft                 EAP-TLS 1.3                  October 2021
 
 
 
-Preuss Mattsson & Sethi  Expires April 13, 2022                [Page 21]
+Preuss Mattsson & Sethi  Expires April 23, 2022                [Page 21]
 
 Internet-Draft                 EAP-TLS 1.3                  October 2021
 
@@ -1201,7 +1201,7 @@ Internet-Draft                 EAP-TLS 1.3                  October 2021
    NewSessionTicket, which is used for resumption and KeyUpdate, which
    is not useful and not expected in EAP-TLS.  After sending TLS
    Finished, the EAP-TLS server may send any number of post-handshake
-   messages in separate EAP-Requests.
+   messages in one or more EAP-Requests.
 
    To provide a protected success result indication and to decrease the
    uncertainty for the EAP-TLS peer, the following procedure MUST be
@@ -1229,7 +1229,7 @@ Internet-Draft                 EAP-TLS 1.3                  October 2021
 
 
 
-Preuss Mattsson & Sethi  Expires April 13, 2022                [Page 22]
+Preuss Mattsson & Sethi  Expires April 23, 2022                [Page 22]
 
 Internet-Draft                 EAP-TLS 1.3                  October 2021
 
@@ -1270,6 +1270,8 @@ Internet-Draft                 EAP-TLS 1.3                  October 2021
 
 5.  Security Considerations
 
+   The security considerations of TLS 1.3 [RFC8446] apply to EAP-TLS 1.3
+
 5.1.  Security Claims
 
    Using EAP-TLS with TLS 1.3 does not change the security claims for
@@ -1283,9 +1285,7 @@ Internet-Draft                 EAP-TLS 1.3                  October 2021
 
 
 
-
-
-Preuss Mattsson & Sethi  Expires April 13, 2022                [Page 23]
+Preuss Mattsson & Sethi  Expires April 23, 2022                [Page 23]
 
 Internet-Draft                 EAP-TLS 1.3                  October 2021
 
@@ -1300,7 +1300,8 @@ Internet-Draft                 EAP-TLS 1.3                  October 2021
    [3] Cryptographic strength: TLS 1.3 only defines strong algorithms
    without major weaknesses and EAP-TLS with TLS 1.3 always provides
    forward secrecy, see [RFC8446].  Weak algorithms such as 3DES, CBC
-   mode, RC4, SHA-1, MD5, P-192, and RSA-1024 cannot be negotiated.
+   mode, RC4, SHA-1, MD5, P-192, and RSA-1024 have not been registered
+   for use in TLS 1.3.
 
    [4] Cryptographic Negotiation: The TLS layer handles the negotiation
    of cryptographic parameters.  When EAP-TLS is used with TLS 1.3, EAP-
@@ -1315,12 +1316,14 @@ Internet-Draft                 EAP-TLS 1.3                  October 2021
 
 5.3.  Certificate Validation
 
-   No updates to section 5.3 of [RFC5216].
+   No updates to section 5.3 of [RFC5216].  In addition to section 5.3
+   of [RFC5216], guidance on server certificate validation can be found
+   in [RFC6125].
 
 5.4.  Certificate Revocation
 
-   This section updates Section 5.4 of [RFC5216] by amending it with the
-   following text.
+   This section updates Section 5.4 of [RFC5216] by amending it in
+   accordance with the following discussion.
 
    There are a number of reasons (e.g., key compromise, CA compromise,
    privilege withdrawn, etc.) why EAP-TLS peer, EAP-TLS server, or sub-
@@ -1334,17 +1337,17 @@ Internet-Draft                 EAP-TLS 1.3                  October 2021
    trust anchor).  An implementation may use Certificate Revocation List
    (CRL), Online Certificate Status Protocol (OSCP), or other
    standardized/proprietary methods for revocation checking.  Examples
-   of proprietary methods are non-standard formats for distribution of
-   revocation lists as well as certificates with very short lifetime.
 
 
 
 
-
-Preuss Mattsson & Sethi  Expires April 13, 2022                [Page 24]
+Preuss Mattsson & Sethi  Expires April 23, 2022                [Page 24]
 
 Internet-Draft                 EAP-TLS 1.3                  October 2021
 
+
+   of proprietary methods are non-standard formats for distribution of
+   revocation lists as well as certificates with very short lifetime.
 
    EAP-TLS servers supporting TLS 1.3 MUST implement Certificate Status
    Requests (OCSP stapling) as specified in [RFC6066] and
@@ -1376,8 +1379,8 @@ Internet-Draft                 EAP-TLS 1.3                  October 2021
 
 5.5.  Packet Modification Attacks
 
-   This section updates Section 5.5 of [RFC5216] by amending it with the
-   following text.
+   This section updates Section 5.5 of [RFC5216] by amending it in
+   accordance with the following discussion.
 
    As described in [RFC3748] and Section 5.5 of [RFC5216], the only
    information that is integrity and replay protected in EAP-TLS are the
@@ -1391,16 +1394,17 @@ Internet-Draft                 EAP-TLS 1.3                  October 2021
    and enables the EAP-TLS peer and EAP-TLS server to determine that the
    failure result was not spoofed by an attacker.  Protected failure
    result indications provide integrity and replay protection but MAY be
-   unauthenticated.  Protected failure results do not significantly
-   improve availability as TLS 1.3 treats most malformed data as a fatal
-   error.
 
 
 
-Preuss Mattsson & Sethi  Expires April 13, 2022                [Page 25]
+Preuss Mattsson & Sethi  Expires April 23, 2022                [Page 25]
 
 Internet-Draft                 EAP-TLS 1.3                  October 2021
 
+
+   unauthenticated.  Protected failure results do not significantly
+   improve availability as TLS 1.3 treats most malformed data as a fatal
+   error.
 
 5.6.  Authorization
 
@@ -1444,19 +1448,26 @@ Internet-Draft                 EAP-TLS 1.3                  October 2021
    provided by the encapsulating protocol, for example, if the MAC
    address of the authenticator does not match the expected policy.
 
+   In addition to allowing configuration of one or more trusted root
+   certificates (CA certificate) to authenticate the server certificate
+
+
+
+Preuss Mattsson & Sethi  Expires April 23, 2022                [Page 26]
+
+Internet-Draft                 EAP-TLS 1.3                  October 2021
+
+
+   and one or more server names to match against the SubjectAltName
+   (SAN) extension, EAP peer implementations MAY allow binding the
+   configured acceptable SAN to a specific CA (or CAs) that should have
+   issued it to prevent attacks from rogue or compromised CAs.
+
 5.7.  Resumption
 
    This is a new section when compared to [RFC5216].  The guidance in
    this section is relevant for EAP-TLS in general (regardless of the
    underlying TLS version used).
-
-
-
-
-Preuss Mattsson & Sethi  Expires April 13, 2022                [Page 26]
-
-Internet-Draft                 EAP-TLS 1.3                  October 2021
-
 
    There are a number of security issues related to resumption that are
    not described in [RFC5216].  The problems, guidelines, and
@@ -1494,6 +1505,15 @@ Internet-Draft                 EAP-TLS 1.3                  October 2021
 
    The EAP-TLS server or EAP client MUST cache data during the initial
    full handshake sufficient to allow authorization decisions to be made
+
+
+
+
+Preuss Mattsson & Sethi  Expires April 23, 2022                [Page 27]
+
+Internet-Draft                 EAP-TLS 1.3                  October 2021
+
+
    during resumption.  If cached data cannot be retrieved securely,
    resumption MUST NOT be done.
 
@@ -1504,15 +1524,6 @@ Internet-Draft                 EAP-TLS 1.3                  October 2021
    data.  Therefore, systems which expect to perform accounting for the
    session SHOULD cache an identifier which can be used in subsequent
    accounting.
-
-
-
-
-
-Preuss Mattsson & Sethi  Expires April 13, 2022                [Page 27]
-
-Internet-Draft                 EAP-TLS 1.3                  October 2021
-
 
    As suggested in [RFC8446], EAP-TLS peers MUST NOT store resumption
    PSKs or tickets (and associated cached data) for longer than 604800
@@ -1550,6 +1561,15 @@ Internet-Draft                 EAP-TLS 1.3                  October 2021
 
    This is a new section when compared to [RFC5216].
 
+
+
+
+
+Preuss Mattsson & Sethi  Expires April 23, 2022                [Page 28]
+
+Internet-Draft                 EAP-TLS 1.3                  October 2021
+
+
    TLS 1.3 offers much better privacy than earlier versions of TLS as
    discussed in Section 2.1.8.  In this section, we only discuss the
    privacy properties of EAP-TLS with TLS 1.3.  For privacy properties
@@ -1560,15 +1580,6 @@ Internet-Draft                 EAP-TLS 1.3                  October 2021
    first EAP-Response.  The other fields in the EAP-TLS Request and the
    EAP-TLS Response packets do not contain any cleartext privacy-
    sensitive information.
-
-
-
-
-
-Preuss Mattsson & Sethi  Expires April 13, 2022                [Page 28]
-
-Internet-Draft                 EAP-TLS 1.3                  October 2021
-
 
    Tracking of users by eavesdropping on identity responses or
    certificates is a well-known problem in many EAP methods.  When EAP-
@@ -1608,6 +1619,13 @@ Internet-Draft                 EAP-TLS 1.3                  October 2021
    privacy-friendly username MUST NOT be formed by a fixed mapping that
    stays the same across multiple different authentications.
 
+
+
+Preuss Mattsson & Sethi  Expires April 23, 2022                [Page 29]
+
+Internet-Draft                 EAP-TLS 1.3                  October 2021
+
+
    An EAP-TLS peer with a policy allowing communication with EAP-TLS
    servers supporting only TLS 1.2 without privacy and with a static RSA
    key exchange is vulnerable to disclosure of the EAP-TLS peer
@@ -1618,22 +1636,14 @@ Internet-Draft                 EAP-TLS 1.3                  October 2021
    TLS alert message when the EAP-TLS peer tries to use privacy by
    sending an empty certificate message.  Since the attacker
    (impersonating the EAP-TLS server) does not provide a proof-of-
-
-
-
-Preuss Mattsson & Sethi  Expires April 13, 2022                [Page 29]
-
-Internet-Draft                 EAP-TLS 1.3                  October 2021
-
-
    possession of the private key until the Finished message when a
    static RSA key exchange is used, an EAP-TLS peer may inadvertently
    disclose its identity (username) to an attacker.  Therefore, it is
    RECOMMENDED for EAP-TLS peers to not use EAP-TLS with TLS 1.2 and
    static RSA based cipher suites without privacy.  This implies that an
-   EAP-TLS peer SHOULD NOT continue the handshake if a TLS 1.2 EAP-TLS
-   server sends an EAP-TLS/Request with a TLS alert message in response
-   to an empty certificate message from the peer.
+   EAP-TLS peer SHOULD NOT continue the EAP authentication attempt if a
+   TLS 1.2 EAP-TLS server sends an EAP-TLS/Request with a TLS alert
+   message in response to an empty certificate message from the peer.
 
 5.9.  Pervasive Monitoring
 
@@ -1659,13 +1669,22 @@ Internet-Draft                 EAP-TLS 1.3                  October 2021
    versions of Transport Layer Security (TLS), including attacks on its
    most commonly used ciphers and modes of operation.  [RFC7457]
    summarizes the attacks that were known at the time of publishing and
-   BCP 195 [RFC7525] provides recommendations for improving the security
-   of deployed services that use TLS.  However, many of the attacks are
-   less serious for EAP-TLS as EAP-TLS only uses the TLS handshake and
-   does not protect any application data.  EAP-TLS implementations MUST
-   mitigate known attacks.  EAP-TLS implementations need to monitor and
-   follow new EAP and TLS related security guidance and requirements
-   such as [RFC8447], [RFC8996], [I-D.ietf-tls-md5-sha1-deprecate].
+   BCP 195 [RFC7525] [RFC8996] provides recommendations and requirements
+   for improving the security of deployed services that use TLS.
+   However, many of the attacks are less serious for EAP-TLS as EAP-TLS
+   only uses the TLS handshake and does not protect any application
+   data.  EAP-TLS implementations MUST mitigate known attacks.  EAP-TLS
+
+
+
+Preuss Mattsson & Sethi  Expires April 23, 2022                [Page 30]
+
+Internet-Draft                 EAP-TLS 1.3                  October 2021
+
+
+   implementations need to monitor and follow new EAP and TLS related
+   security guidance and requirements such as [RFC8447] and
+   [I-D.ietf-tls-md5-sha1-deprecate].
 
 5.11.  Cross-Protocol Attacks
 
@@ -1674,14 +1693,6 @@ Internet-Draft                 EAP-TLS 1.3                  October 2021
    Allowing the same certificate to be used in multiple protocols can
    potentially allow an attacker to authenticate via one protocol, and
    then "resume" that session in another protocol.  Section 2.2 above
-
-
-
-Preuss Mattsson & Sethi  Expires April 13, 2022                [Page 30]
-
-Internet-Draft                 EAP-TLS 1.3                  October 2021
-
-
    suggests that certificates typically have one or more FQDNs in the
    SAN extension.  However, those fields are for EAP validation only,
    and do not indicate that the certificates are suitable for use on WWW
@@ -1715,6 +1726,18 @@ Internet-Draft                 EAP-TLS 1.3                  October 2021
               Authentication Protocol", RFC 5216, DOI 10.17487/RFC5216,
               March 2008, <https://www.rfc-editor.org/info/rfc5216>.
 
+
+
+
+
+
+
+
+Preuss Mattsson & Sethi  Expires April 23, 2022                [Page 31]
+
+Internet-Draft                 EAP-TLS 1.3                  October 2021
+
+
    [RFC5280]  Cooper, D., Santesson, S., Farrell, S., Boeyen, S.,
               Housley, R., and W. Polk, "Internet X.509 Public Key
               Infrastructure Certificate and Certificate Revocation List
@@ -1730,14 +1753,6 @@ Internet-Draft                 EAP-TLS 1.3                  October 2021
               DOI 10.17487/RFC6066, January 2011,
               <https://www.rfc-editor.org/info/rfc6066>.
 
-
-
-
-Preuss Mattsson & Sethi  Expires April 13, 2022                [Page 31]
-
-Internet-Draft                 EAP-TLS 1.3                  October 2021
-
-
    [RFC6960]  Santesson, S., Myers, M., Ankney, R., Malpani, A.,
               Galperin, S., and C. Adams, "X.509 Internet Public Key
               Infrastructure Online Certificate Status Protocol - OCSP",
@@ -1748,11 +1763,6 @@ Internet-Draft                 EAP-TLS 1.3                  October 2021
               DOI 10.17487/RFC7542, May 2015,
               <https://www.rfc-editor.org/info/rfc7542>.
 
-   [RFC8126]  Cotton, M., Leiba, B., and T. Narten, "Guidelines for
-              Writing an IANA Considerations Section in RFCs", BCP 26,
-              RFC 8126, DOI 10.17487/RFC8126, June 2017,
-              <https://www.rfc-editor.org/info/rfc8126>.
-
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/info/rfc8174>.
@@ -1760,10 +1770,6 @@ Internet-Draft                 EAP-TLS 1.3                  October 2021
    [RFC8446]  Rescorla, E., "The Transport Layer Security (TLS) Protocol
               Version 1.3", RFC 8446, DOI 10.17487/RFC8446, August 2018,
               <https://www.rfc-editor.org/info/rfc8446>.
-
-   [RFC8996]  Moriarty, K. and S. Farrell, "Deprecating TLS 1.0 and TLS
-              1.1", BCP 195, RFC 8996, DOI 10.17487/RFC8996, March 2021,
-              <https://www.rfc-editor.org/info/rfc8996>.
 
 6.2.  Informative references
 
@@ -1777,22 +1783,22 @@ Internet-Draft                 EAP-TLS 1.3                  October 2021
               DeKok, A., "TLS-based EAP types and TLS 1.3", draft-ietf-
               emu-tls-eap-types-03 (work in progress), June 2021.
 
+
+
+
+
+
+
+Preuss Mattsson & Sethi  Expires April 23, 2022                [Page 32]
+
+Internet-Draft                 EAP-TLS 1.3                  October 2021
+
+
    [I-D.ietf-tls-md5-sha1-deprecate]
               Velvindron, L., Moriarty, K., and A. Ghedini, "Deprecating
               MD5 and SHA-1 signature hashes in (D)TLS 1.2", draft-ietf-
               tls-md5-sha1-deprecate-09 (work in progress), September
               2021.
-
-
-
-
-
-
-
-Preuss Mattsson & Sethi  Expires April 13, 2022                [Page 32]
-
-Internet-Draft                 EAP-TLS 1.3                  October 2021
-
 
    [I-D.ietf-tls-rfc8446bis]
               Rescorla, E., "The Transport Layer Security (TLS) Protocol
@@ -1829,26 +1835,24 @@ Internet-Draft                 EAP-TLS 1.3                  October 2021
               MulteFire, "MulteFire Release 1.1 specification", 2019.
 
    [PEAP]     Microsoft Corporation, "[MS-PEAP]: Protected Extensible
-              Authentication Protocol (PEAP)", April 2021.
+              Authentication Protocol (PEAP)", June 2021.
 
    [RFC1661]  Simpson, W., Ed., "The Point-to-Point Protocol (PPP)",
               STD 51, RFC 1661, DOI 10.17487/RFC1661, July 1994,
               <https://www.rfc-editor.org/info/rfc1661>.
 
-   [RFC2246]  Dierks, T. and C. Allen, "The TLS Protocol Version 1.0",
-              RFC 2246, DOI 10.17487/RFC2246, January 1999,
-              <https://www.rfc-editor.org/info/rfc2246>.
 
 
 
 
-
-
-
-Preuss Mattsson & Sethi  Expires April 13, 2022                [Page 33]
+Preuss Mattsson & Sethi  Expires April 23, 2022                [Page 33]
 
 Internet-Draft                 EAP-TLS 1.3                  October 2021
 
+
+   [RFC2246]  Dierks, T. and C. Allen, "The TLS Protocol Version 1.0",
+              RFC 2246, DOI 10.17487/RFC2246, January 1999,
+              <https://www.rfc-editor.org/info/rfc2246>.
 
    [RFC2560]  Myers, M., Ankney, R., Malpani, A., Galperin, S., and C.
               Adams, "X.509 Internet Public Key Infrastructure Online
@@ -1894,17 +1898,18 @@ Internet-Draft                 EAP-TLS 1.3                  October 2021
               Server-Side State", RFC 5077, DOI 10.17487/RFC5077,
               January 2008, <https://www.rfc-editor.org/info/rfc5077>.
 
+
+
+
+Preuss Mattsson & Sethi  Expires April 23, 2022                [Page 34]
+
+Internet-Draft                 EAP-TLS 1.3                  October 2021
+
+
    [RFC5191]  Forsberg, D., Ohba, Y., Ed., Patil, B., Tschofenig, H.,
               and A. Yegin, "Protocol for Carrying Authentication for
               Network Access (PANA)", RFC 5191, DOI 10.17487/RFC5191,
               May 2008, <https://www.rfc-editor.org/info/rfc5191>.
-
-
-
-Preuss Mattsson & Sethi  Expires April 13, 2022                [Page 34]
-
-Internet-Draft                 EAP-TLS 1.3                  October 2021
-
 
    [RFC5246]  Dierks, T. and E. Rescorla, "The Transport Layer Security
               (TLS) Protocol Version 1.2", RFC 5246,
@@ -1921,6 +1926,13 @@ Internet-Draft                 EAP-TLS 1.3                  October 2021
               Protocol Version 0 (EAP-TTLSv0)", RFC 5281,
               DOI 10.17487/RFC5281, August 2008,
               <https://www.rfc-editor.org/info/rfc5281>.
+
+   [RFC6125]  Saint-Andre, P. and J. Hodges, "Representation and
+              Verification of Domain-Based Application Service Identity
+              within Internet Public Key Infrastructure Using X.509
+              (PKIX) Certificates in the Context of Transport Layer
+              Security (TLS)", RFC 6125, DOI 10.17487/RFC6125, March
+              2011, <https://www.rfc-editor.org/info/rfc6125>.
 
    [RFC6733]  Fajardo, V., Ed., Arkko, J., Loughney, J., and G. Zorn,
               Ed., "Diameter Base Protocol", RFC 6733,
@@ -1943,6 +1955,13 @@ Internet-Draft                 EAP-TLS 1.3                  October 2021
               Datagram TLS (DTLS)", RFC 7457, DOI 10.17487/RFC7457,
               February 2015, <https://www.rfc-editor.org/info/rfc7457>.
 
+
+
+Preuss Mattsson & Sethi  Expires April 23, 2022                [Page 35]
+
+Internet-Draft                 EAP-TLS 1.3                  October 2021
+
+
    [RFC7525]  Sheffer, Y., Holz, R., and P. Saint-Andre,
               "Recommendations for Secure Use of Transport Layer
               Security (TLS) and Datagram Transport Layer Security
@@ -1954,38 +1973,51 @@ Internet-Draft                 EAP-TLS 1.3                  October 2021
               DOI 10.17487/RFC7593, September 2015,
               <https://www.rfc-editor.org/info/rfc7593>.
 
-
-
-
-Preuss Mattsson & Sethi  Expires April 13, 2022                [Page 35]
-
-Internet-Draft                 EAP-TLS 1.3                  October 2021
-
+   [RFC8126]  Cotton, M., Leiba, B., and T. Narten, "Guidelines for
+              Writing an IANA Considerations Section in RFCs", BCP 26,
+              RFC 8126, DOI 10.17487/RFC8126, June 2017,
+              <https://www.rfc-editor.org/info/rfc8126>.
 
    [RFC8447]  Salowey, J. and S. Turner, "IANA Registry Updates for TLS
               and DTLS", RFC 8447, DOI 10.17487/RFC8447, August 2018,
               <https://www.rfc-editor.org/info/rfc8447>.
 
+   [RFC8996]  Moriarty, K. and S. Farrell, "Deprecating TLS 1.0 and TLS
+              1.1", BCP 195, RFC 8996, DOI 10.17487/RFC8996, March 2021,
+              <https://www.rfc-editor.org/info/rfc8996>.
+
    [TS.33.501]
               3GPP, "Security architecture and procedures for 5G
-              System", 3GPP TS 33.501 17.2.1, July 2021.
+              System", 3GPP TS 33.501 17.3.0, September 2021.
 
 Appendix A.  Updated References
 
    All the following references in [RFC5216] are updated as specified
    below when EAP-TLS is used with TLS 1.3.
 
-   All references to [RFC2560] are updated with [RFC6960].
+   All references to [RFC2560] are updated to refer to [RFC6960].
 
-   All references to [RFC3280] are updated with [RFC5280].
+   All references to [RFC3280] are updated to refer to [RFC5280].
+   References to Section 4.2.1.13 of [RFC3280] are updated to refer to
+   Section 4.2.1.12 of [RFC5280].
 
-   All references to [RFC4282] are updated with [RFC7542].
+   All references to [RFC4282] are updated to refer to [RFC7542].
+   References to Section 2.1 of [RFC4282] are updated to refer to
+   Section 2.2 of [RFC7542].
 
 Acknowledgments
 
    The authors want to thank Bernard Aboba, Jari Arkko, Terry Burton,
    Alan DeKok, Ari Keraenen, Benjamin Kaduk, Jouni Malinen, Oleg Pekar,
    Eric Rescorla, Jim Schaad, Joseph Salowey, Martin Thomson, Vesa
+
+
+
+Preuss Mattsson & Sethi  Expires April 23, 2022                [Page 36]
+
+Internet-Draft                 EAP-TLS 1.3                  October 2021
+
+
    Torvinen, Hannes Tschofenig, and Heikki Vatiainen for comments and
    suggestions on the draft.  Special thanks to the document shepherd
    Joseph Salowey.
@@ -2013,4 +2045,28 @@ Authors' Addresses
 
 
 
-Preuss Mattsson & Sethi  Expires April 13, 2022                [Page 36]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Preuss Mattsson & Sethi  Expires April 23, 2022                [Page 37]
